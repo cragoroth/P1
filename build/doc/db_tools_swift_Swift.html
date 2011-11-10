@@ -1,0 +1,889 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">tools/swift/Swift.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CSwift">\Swift</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Swift Mailer Core Component.</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>Please read the LICENSE file</p>
+</div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Author</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="mailto:chris@w3style.co.uk">Chris Corbyn</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Chris Corbyn <chris@w3style.co.uk>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://opensource.org/licenses/LGPL-3.0">GNU Lesser General Public License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Swift
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">3.3.2
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Swift" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Swift<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Swift</small><p class="short-description">Swift is the central component in the Swift library.</p>
+<div class="long-description">
+</div>
+<dl class="class-info">
+<dt>Author</dt>
+<dd>
+<a href="mailto:chris@w3style.co.uk">Chris Corbyn</a>
+         
+    </dd>
+<dt>Version</dt>
+<dd>3.3.2
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Swift::VERSION" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">VERSION</span>
+                = "3.3.2"</code><div class="description"><p class="short-description">The version number.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::NO_START" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NO_START</span>
+                = 2</code><div class="description"><p class="short-description">Constant to flag Swift not to try and connect upon instantiation</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::NO_HANDSHAKE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NO_HANDSHAKE</span>
+                = 4</code><div class="description"><p class="short-description">Constant to tell Swift not to perform the standard SMTP handshake upon connect</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::ENABLE_LOGGING" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ENABLE_LOGGING</span>
+                = 8</code><div class="description"><p class="short-description">Constant to ask Swift to start logging</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::NO_POST_CONNECT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NO_POST_CONNECT</span>
+                = 16</code><div class="description"><p class="short-description">Constant to prevent postConnect() being run in the connection</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Swift::$connection" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">\Swift_Connection
+                 <span class="highlight">$connection</span>= 'null'
+                </code><div class="description">
+<p class="short-description">The connection object currently active</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_tools_swift_Swift_Connection.html#%5CSwift_Connection">\Swift_Connection</a></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::$domain" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$domain</span>= 'null'
+                </code><div class="description">
+<p class="short-description">The domain name of this server (should technically be a FQDN)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::$listeners" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$listeners</span>= 'array()'
+                </code><div class="description">
+<p class="short-description">Loaded plugins, separated into containers according to roles</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::$options" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">int
+                 <span class="highlight">$options</span>= ''
+                </code><div class="description">
+<p class="short-description">Flags to change the behaviour of Swift</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Swift::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          <a href="db_tools_swift_Swift_Connection.html#%5CSwift_Connection">\Swift_Connection</a> $conn, string $domain
+              =
+              false, int $options
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Constructor</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$conn</th>
+<td><a href="db_tools_swift_Swift_Connection.html#%5CSwift_Connection">\Swift_Connection</a></td>
+<td><em><p>The connection object to deal with I/O</p>
+</em></td>
+</tr>
+<tr>
+<th>$domain</th>
+<td>string</td>
+<td><em><p>The domain name of this server (the client) as a FQDN</p>
+</em></td>
+</tr>
+<tr>
+<th>$options</th>
+<td>int</td>
+<td><em><p>Optional flags</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_ConnectionException.html#%5CSwift_ConnectionException">\Swift_ConnectionException</a></td>
+<td><em>If a connection cannot be established or the connection is behaving incorrectly</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::assertCorrectResponse()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">assertCorrectResponse</span><span class="nb-faded-text">(
+          \Swift_Event_ResponseEvent $response, int $codes
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Throws an exception if the response code wanted does not match the one returned</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$response</th>
+<td>\Swift_Event_ResponseEvent</td>
+<td><em><p>The full response from the service</p></em></td>
+</tr>
+<tr>
+<th>$codes</th>
+<td>int</td>
+<td><em><p>The 3 digit response code wanted</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_BadResponseException.html#%5CSwift_BadResponseException">\Swift_BadResponseException</a></td>
+<td><em>If the code does not match</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::attachPlugin()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">attachPlugin</span><span class="nb-faded-text">(
+          <a href="db_tools_swift_Swift_Events_Listener.html#%5CSwift_Events_Listener">\Swift_Events_Listener</a> $plugin,  $id
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Add a new plugin to Swift
+Plugins must implement one or more event listeners</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$plugin</th>
+<td><a href="db_tools_swift_Swift_Events_Listener.html#%5CSwift_Events_Listener">\Swift_Events_Listener</a></td>
+<td><em><p>The plugin to load</p></em></td>
+</tr>
+<tr>
+<th>$id</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::batchSend()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">batchSend</span><span class="nb-faded-text">(
+          <a href="db_tools_swift_Swift_Message.html#%5CSwift_Message">\Swift_Message</a> $message, <a href="db_tools_swift_Swift_RecipientList.html#%5CSwift_RecipientList">\Swift_RecipientList</a> $to, <a href="db_tools_swift_Swift_Address.html#%5CSwift_Address">\Swift_Address</a> $from
+          )
+        </span>
+        :
+          int</code><div class="description"><p class="short_description">Send a message to a batch of recipients.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Unlike send() this method ignores Cc and Bcc recipients and does not reveal every recipients' address in the headers</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$message</th>
+<td><a href="db_tools_swift_Swift_Message.html#%5CSwift_Message">\Swift_Message</a></td>
+<td><em><p>The message to send (leave out the recipient headers unless you are deliberately overriding them)</p>
+</em></td>
+</tr>
+<tr>
+<th>$to</th>
+<td><a href="db_tools_swift_Swift_RecipientList.html#%5CSwift_RecipientList">\Swift_RecipientList</a></td>
+<td><em><p>The addresses to send to</p></em></td>
+</tr>
+<tr>
+<th>$from</th>
+<td><a href="db_tools_swift_Swift_Address.html#%5CSwift_Address">\Swift_Address</a></td>
+<td><em><p>The address the mail is from (sender)</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td>The number of successful recipients</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::command()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">command</span><span class="nb-faded-text">(
+          string $command, int $code
+              =
+              null
+          )
+        </span>
+        :
+          <a href="db_tools_swift_Swift_Events_ResponseEvent.html#%5CSwift_Events_ResponseEvent">\Swift_Events_ResponseEvent</a></code><div class="description"><p class="short_description">Execute a command against the service and get the response</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$command</th>
+<td>string</td>
+<td><em><p>The command to execute (leave off any CRLF!!!)</p>
+</em></td>
+</tr>
+<tr>
+<th>$code</th>
+<td>int</td>
+<td><em><p>The code to check for in the response, if any. -1 indicates that no response is wanted.</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_Events_ResponseEvent.html#%5CSwift_Events_ResponseEvent">\Swift_Events_ResponseEvent</a></td>
+<td>The server's response (could be multiple lines)</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_ConnectionException.html#%5CSwift_ConnectionException">\Swift_ConnectionException</a></td>
+<td><em>If a code was expected but does not match the one returned</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::connect()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">connect</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Attempt to establish a connection with the service</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_ConnectionException.html#%5CSwift_ConnectionException">\Swift_ConnectionException</a></td>
+<td><em>If the connection cannot be established or behaves oddly</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::disconnect()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">disconnect</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Disconnect from the MTA</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_ConnectionException.html#%5CSwift_ConnectionException">\Swift_ConnectionException</a></td>
+<td><em>If the connection will not stop</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::getOptions()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getOptions</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description"><p class="short_description">Get the current options set (as bits)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::getPlugin()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getPlugin</span><span class="nb-faded-text">(
+          string $id
+          )
+        </span>
+        :
+          \Swift_Event_Listener</code><div class="description"><p class="short_description">Get an attached plugin if it exists</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$id</th>
+<td>string</td>
+<td><em><p>The id of the plugin</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\Swift_Event_Listener</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::handshake()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">handshake</span><span class="nb-faded-text">(
+          <a href="db_tools_swift_Swift_Events_ResponseEvent.html#%5CSwift_Events_ResponseEvent">\Swift_Events_ResponseEvent</a> $greeting
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Have a polite greeting with the server and work out what it's capable of</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$greeting</th>
+<td><a href="db_tools_swift_Swift_Events_ResponseEvent.html#%5CSwift_Events_ResponseEvent">\Swift_Events_ResponseEvent</a></td>
+<td><em><p>The initial service line respoonse</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_ConnectionException.html#%5CSwift_ConnectionException">\Swift_ConnectionException</a></td>
+<td><em>If conversation is not going very well</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::hasOption()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">hasOption</span><span class="nb-faded-text">(
+          string $option
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">Check if an option flag has been set</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$option</th>
+<td>string</td>
+<td><em><p>Option name</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::initializeEventListenerContainer()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">initializeEventListenerContainer</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Populate the listeners array with the defined listeners ready for plugins</p></div>
+<div class="code-tabs"><div class="long-description">
+</div></div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::notifyListeners()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">notifyListeners</span><span class="nb-faded-text">(
+          <a href="db_tools_swift_Swift_Events.html#%5CSwift_Events">\Swift_Events</a> $e, string $type
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Send a new type of event to all objects which are listening for it</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$e</th>
+<td><a href="db_tools_swift_Swift_Events.html#%5CSwift_Events">\Swift_Events</a></td>
+<td><em><p>The event to send</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>The type of event</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::removePlugin()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">removePlugin</span><span class="nb-faded-text">(
+          string $id
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Remove a plugin attached under the ID of $id</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$id</th>
+<td>string</td>
+<td><em><p>The ID of the plugin</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::reset()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">reset</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Reset a conversation which has gone badly</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_ConnectionException.html#%5CSwift_ConnectionException">\Swift_ConnectionException</a></td>
+<td><em>If the service refuses to reset</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::send()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">send</span><span class="nb-faded-text">(
+          <a href="db_tools_swift_Swift_Message.html#%5CSwift_Message">\Swift_Message</a> $message, mixed $recipients, mixed $from
+          )
+        </span>
+        :
+          int</code><div class="description"><p class="short_description">Send a message to any number of recipients</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$message</th>
+<td><a href="db_tools_swift_Swift_Message.html#%5CSwift_Message">\Swift_Message</a></td>
+<td><em><p>The message to send. This does not need to (and shouldn't really) have any of the recipient headers set.</p>
+</em></td>
+</tr>
+<tr>
+<th>$recipients</th>
+<td>mixed</td>
+<td><em><p>The recipients to send to. Can be a string, Swift_Address or Swift_RecipientList. Note that all addresses apart from Bcc recipients will appear in the message headers</p></em></td>
+</tr>
+<tr>
+<th>$from</th>
+<td>mixed</td>
+<td><em><p>The address to send the message from. Can either be a string or an instance of Swift_Address.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td>The number of successful recipients</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_ConnectionException.html#%5CSwift_ConnectionException">\Swift_ConnectionException</a></td>
+<td><em>If sending fails for any reason.</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::setConnectionExtensions()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">setConnectionExtensions</span><span class="nb-faded-text">(
+          <a href="db_tools_swift_Swift_Events_ResponseEvent.html#%5CSwift_Events_ResponseEvent">\Swift_Events_ResponseEvent</a> $list
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the extensions which the service reports in the connection object</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$list</th>
+<td><a href="db_tools_swift_Swift_Events_ResponseEvent.html#%5CSwift_Events_ResponseEvent">\Swift_Events_ResponseEvent</a></td>
+<td><em><p>The list of extensions as reported by the service</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::setDomain()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setDomain</span><span class="nb-faded-text">(
+          string $name
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the FQDN of this server as it will identify itself</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em><p>The FQDN of the server</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift::setOptions()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setOptions</span><span class="nb-faded-text">(
+          int $options
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Adjust the options flags
+E.g. $obj->setOptions(Swift::NO_START | Swift::NO_HANDSHAKE)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$options</th>
+<td>int</td>
+<td><em><p>The bits to set</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>

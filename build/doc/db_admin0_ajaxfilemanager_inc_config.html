@@ -1,0 +1,485 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">admin0/ajaxfilemanager/inc/config.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav">
+<li>
+<a href="#constants"><img src="images/icons/constant.png" height="14">
+                          Constants
+                      </a><ul>
+<li><a href="#::CLASS_FILE">CLASS_FILE</a></li>
+<li><a href="#::CLASS_HISTORY">CLASS_HISTORY</a></li>
+<li><a href="#::CLASS_IMAGE">CLASS_IMAGE</a></li>
+<li><a href="#::CLASS_MANAGER">CLASS_MANAGER</a></li>
+<li><a href="#::CLASS_PAGINATION">CLASS_PAGINATION</a></li>
+<li><a href="#::CLASS_SEARCH">CLASS_SEARCH</a></li>
+<li><a href="#::CLASS_SESSION_ACTION">CLASS_SESSION_ACTION</a></li>
+<li><a href="#::CLASS_UPLOAD">CLASS_UPLOAD</a></li>
+<li><a href="#::CONFIG_QUERY_STRING_ENABLE">CONFIG_QUERY_STRING_ENABLE</a></li>
+<li><a href="#::CONFIG_URL_COPY">CONFIG_URL_COPY</a></li>
+<li><a href="#::CONFIG_URL_CREATE_FOLDER">CONFIG_URL_CREATE_FOLDER</a></li>
+<li><a href="#::CONFIG_URL_CUT">CONFIG_URL_CUT</a></li>
+<li><a href="#::CONFIG_URL_DELETE">CONFIG_URL_DELETE</a></li>
+<li><a href="#::CONFIG_URL_DOWNLOAD">CONFIG_URL_DOWNLOAD</a></li>
+<li><a href="#::CONFIG_URL_FILE_PASTE">CONFIG_URL_FILE_PASTE</a></li>
+<li><a href="#::CONFIG_URL_FILEnIMAGE_MANAGER">CONFIG_URL_FILEnIMAGE_MANAGER</a></li>
+<li><a href="#::CONFIG_URL_GET_FOLDER_LIST">CONFIG_URL_GET_FOLDER_LIST</a></li>
+<li><a href="#::CONFIG_URL_HOME">CONFIG_URL_HOME</a></li>
+<li><a href="#::CONFIG_URL_IMAGE_EDITOR">CONFIG_URL_IMAGE_EDITOR</a></li>
+<li><a href="#::CONFIG_URL_IMAGE_PREVIEW">CONFIG_URL_IMAGE_PREVIEW</a></li>
+<li><a href="#::CONFIG_URL_IMAGE_RESET">CONFIG_URL_IMAGE_RESET</a></li>
+<li><a href="#::CONFIG_URL_IMAGE_SAVE">CONFIG_URL_IMAGE_SAVE</a></li>
+<li><a href="#::CONFIG_URL_IMAGE_UNDO">CONFIG_URL_IMAGE_UNDO</a></li>
+<li><a href="#::CONFIG_URL_IMG_THUMBNAIL">CONFIG_URL_IMG_THUMBNAIL</a></li>
+<li><a href="#::CONFIG_URL_LIST_LISTING">CONFIG_URL_LIST_LISTING</a></li>
+<li><a href="#::CONFIG_URL_LOAD_FOLDERS">CONFIG_URL_LOAD_FOLDERS</a></li>
+<li><a href="#::CONFIG_URL_PREVIEW">CONFIG_URL_PREVIEW</a></li>
+<li><a href="#::CONFIG_URL_SAVE_NAME">CONFIG_URL_SAVE_NAME</a></li>
+<li><a href="#::CONFIG_URL_SAVE_TEXT">CONFIG_URL_SAVE_TEXT</a></li>
+<li><a href="#::CONFIG_URL_TEXT_EDITOR">CONFIG_URL_TEXT_EDITOR</a></li>
+<li><a href="#::CONFIG_URL_UPLOAD">CONFIG_URL_UPLOAD</a></li>
+<li><a href="#::DIR_AJAX_CLASSES">DIR_AJAX_CLASSES</a></li>
+<li><a href="#::DIR_AJAX_EDIT_AREA">DIR_AJAX_EDIT_AREA</a></li>
+<li><a href="#::DIR_AJAX_INC">DIR_AJAX_INC</a></li>
+<li><a href="#::DIR_AJAX_JS">DIR_AJAX_JS</a></li>
+<li><a href="#::DIR_AJAX_LANGS">DIR_AJAX_LANGS</a></li>
+<li><a href="#::DIR_AJAX_ROOT">DIR_AJAX_ROOT</a></li>
+<li><a href="#::DIR_LANG">DIR_LANG</a></li>
+<li><a href="#::SPT_FUNCTION_BASE">SPT_FUNCTION_BASE</a></li>
+</ul>
+</li>
+<li>
+<a href="#functions"><img src="images/icons/function.png" height="14">
+                          Functions
+                      </a><ul><li><a href="#::secureFileName()">secureFileName</a></li></ul>
+</li>
+</ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">sysem  config setting</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description">
+</div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Author</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Logan Cai (cailongqun [at] yahoo [dot] com [dot] cn)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Link</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="www.phpletter.com">www.phpletter.com</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Since</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">22/April/2007
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">1.0
+         
+    </dd>
+</dl>
+<a name="constants" class="anchor"></a><h2>Constants</h2>
+<div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_QUERY_STRING_ENABLE" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_QUERY_STRING_ENABLE</span>
+                = true</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::DIR_AJAX_ROOT" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DIR_AJAX_ROOT</span>
+                = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::DIR_AJAX_INC" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DIR_AJAX_INC</span>
+                = DIR_AJAX_ROOT . "inc" . DIRECTORY_SEPARATOR</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::DIR_AJAX_CLASSES" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DIR_AJAX_CLASSES</span>
+                = DIR_AJAX_ROOT .  "classes" . DIRECTORY_SEPARATOR</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::DIR_AJAX_LANGS" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DIR_AJAX_LANGS</span>
+                = DIR_AJAX_ROOT . "langs" . DIRECTORY_SEPARATOR</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::DIR_AJAX_JS" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DIR_AJAX_JS</span>
+                = DIR_AJAX_ROOT . 'jscripts' . DIRECTORY_SEPARATOR</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::DIR_AJAX_EDIT_AREA" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DIR_AJAX_EDIT_AREA</span>
+                = DIR_AJAX_JS . 'edit_area' . DIRECTORY_SEPARATOR</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::DIR_LANG" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DIR_LANG</span>
+                = DIR_AJAX_ROOT . 'langs' . DIRECTORY_SEPARATOR</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CLASS_FILE" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CLASS_FILE</span>
+                = DIR_AJAX_INC .'class.file.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CLASS_UPLOAD" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CLASS_UPLOAD</span>
+                = DIR_AJAX_INC .  'class.upload.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CLASS_MANAGER" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CLASS_MANAGER</span>
+                = DIR_AJAX_INC . 'class.manager.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CLASS_IMAGE" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CLASS_IMAGE</span>
+                = DIR_AJAX_INC . "class.image.php"</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CLASS_HISTORY" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CLASS_HISTORY</span>
+                = DIR_AJAX_INC . "class.history.php"</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CLASS_SESSION_ACTION" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CLASS_SESSION_ACTION</span>
+                = DIR_AJAX_INC . "class.sessionaction.php"</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CLASS_PAGINATION" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CLASS_PAGINATION</span>
+                = DIR_AJAX_INC . 'class.pagination.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CLASS_SEARCH" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CLASS_SEARCH</span>
+                = DIR_AJAX_INC . "class.search.php"</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::SPT_FUNCTION_BASE" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">SPT_FUNCTION_BASE</span>
+                = DIR_AJAX_INC . 'function.base.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_IMAGE_PREVIEW" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_IMAGE_PREVIEW</span>
+                = 'ajax_image_preview.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_CREATE_FOLDER" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_CREATE_FOLDER</span>
+                = 'ajax_create_folder.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_DELETE" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_DELETE</span>
+                = 'ajax_delete_file.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_HOME" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_HOME</span>
+                = 'ajaxfilemanager.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_UPLOAD" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_UPLOAD</span>
+                = 'ajax_file_upload.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_PREVIEW" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_PREVIEW</span>
+                = 'ajax_preview.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_SAVE_NAME" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_SAVE_NAME</span>
+                = 'ajax_save_name.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_IMAGE_EDITOR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_IMAGE_EDITOR</span>
+                = 'ajax_image_editor.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_IMAGE_SAVE" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_IMAGE_SAVE</span>
+                = 'ajax_image_save.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_IMAGE_RESET" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_IMAGE_RESET</span>
+                = 'ajax_editor_reset.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_IMAGE_UNDO" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_IMAGE_UNDO</span>
+                = 'ajax_image_undo.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_CUT" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_CUT</span>
+                = 'ajax_file_cut.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_COPY" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_COPY</span>
+                = 'ajax_file_copy.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_LOAD_FOLDERS" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_LOAD_FOLDERS</span>
+                = '_ajax_load_folders.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_DOWNLOAD" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_DOWNLOAD</span>
+                = 'ajax_download.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_TEXT_EDITOR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_TEXT_EDITOR</span>
+                = 'ajax_text_editor.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_GET_FOLDER_LIST" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_GET_FOLDER_LIST</span>
+                = 'ajax_get_folder_listing.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_SAVE_TEXT" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_SAVE_TEXT</span>
+                = 'ajax_save_text.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_LIST_LISTING" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_LIST_LISTING</span>
+                = 'ajax_get_file_listing.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_IMG_THUMBNAIL" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_IMG_THUMBNAIL</span>
+                = 'ajax_image_thumbnail.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_FILEnIMAGE_MANAGER" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_FILEnIMAGE_MANAGER</span>
+                = 'ajaxfilemanager.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::CONFIG_URL_FILE_PASTE" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CONFIG_URL_FILE_PASTE</span>
+                = 'ajax_file_paste.php'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+</div>
+<a name="functions" class="anchor"></a><h2>Functions</h2>
+<div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::secureFileName()" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="function ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/function.png" alt="function"><span class="highlight">secureFileName</span><span class="nb-faded-text">(
+          string $input
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">secure file name which retrieve from query string</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$input</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>

@@ -1,0 +1,551 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">images.inc.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Generate a cached thumbnail for object lists (eg. carrier, order states...etc)</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description">
+</div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">$image</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">string<br><em><p>Real image filename</p></em>
+</dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">$cacheImage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">string<br><em><p>Cached filename</p></em>
+</dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">$size</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">integer<br><em><p>Desired size</p></em>
+</dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">$imageType</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">string<br><em><p>Image type</p></em>
+</dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">$disableCache</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">boolean<br><em><p>When turned on a timestamp will be added to the image URI to disable the HTTP cache</p></em>
+</dd>
+</dl>
+<a name="functions" class="anchor"></a><h2>Functions</h2>
+<div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::cacheImage()" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="function ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/function.png" alt="function"><span class="highlight">cacheImage</span><span class="nb-faded-text">(
+          string $image, string $cacheImage, integer $size, string $imageType
+              =
+              'jpg', boolean $disableCache
+              =
+              false
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Generate a cached thumbnail for object lists (eg. carrier, order states...etc)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$image</th>
+<td>string</td>
+<td><em><p>Real image filename</p></em></td>
+</tr>
+<tr>
+<th>$cacheImage</th>
+<td>string</td>
+<td><em><p>Cached filename</p></em></td>
+</tr>
+<tr>
+<th>$size</th>
+<td>integer</td>
+<td><em><p>Desired size</p></em></td>
+</tr>
+<tr>
+<th>$imageType</th>
+<td>string</td>
+<td><em><p>Image type</p></em></td>
+</tr>
+<tr>
+<th>$disableCache</th>
+<td>boolean</td>
+<td><em><p>When turned on a timestamp will be added to the image URI to disable the HTTP cache</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::checkIco()" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="function ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/function.png" alt="function"><span class="highlight">checkIco</span><span class="nb-faded-text">(
+          array $file, integer $maxFileSize
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Check icon upload</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$file</th>
+<td>array</td>
+<td><em><p>Upload $_FILE value</p>
+</em></td>
+</tr>
+<tr>
+<th>$maxFileSize</th>
+<td>integer</td>
+<td><em><p>Maximum upload size</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::checkImage()" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="function ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/function.png" alt="function"><span class="highlight">checkImage</span><span class="nb-faded-text">(
+          array $file, integer $maxFileSize
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Check image upload</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$file</th>
+<td>array</td>
+<td><em><p>Upload $_FILE value</p>
+</em></td>
+</tr>
+<tr>
+<th>$maxFileSize</th>
+<td>integer</td>
+<td><em><p>Maximum upload size</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::checkImageUploadError()" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="function ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/function.png" alt="function"><span class="highlight">checkImageUploadError</span><span class="nb-faded-text">(
+           $file
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$file</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::createDestImage()" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="function ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/function.png" alt="function"><span class="highlight">createDestImage</span><span class="nb-faded-text">(
+           $width,  $height
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$width</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$height</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::createSrcImage()" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="function ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/function.png" alt="function"><span class="highlight">createSrcImage</span><span class="nb-faded-text">(
+           $type,  $filename
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$filename</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::deleteImage()" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="function ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/function.png" alt="function"><span class="highlight">deleteImage</span><span class="nb-faded-text">(
+          integer $id_item, integer $id_image
+              =
+              NULL
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Delete product or category image</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$id_item</th>
+<td>integer</td>
+<td><em><p>Product or category id</p></em></td>
+</tr>
+<tr>
+<th>$id_image</th>
+<td>integer</td>
+<td><em><p>Image id TODO This function will soon be deprecated.</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::imageCut()" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="function ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/function.png" alt="function"><span class="highlight">imageCut</span><span class="nb-faded-text">(
+          array $srcFile, string $destFile, integer $destWidth
+              =
+              NULL, integer $destHeight
+              =
+              NULL,  $fileType
+              =
+              'jpg',  $destX
+              =
+              0,  $destY
+              =
+              0
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">Cut image</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$srcFile</th>
+<td>array</td>
+<td><em><p>Image object from $_FILE</p>
+</em></td>
+</tr>
+<tr>
+<th>$destFile</th>
+<td>string</td>
+<td><em><p>Destination filename</p></em></td>
+</tr>
+<tr>
+<th>$destWidth</th>
+<td>integer</td>
+<td><em><p>Desired width (optional)</p>
+</em></td>
+</tr>
+<tr>
+<th>$destHeight</th>
+<td>integer</td>
+<td><em><p>Desired height (optional)</p>
+</em></td>
+</tr>
+<tr>
+<th>$fileType</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$destX</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$destY</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td>Operation result</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::imageResize()" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="function ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/function.png" alt="function"><span class="highlight">imageResize</span><span class="nb-faded-text">(
+          array $sourceFile, string $destFile, integer $destWidth
+              =
+              NULL, integer $destHeight
+              =
+              NULL,  $fileType
+              =
+              'jpg'
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">Resize, cut and optimize image</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$sourceFile</th>
+<td>array</td>
+<td><em><p>Image object from $_FILE</p>
+</em></td>
+</tr>
+<tr>
+<th>$destFile</th>
+<td>string</td>
+<td><em><p>Destination filename</p></em></td>
+</tr>
+<tr>
+<th>$destWidth</th>
+<td>integer</td>
+<td><em><p>Desired width (optional)</p>
+</em></td>
+</tr>
+<tr>
+<th>$destHeight</th>
+<td>integer</td>
+<td><em><p>Desired height (optional)</p>
+</em></td>
+</tr>
+<tr>
+<th>$fileType</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td>Operation result</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::isPicture()" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="function ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/function.png" alt="function"><span class="highlight">isPicture</span><span class="nb-faded-text">(
+          string $file, array $types
+              =
+              NULL
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Check image MIME type</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$file</th>
+<td>string</td>
+<td><em><p>$_FILE of the current file</p>
+</em></td>
+</tr>
+<tr>
+<th>$types</th>
+<td>array</td>
+<td><em><p>Allowed MIME types</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::returnDestImage()" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="function ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/function.png" alt="function"><span class="highlight">returnDestImage</span><span class="nb-faded-text">(
+           $type,  $ressource,  $filename
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$ressource</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$filename</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>

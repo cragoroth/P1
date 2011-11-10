@@ -1,0 +1,3358 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">modules/graphartichow/artichow/inc/Math.class.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul>
+<li><a href="#%5CawLine">\awLine</a></li>
+<li><a href="#%5CawPoint">\awPoint</a></li>
+<li><a href="#%5CawPolygon">\awPolygon</a></li>
+<li><a href="#%5CawShape">\awShape</a></li>
+<li><a href="#%5CawVector">\awVector</a></li>
+</ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\awLine" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\awLine<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Artichow</small><p class="short-description">Describe a line</p>
+<div class="long-description">
+</div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape">\awShape</a></dd>
+<dt>Children</dt>
+<dd><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawVector">\awVector</a></dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\awLine::$hide" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">bool
+                 <span class="highlight">$hide</span>= 'FALSE'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Is the shape hidden ?</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24hide">\awShape::$hide</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>FALSE</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>bool</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24hide">\awShape::$hide</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::$origin" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">
+                 <span class="highlight">$origin</span>= ''
+                </code><div class="description"><p class="short-description">The y-intercept value of the line (the p in y = mx + p)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>$origin</dt>
+<dd><em><p>float</p></em></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::$p1" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$p1</span>= ''
+                </code><div class="description"><p class="short-description">Line first point</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>$p1</dt>
+<dd><em><p>Point</p></em></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::$p2" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$p2</span>= ''
+                </code><div class="description"><p class="short-description">Line second point</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>$p2</dt>
+<dd><em><p>Point</p></em></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::$slope" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">
+                 <span class="highlight">$slope</span>= ''
+                </code><div class="description"><p class="short-description">The line slope (the m in y = mx + p)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>$slope</dt>
+<dd><em><p>float</p></em></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::$style" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$style</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Shape style</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24style">\awShape::$style</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24style">\awShape::$style</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::$thickness" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$thickness</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Shape thickness</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24thickness">\awShape::$thickness</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24thickness">\awShape::$thickness</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\awLine::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $p1
+              =
+              NULL, <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $p2
+              =
+              NULL, int $type
+              =
+              awLine::SOLID, int $thickness
+              =
+              1
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Build a new awline</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$p1</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em><p>First point</p></em></td>
+</tr>
+<tr>
+<th>$p2</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em><p>Second point</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>int</td>
+<td><em><p>Style of line (default to solid)</p>
+</em></td>
+</tr>
+<tr>
+<th>$thickness</th>
+<td>int</td>
+<td><em><p>Line thickness (default to 1)</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::build()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">build</span><span class="nb-faded-text">(
+          int $x1, int $y1, int $x2, int $y2
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Build a line from 4 coords</p>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$x1</th>
+<td>int</td>
+<td><em><p>Left position</p></em></td>
+</tr>
+<tr>
+<th>$y1</th>
+<td>int</td>
+<td><em><p>Top position</p></em></td>
+</tr>
+<tr>
+<th>$x2</th>
+<td>int</td>
+<td><em><p>Right position</p></em></td>
+</tr>
+<tr>
+<th>$y2</th>
+<td>int</td>
+<td><em><p>Bottom position</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::calculateEquation()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">calculateEquation</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Calculate the slope and y-intercept value of the line</p></div>
+<div class="code-tabs"><div class="long-description">
+</div></div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::calculateOrigin()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">calculateOrigin</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Calculate the y-intercept value of the line</p></div>
+<div class="code-tabs"><div class="long-description">
+</div></div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::calculateSlope()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">calculateSlope</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Calculate the line slope</p></div>
+<div class="code-tabs"><div class="long-description">
+</div></div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::getEquation()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getEquation</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Get the line equation</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>An array containing the slope and y-intercept value of the line</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::getLocation()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLocation</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Get line location</p></div>
+<div class="code-tabs"><div class="long-description">
+</div></div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::getOrigin()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getOrigin</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          float</code><div class="description"><p class="short_description">Get the line y-intercept value</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::getSize()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getSize</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          float</code><div class="description"><p class="short_description">Get the line size</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::getSlope()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getSlope</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          float</code><div class="description"><p class="short_description">Get the line slope value</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::getStyle()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getStyle</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return shape style</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::getStyle()">\awShape::getStyle()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::getThickness()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getThickness</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return shape thickness</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::getThickness()">\awShape::getThickness()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::getXFrom()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getXFrom</span><span class="nb-faded-text">(
+          float $y
+          )
+        </span>
+        :
+          float</code><div class="description"><p class="short_description">Return the x coordinate of a point on the line
+given its y coordinate.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$y</th>
+<td>float</td>
+<td><em><p>The y coordinate of the Point</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td>$x The corresponding x coordinate</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::getYFrom()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getYFrom</span><span class="nb-faded-text">(
+          float $x
+          )
+        </span>
+        :
+          float</code><div class="description"><p class="short_description">Return the y coordinate of a point on the line
+given its x coordinate.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$x</th>
+<td>float</td>
+<td><em><p>The x coordinate of the Point</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td>$y The corresponding y coordinate</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::hide()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">hide</span><span class="nb-faded-text">(
+          bool $hide
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Hide the shape</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::hide()">\awShape::hide()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$hide</th>
+<td>bool</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::isHidden()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isHidden</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Is the line hidden ?</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::isHidden()">\awShape::isHidden()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::isHorizontal()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isHorizontal</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description"><p class="short_description">Test if the line is an horizontal line</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::isLeftToRight()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isLeftToRight</span><span class="nb-faded-text">(
+          \$polygon $polygon
+          )
+        </span>
+        :
+          bool</code><div class="description"><p class="short_description">Returns TRUE if the line is going all the way from the left side
+to the right side of the polygon surrounding box.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$polygon</th>
+<td>\$polygon</td>
+<td><em><p>Polygon A Polygon object</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::isOnBoxBottomSide()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">isOnBoxBottomSide</span><span class="nb-faded-text">(
+           $point,  $xMin,  $xMax,  $yMax
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$point</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$xMin</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$xMax</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$yMax</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::isOnBoxLeftSide()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">isOnBoxLeftSide</span><span class="nb-faded-text">(
+           $point,  $yMin,  $yMax,  $xMin
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$point</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$yMin</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$yMax</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$xMin</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::isOnBoxRightSide()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">isOnBoxRightSide</span><span class="nb-faded-text">(
+           $point,  $yMin,  $yMax,  $xMax
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$point</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$yMin</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$yMax</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$xMax</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::isOnBoxTopSide()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">isOnBoxTopSide</span><span class="nb-faded-text">(
+           $point,  $xMin,  $xMax,  $yMin
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$point</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$xMin</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$xMax</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$yMin</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::isPoint()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isPoint</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description"><p class="short_description">Test if the line can be considered as a point</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::isTopToBottom()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isTopToBottom</span><span class="nb-faded-text">(
+          \$polygon $polygon
+          )
+        </span>
+        :
+          bool</code><div class="description"><p class="short_description">Returns TRUE if the line is going all the way from the top
+to the bottom of the polygon surrounding box.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$polygon</th>
+<td>\$polygon</td>
+<td><em><p>Polygon A Polygon object</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::isVertical()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isVertical</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description"><p class="short_description">Test if the line is a vertical line</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::setLocation()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setLocation</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $p1, <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $p2
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change line location</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$p1</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em><p>First point</p></em></td>
+</tr>
+<tr>
+<th>$p2</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em><p>Second point</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::setStyle()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setStyle</span><span class="nb-faded-text">(
+          int $style
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change shape style</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::setStyle()">\awShape::setStyle()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$style</th>
+<td>int</td>
+<td><em><p>Line style</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::setThickness()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setThickness</span><span class="nb-faded-text">(
+          int $thickness
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change shape thickness</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::setThickness()">\awShape::setThickness()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$thickness</th>
+<td>int</td>
+<td><em><p>Shape thickness in pixels</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::setX()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setX</span><span class="nb-faded-text">(
+          int $x1, int $x2
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change X values of the line</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$x1</th>
+<td>int</td>
+<td><em><p>Begin value</p></em></td>
+</tr>
+<tr>
+<th>$x2</th>
+<td>int</td>
+<td><em><p>End value</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::setY()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setY</span><span class="nb-faded-text">(
+          int $y1, int $y2
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change Y values of the line</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$y1</th>
+<td>int</td>
+<td><em><p>Begin value</p></em></td>
+</tr>
+<tr>
+<th>$y2</th>
+<td>int</td>
+<td><em><p>End value</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awLine::show()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">show</span><span class="nb-faded-text">(
+          bool $shape
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Show the shape</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::show()">\awShape::show()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$shape</th>
+<td>bool</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\awPoint" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\awPoint<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Artichow</small><p class="short-description">Describe a point</p>
+<div class="long-description">
+</div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape">\awShape</a></dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\awPoint::$hide" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">bool
+                 <span class="highlight">$hide</span>= 'FALSE'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Is the shape hidden ?</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24hide">\awShape::$hide</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>FALSE</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>bool</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24hide">\awShape::$hide</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::$style" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$style</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Shape style</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24style">\awShape::$style</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24style">\awShape::$style</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::$thickness" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$thickness</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Shape thickness</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24thickness">\awShape::$thickness</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24thickness">\awShape::$thickness</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::$x" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">float
+                 <span class="highlight">$x</span>= ''
+                </code><div class="description">
+<p class="short-description">X coord</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>float</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::$y" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">float
+                 <span class="highlight">$y</span>= ''
+                </code><div class="description">
+<p class="short-description">Y coord</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>float</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\awPoint::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          float $x, float $y
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Build a new awpoint</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$x</th>
+<td>float</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$y</th>
+<td>float</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::getDistance()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getDistance</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $p
+          )
+        </span>
+        :
+          float</code><div class="description"><p class="short_description">Get distance to another point</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$p</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em><p>A point</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::getLocation()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLocation</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Get point location</p></div>
+<div class="code-tabs"><div class="long-description">
+</div></div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::getStyle()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getStyle</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return shape style</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::getStyle()">\awShape::getStyle()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::getThickness()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getThickness</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return shape thickness</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::getThickness()">\awShape::getThickness()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::hide()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">hide</span><span class="nb-faded-text">(
+          bool $hide
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Hide the shape</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::hide()">\awShape::hide()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$hide</th>
+<td>bool</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::isHidden()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isHidden</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Is the line hidden ?</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::isHidden()">\awShape::isHidden()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::move()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">move</span><span class="nb-faded-text">(
+          \Point $x,  $y
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Move the point to another location</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$x</th>
+<td>\Point</td>
+<td><em><p>A Point with the new awlocation</p></em></td>
+</tr>
+<tr>
+<th>$y</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::setLocation()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setLocation</span><span class="nb-faded-text">(
+          float $x, float $y
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change point location</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$x</th>
+<td>float</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$y</th>
+<td>float</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::setStyle()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setStyle</span><span class="nb-faded-text">(
+          int $style
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change shape style</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::setStyle()">\awShape::setStyle()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$style</th>
+<td>int</td>
+<td><em><p>Line style</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::setThickness()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setThickness</span><span class="nb-faded-text">(
+          int $thickness
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change shape thickness</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::setThickness()">\awShape::setThickness()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$thickness</th>
+<td>int</td>
+<td><em><p>Shape thickness in pixels</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::setX()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setX</span><span class="nb-faded-text">(
+          float $x
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change X value</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$x</th>
+<td>float</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::setY()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setY</span><span class="nb-faded-text">(
+          float $y
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change Y value</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$y</th>
+<td>float</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPoint::show()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">show</span><span class="nb-faded-text">(
+          bool $shape
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Show the shape</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::show()">\awShape::show()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$shape</th>
+<td>bool</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\awPolygon" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\awPolygon<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Artichow</small><p class="short-description">Describe a polygon</p>
+<div class="long-description">
+</div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape">\awShape</a></dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\awPolygon::$hide" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">bool
+                 <span class="highlight">$hide</span>= 'FALSE'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Is the shape hidden ?</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24hide">\awShape::$hide</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>FALSE</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>bool</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24hide">\awShape::$hide</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::$points" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$points</span>= 'array()'
+                </code><div class="description">
+<p class="short-description">Polygon points</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::$style" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$style</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Shape style</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24style">\awShape::$style</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24style">\awShape::$style</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::$thickness" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$thickness</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Shape thickness</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24thickness">\awShape::$thickness</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24thickness">\awShape::$thickness</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\awPolygon::all()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">all</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Returns all points in the polygon</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::append()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">append</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $point
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Add a point at the end of the polygon</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$point</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::count()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">count</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description"><p class="short_description">Count number of points in the polygon</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::get()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">get</span><span class="nb-faded-text">(
+          int $pos
+          )
+        </span>
+        :
+          \Point</code><div class="description"><p class="short_description">Get a point at a position in the polygon</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$pos</th>
+<td>int</td>
+<td><em><p>Point position</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\Point</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::getBoxPoints()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBoxPoints</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Get the upper-left and lower-right points
+of the bounding box around the polygon</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>An array of two Point objects</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::getBoxXRange()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBoxXRange</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Return the range of the polygon on the x axis,
+i.e. the minimum and maximum x value of any point in the polygon</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::getBoxYRange()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBoxYRange</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Return the range of the polygon on the y axis,
+i.e. the minimum and maximum y value of any point in the polygon</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::getLines()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLines</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Returns the different lines formed by the polygon vertices</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::getStyle()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getStyle</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return shape style</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::getStyle()">\awShape::getStyle()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::getThickness()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getThickness</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return shape thickness</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::getThickness()">\awShape::getThickness()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::hide()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">hide</span><span class="nb-faded-text">(
+          bool $hide
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Hide the shape</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::hide()">\awShape::hide()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$hide</th>
+<td>bool</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::isHidden()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isHidden</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Is the line hidden ?</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::isHidden()">\awShape::isHidden()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::set()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">set</span><span class="nb-faded-text">(
+          int $pos, <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $point
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set a point in the polygon</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$pos</th>
+<td>int</td>
+<td><em><p>Point position</p></em></td>
+</tr>
+<tr>
+<th>$point</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::setStyle()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setStyle</span><span class="nb-faded-text">(
+          int $style
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change shape style</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::setStyle()">\awShape::setStyle()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$style</th>
+<td>int</td>
+<td><em><p>Line style</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::setThickness()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setThickness</span><span class="nb-faded-text">(
+          int $thickness
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change shape thickness</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::setThickness()">\awShape::setThickness()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$thickness</th>
+<td>int</td>
+<td><em><p>Shape thickness in pixels</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPolygon::show()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">show</span><span class="nb-faded-text">(
+          bool $shape
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Show the shape</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::show()">\awShape::show()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$shape</th>
+<td>bool</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\awShape" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\awShape<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Default</small><dl class="class-info">
+<dt>Children</dt>
+<dd><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></dd>
+<dd><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine">\awLine</a></dd>
+<dd><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPolygon">\awPolygon</a></dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\awShape::SOLID" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant">int 
+                <span class="highlight">SOLID</span>
+                = 1</code><div class="description"><p class="short-description">Solid shape</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info">
+<dt></dt>
+<dd>int<br><em></em>
+</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awShape::DOTTED" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant">int 
+                <span class="highlight">DOTTED</span>
+                = 2</code><div class="description"><p class="short-description">Dotted shape</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info">
+<dt></dt>
+<dd>int<br><em></em>
+</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awShape::DASHED" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant">int 
+                <span class="highlight">DASHED</span>
+                = 3</code><div class="description"><p class="short-description">Dashed shape</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info">
+<dt></dt>
+<dd>int<br><em></em>
+</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\awShape::$hide" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">bool
+                 <span class="highlight">$hide</span>= 'FALSE'
+                </code><div class="description">
+<p class="short-description">Is the shape hidden ?</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>FALSE</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>bool</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awShape::$style" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$style</span>= ''
+                </code><div class="description">
+<p class="short-description">Shape style</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awShape::$thickness" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$thickness</span>= ''
+                </code><div class="description">
+<p class="short-description">Shape thickness</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\awShape::getStyle()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getStyle</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description"><p class="short_description">Return shape style</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awShape::getThickness()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getThickness</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description"><p class="short_description">Return shape thickness</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awShape::hide()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">hide</span><span class="nb-faded-text">(
+          bool $hide
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Hide the shape</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$hide</th>
+<td>bool</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awShape::isHidden()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isHidden</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description"><p class="short_description">Is the line hidden ?</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awShape::setStyle()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setStyle</span><span class="nb-faded-text">(
+          int $style
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change shape style</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$style</th>
+<td>int</td>
+<td><em><p>Line style</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awShape::setThickness()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setThickness</span><span class="nb-faded-text">(
+          int $thickness
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change shape thickness</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$thickness</th>
+<td>int</td>
+<td><em><p>Shape thickness in pixels</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awShape::show()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">show</span><span class="nb-faded-text">(
+          bool $shape
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Show the shape</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$shape</th>
+<td>bool</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\awVector" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\awVector<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Artichow</small><p class="short-description">A vector is a type of line
+The sense of the vector goes from $p1 to $p2.</p>
+<div class="long-description">
+</div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine">\awLine</a>
+            &lt;
+            <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape" style="color: gray; font-size: 0.8em
+                ">\awShape</a>
+</dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\awVector::$hide" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">bool
+                 <span class="highlight">$hide</span>= 'FALSE'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Is the shape hidden ?</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24hide">\awShape::$hide</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>FALSE</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>bool</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24hide">\awShape::$hide</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::$p1" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$p1</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Line first point</p>
+<small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::%24p1">\awLine::$p1</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::%24p1">\awLine::$p1</a>
+         
+    </dd>
+<dt>$p1</dt>
+<dd><em><p>Point</p></em></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::$p2" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$p2</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Line second point</p>
+<small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::%24p2">\awLine::$p2</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::%24p2">\awLine::$p2</a>
+         
+    </dd>
+<dt>$p2</dt>
+<dd><em><p>Point</p></em></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::$style" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$style</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Shape style</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24style">\awShape::$style</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24style">\awShape::$style</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::$thickness" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$thickness</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Shape thickness</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24thickness">\awShape::$thickness</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::%24thickness">\awShape::$thickness</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\awVector::__construct()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $p1
+              =
+              NULL, <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $p2
+              =
+              NULL, int $type
+              =
+              awLine::SOLID, int $thickness
+              =
+              1
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Build a new awline</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::__construct()">\awLine::__construct()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$p1</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em><p>First point</p></em></td>
+</tr>
+<tr>
+<th>$p2</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em><p>Second point</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>int</td>
+<td><em><p>Style of line (default to solid)</p>
+</em></td>
+</tr>
+<tr>
+<th>$thickness</th>
+<td>int</td>
+<td><em><p>Line thickness (default to 1)</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::build()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">build</span><span class="nb-faded-text">(
+          int $x1, int $y1, int $x2, int $y2
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Build a line from 4 coords</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::build()">\awLine::build()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$x1</th>
+<td>int</td>
+<td><em><p>Left position</p></em></td>
+</tr>
+<tr>
+<th>$y1</th>
+<td>int</td>
+<td><em><p>Top position</p></em></td>
+</tr>
+<tr>
+<th>$x2</th>
+<td>int</td>
+<td><em><p>Right position</p></em></td>
+</tr>
+<tr>
+<th>$y2</th>
+<td>int</td>
+<td><em><p>Bottom position</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::getAngle()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getAngle</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          float</code><div class="description"><p class="short_description">Get vector angle in radians</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::getEquation()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getEquation</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the line equation</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::getEquation()">\awLine::getEquation()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>An array containing the slope and y-intercept value of the line</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::getLocation()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLocation</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get line location</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::getLocation()">\awLine::getLocation()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description">
+</div></div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::getOrigin()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getOrigin</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          float</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the line y-intercept value</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::getOrigin()">\awLine::getOrigin()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::getSize()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getSize</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          float</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the line size</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::getSize()">\awLine::getSize()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::getSlope()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getSlope</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          float</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the line slope value</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::getSlope()">\awLine::getSlope()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::getStyle()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getStyle</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return shape style</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::getStyle()">\awShape::getStyle()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::getThickness()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getThickness</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return shape thickness</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::getThickness()">\awShape::getThickness()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::getXFrom()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getXFrom</span><span class="nb-faded-text">(
+          float $y
+          )
+        </span>
+        :
+          float</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return the x coordinate of a point on the line
+given its y coordinate.</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::getXFrom()">\awLine::getXFrom()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$y</th>
+<td>float</td>
+<td><em><p>The y coordinate of the Point</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td>$x The corresponding x coordinate</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::getYFrom()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getYFrom</span><span class="nb-faded-text">(
+          float $x
+          )
+        </span>
+        :
+          float</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return the y coordinate of a point on the line
+given its x coordinate.</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::getYFrom()">\awLine::getYFrom()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$x</th>
+<td>float</td>
+<td><em><p>The x coordinate of the Point</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td>$y The corresponding y coordinate</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::hide()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">hide</span><span class="nb-faded-text">(
+          bool $hide
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Hide the shape</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::hide()">\awShape::hide()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$hide</th>
+<td>bool</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::isHidden()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isHidden</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Is the line hidden ?</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::isHidden()">\awShape::isHidden()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::isHorizontal()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isHorizontal</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Test if the line is an horizontal line</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::isHorizontal()">\awLine::isHorizontal()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::isLeftToRight()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isLeftToRight</span><span class="nb-faded-text">(
+          \$polygon $polygon
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns TRUE if the line is going all the way from the left side
+to the right side of the polygon surrounding box.</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::isLeftToRight()">\awLine::isLeftToRight()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$polygon</th>
+<td>\$polygon</td>
+<td><em><p>Polygon A Polygon object</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::isPoint()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isPoint</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Test if the line can be considered as a point</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::isPoint()">\awLine::isPoint()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::isTopToBottom()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isTopToBottom</span><span class="nb-faded-text">(
+          \$polygon $polygon
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns TRUE if the line is going all the way from the top
+to the bottom of the polygon surrounding box.</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::isTopToBottom()">\awLine::isTopToBottom()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$polygon</th>
+<td>\$polygon</td>
+<td><em><p>Polygon A Polygon object</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::isVertical()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isVertical</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Test if the line is a vertical line</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::isVertical()">\awLine::isVertical()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::setLocation()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setLocation</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $p1, <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $p2
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change line location</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::setLocation()">\awLine::setLocation()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$p1</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em><p>First point</p></em></td>
+</tr>
+<tr>
+<th>$p2</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em><p>Second point</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::setStyle()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setStyle</span><span class="nb-faded-text">(
+          int $style
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change shape style</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::setStyle()">\awShape::setStyle()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$style</th>
+<td>int</td>
+<td><em><p>Line style</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::setThickness()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setThickness</span><span class="nb-faded-text">(
+          int $thickness
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change shape thickness</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::setThickness()">\awShape::setThickness()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$thickness</th>
+<td>int</td>
+<td><em><p>Shape thickness in pixels</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::setX()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setX</span><span class="nb-faded-text">(
+          int $x1, int $x2
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change X values of the line</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::setX()">\awLine::setX()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$x1</th>
+<td>int</td>
+<td><em><p>Begin value</p></em></td>
+</tr>
+<tr>
+<th>$x2</th>
+<td>int</td>
+<td><em><p>End value</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::setY()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setY</span><span class="nb-faded-text">(
+          int $y1, int $y2
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change Y values of the line</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine::setY()">\awLine::setY()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$y1</th>
+<td>int</td>
+<td><em><p>Begin value</p></em></td>
+</tr>
+<tr>
+<th>$y2</th>
+<td>int</td>
+<td><em><p>End value</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awVector::show()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">show</span><span class="nb-faded-text">(
+          bool $shape
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Show the shape</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawShape::show()">\awShape::show()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$shape</th>
+<td>bool</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>

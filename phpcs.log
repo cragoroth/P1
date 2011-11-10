@@ -1,0 +1,13 @@
+
+FILE: /home/www/site2/dummy.php
+--------------------------------------------------------------------------------
+FOUND 4 ERROR(S) AFFECTING 3 LINE(S)
+--------------------------------------------------------------------------------
+ 11 | ERROR | Spaces must be used to indent lines; tabs are not allowed
+ 12 | ERROR | Spaces must be used to indent lines; tabs are not allowed
+ 12 | ERROR | Closing brace indented incorrectly; expected 0 spaces, found 1
+ 14 | ERROR | A closing tag is not permitted at the end of a PHP file
+--------------------------------------------------------------------------------
+
+Time: 0 seconds, Memory: 1.75Mb
+

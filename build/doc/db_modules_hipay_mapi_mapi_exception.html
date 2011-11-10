@@ -1,0 +1,1094 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">modules/hipay/mapi/mapi_exception.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav">
+<li>
+<a href="#constants"><img src="images/icons/constant.png" height="14">
+                          Constants
+                      </a><ul>
+<li><a href="#::MAPI_EXCEPTION_AFFILIATE_ACCOUNT_ID_ERROR">MAPI_EXCEPTION_AFFILIATE_ACCOUNT_ID_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_AFFILIATE_BASE_ERROR">MAPI_EXCEPTION_AFFILIATE_BASE_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_AFFILIATE_CUSTOMER_ID_ERROR">MAPI_EXCEPTION_AFFILIATE_CUSTOMER_ID_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_AFFILIATE_INCORRECT_EU">MAPI_EXCEPTION_AFFILIATE_INCORRECT_EU</a></li>
+<li><a href="#::MAPI_EXCEPTION_AFFILIATE_INCORRECT_TAG">MAPI_EXCEPTION_AFFILIATE_INCORRECT_TAG</a></li>
+<li><a href="#::MAPI_EXCEPTION_AFFILIATE_UNKNOWN_AFFILIATE">MAPI_EXCEPTION_AFFILIATE_UNKNOWN_AFFILIATE</a></li>
+<li><a href="#::MAPI_EXCEPTION_AFFILIATE_VALUE_ERROR">MAPI_EXCEPTION_AFFILIATE_VALUE_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_INSTALLMENT_BASE_ERROR">MAPI_EXCEPTION_INSTALLMENT_BASE_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_INSTALLMENT_FIRST_BOOLEAN">MAPI_EXCEPTION_INSTALLMENT_FIRST_BOOLEAN</a></li>
+<li><a href="#::MAPI_EXCEPTION_INSTALLMENT_INCORRECT_TAG">MAPI_EXCEPTION_INSTALLMENT_INCORRECT_TAG</a></li>
+<li><a href="#::MAPI_EXCEPTION_INSTALLMENT_PRICE_ERROR">MAPI_EXCEPTION_INSTALLMENT_PRICE_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_INSTALLMENT_SETFIRST_ERROR">MAPI_EXCEPTION_INSTALLMENT_SETFIRST_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_INSTALLMENT_TAX_ERROR">MAPI_EXCEPTION_INSTALLMENT_TAX_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_MULTIPLEP_CONSTRUCT_ERROR">MAPI_EXCEPTION_MULTIPLEP_CONSTRUCT_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_MULTIPLEP_INCORRECT_TAG">MAPI_EXCEPTION_MULTIPLEP_INCORRECT_TAG</a></li>
+<li><a href="#::MAPI_EXCEPTION_MULTIPLEP_ITEMS_TAG_CONTENT_ERROR">MAPI_EXCEPTION_MULTIPLEP_ITEMS_TAG_CONTENT_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_MULTIPLEP_ITEMS_TAG_TOO_MANY_OBJECTS">MAPI_EXCEPTION_MULTIPLEP_ITEMS_TAG_TOO_MANY_OBJECTS</a></li>
+<li><a href="#::MAPI_EXCEPTION_MULTIPLEP_ORDER_TAG_CONTENT_ERROR">MAPI_EXCEPTION_MULTIPLEP_ORDER_TAG_CONTENT_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_MULTIPLEP_ORDER_TAG_TOO_MANY_OBJECTS">MAPI_EXCEPTION_MULTIPLEP_ORDER_TAG_TOO_MANY_OBJECTS</a></li>
+<li><a href="#::MAPI_EXCEPTION_ORDER_AFFILIATE_ERROR">MAPI_EXCEPTION_ORDER_AFFILIATE_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_ORDER_BASE_ERROR">MAPI_EXCEPTION_ORDER_BASE_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_ORDER_FCOST_ERROR">MAPI_EXCEPTION_ORDER_FCOST_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_ORDER_INFO_ERROR">MAPI_EXCEPTION_ORDER_INFO_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_ORDER_INSURANCE_ERROR">MAPI_EXCEPTION_ORDER_INSURANCE_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_ORDER_SHIPPING_ERROR">MAPI_EXCEPTION_ORDER_SHIPPING_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_ORDER_TITLE_ERROR">MAPI_EXCEPTION_ORDER_TITLE_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_ORDER_UNKNOWN_CATEGORY">MAPI_EXCEPTION_ORDER_UNKNOWN_CATEGORY</a></li>
+<li><a href="#::MAPI_EXCEPTION_ORDER_UNKNOWN_TAG">MAPI_EXCEPTION_ORDER_UNKNOWN_TAG</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_ACCTS_ERROR">MAPI_EXCEPTION_PARAMS_ACCTS_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_ACKWD_ERROR">MAPI_EXCEPTION_PARAMS_ACKWD_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_BASE_ERROR">MAPI_EXCEPTION_PARAMS_BASE_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_BGCOLOR_ERROR">MAPI_EXCEPTION_PARAMS_BGCOLOR_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_CAPTURE_DAY_ERROR">MAPI_EXCEPTION_PARAMS_CAPTURE_DAY_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_CURRENCY_ERROR">MAPI_EXCEPTION_PARAMS_CURRENCY_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_EMAILACK_ERROR">MAPI_EXCEPTION_PARAMS_EMAILACK_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_FORBIDDEN_FCOST_ACCT">MAPI_EXCEPTION_PARAMS_FORBIDDEN_FCOST_ACCT</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_FORBIDDEN_INS_ACCT">MAPI_EXCEPTION_PARAMS_FORBIDDEN_INS_ACCT</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_FORBIDDEN_ITEM_ACCT">MAPI_EXCEPTION_PARAMS_FORBIDDEN_ITEM_ACCT</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_FORBIDDEN_SHIP_ACCT">MAPI_EXCEPTION_PARAMS_FORBIDDEN_SHIP_ACCT</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_FORBIDDEN_TAX_ACCT">MAPI_EXCEPTION_PARAMS_FORBIDDEN_TAX_ACCT</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_ID_GROUP_ERROR">MAPI_EXCEPTION_PARAMS_ID_GROUP_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_ID_MERCHANT_ERROR">MAPI_EXCEPTION_PARAMS_ID_MERCHANT_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_INCORRECT_CURRENCY">MAPI_EXCEPTION_PARAMS_INCORRECT_CURRENCY</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_INCORRECT_LOGIN">MAPI_EXCEPTION_PARAMS_INCORRECT_LOGIN</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_INCORRECT_LOGIN_2">MAPI_EXCEPTION_PARAMS_INCORRECT_LOGIN_2</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_INCORRECT_MERCH_SITE_ID">MAPI_EXCEPTION_PARAMS_INCORRECT_MERCH_SITE_ID</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_INCORRECT_PASSWORD">MAPI_EXCEPTION_PARAMS_INCORRECT_PASSWORD</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_INCORRECT_PAYMENT_METHOD">MAPI_EXCEPTION_PARAMS_INCORRECT_PAYMENT_METHOD</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_INCORRECT_RATING">MAPI_EXCEPTION_PARAMS_INCORRECT_RATING</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_LANG_ERROR">MAPI_EXCEPTION_PARAMS_LANG_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_LANG_NOT_SUPPORTED">MAPI_EXCEPTION_PARAMS_LANG_NOT_SUPPORTED</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_LOGIN_ERROR">MAPI_EXCEPTION_PARAMS_LOGIN_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_MDATAS_ERROR">MAPI_EXCEPTION_PARAMS_MDATAS_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_MEDIA_ERROR">MAPI_EXCEPTION_PARAMS_MEDIA_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_MEDIA_NOT_SUPPORTED">MAPI_EXCEPTION_PARAMS_MEDIA_NOT_SUPPORTED</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_METHOD_ERROR">MAPI_EXCEPTION_PARAMS_METHOD_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_NO_LANG_AVAILABLE">MAPI_EXCEPTION_PARAMS_NO_LANG_AVAILABLE</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_NO_MEDIA_AVAILABLE">MAPI_EXCEPTION_PARAMS_NO_MEDIA_AVAILABLE</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_RATING_ERROR">MAPI_EXCEPTION_PARAMS_RATING_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_SITE_ID_ERROR">MAPI_EXCEPTION_PARAMS_SITE_ID_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_UNKNOWN_EU_ID">MAPI_EXCEPTION_PARAMS_UNKNOWN_EU_ID</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_UNKNOWN_FCOST_ACCT">MAPI_EXCEPTION_PARAMS_UNKNOWN_FCOST_ACCT</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_UNKNOWN_FCOST_ACCT_2">MAPI_EXCEPTION_PARAMS_UNKNOWN_FCOST_ACCT_2</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_UNKNOWN_INS_ACCT">MAPI_EXCEPTION_PARAMS_UNKNOWN_INS_ACCT</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_UNKNOWN_INS_ACCT_2">MAPI_EXCEPTION_PARAMS_UNKNOWN_INS_ACCT_2</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_UNKNOWN_ITEM_ACCT">MAPI_EXCEPTION_PARAMS_UNKNOWN_ITEM_ACCT</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_UNKNOWN_ITEM_ACCT_2">MAPI_EXCEPTION_PARAMS_UNKNOWN_ITEM_ACCT_2</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_UNKNOWN_SHIP_ACCT">MAPI_EXCEPTION_PARAMS_UNKNOWN_SHIP_ACCT</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_UNKNOWN_SHIP_ACCT_2">MAPI_EXCEPTION_PARAMS_UNKNOWN_SHIP_ACCT_2</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_UNKNOWN_TAG">MAPI_EXCEPTION_PARAMS_UNKNOWN_TAG</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_UNKNOWN_TAX_ACCT">MAPI_EXCEPTION_PARAMS_UNKNOWN_TAX_ACCT</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_UNKNOWN_TAX_ACCT_2">MAPI_EXCEPTION_PARAMS_UNKNOWN_TAX_ACCT_2</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_URLACK_ERROR">MAPI_EXCEPTION_PARAMS_URLACK_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_URLCAN_ERROR">MAPI_EXCEPTION_PARAMS_URLCAN_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_URLLOGO_ERROR">MAPI_EXCEPTION_PARAMS_URLLOGO_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_URLNOK_ERROR">MAPI_EXCEPTION_PARAMS_URLNOK_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PARAMS_URLOK_ERROR">MAPI_EXCEPTION_PARAMS_URLOK_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PRODUCT_BASE_ERROR">MAPI_EXCEPTION_PRODUCT_BASE_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PRODUCT_CATEGORY_ERROR">MAPI_EXCEPTION_PRODUCT_CATEGORY_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PRODUCT_INCORRECT_TAG">MAPI_EXCEPTION_PRODUCT_INCORRECT_TAG</a></li>
+<li><a href="#::MAPI_EXCEPTION_PRODUCT_INFO_ERROR">MAPI_EXCEPTION_PRODUCT_INFO_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PRODUCT_NAME_ERROR">MAPI_EXCEPTION_PRODUCT_NAME_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PRODUCT_PRICE_ERROR">MAPI_EXCEPTION_PRODUCT_PRICE_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PRODUCT_QUANTITY_ERROR">MAPI_EXCEPTION_PRODUCT_QUANTITY_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PRODUCT_REF_ERROR">MAPI_EXCEPTION_PRODUCT_REF_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_PRODUCT_TAX_ERROR">MAPI_EXCEPTION_PRODUCT_TAX_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_SIMPLEP_CONSTRUCT_ERROR">MAPI_EXCEPTION_SIMPLEP_CONSTRUCT_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_SIMPLEP_INCORRECT_TAG">MAPI_EXCEPTION_SIMPLEP_INCORRECT_TAG</a></li>
+<li><a href="#::MAPI_EXCEPTION_SIMPLEP_ITEMS_TAG_CONTENT_ERROR">MAPI_EXCEPTION_SIMPLEP_ITEMS_TAG_CONTENT_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_SIMPLEP_ORDER_TAG_CONTENT_ERROR">MAPI_EXCEPTION_SIMPLEP_ORDER_TAG_CONTENT_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_TAX_ACCOUNT_ERROR">MAPI_EXCEPTION_TAX_ACCOUNT_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_TAX_BASE_ERROR">MAPI_EXCEPTION_TAX_BASE_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_TAX_INCORRECT_TAG">MAPI_EXCEPTION_TAX_INCORRECT_TAG</a></li>
+<li><a href="#::MAPI_EXCEPTION_TAX_NAME_ERROR">MAPI_EXCEPTION_TAX_NAME_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_TAX_PERCENTAGE_NOT_BOOLEAN_ERROR">MAPI_EXCEPTION_TAX_PERCENTAGE_NOT_BOOLEAN_ERROR</a></li>
+<li><a href="#::MAPI_EXCEPTION_TAX_VALUE_ERROR">MAPI_EXCEPTION_TAX_VALUE_ERROR</a></li>
+</ul>
+</li>
+<li>
+<a href="#functions"><img src="images/icons/function.png" height="14">
+                          Functions
+                      </a><ul></ul>
+</li>
+<li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CMAPI_Exception">\MAPI_Exception</a></li></ul>
+</li>
+</ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><a name="constants" class="anchor"></a><h2>Constants</h2>
+<div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_AFFILIATE_BASE_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_AFFILIATE_BASE_ERROR</span>
+                = 101</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_AFFILIATE_UNKNOWN_AFFILIATE" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_AFFILIATE_UNKNOWN_AFFILIATE</span>
+                = 102</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_AFFILIATE_INCORRECT_EU" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_AFFILIATE_INCORRECT_EU</span>
+                = 103</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_AFFILIATE_CUSTOMER_ID_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_AFFILIATE_CUSTOMER_ID_ERROR</span>
+                = 104</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_AFFILIATE_ACCOUNT_ID_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_AFFILIATE_ACCOUNT_ID_ERROR</span>
+                = 105</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_AFFILIATE_VALUE_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_AFFILIATE_VALUE_ERROR</span>
+                = 106</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_AFFILIATE_INCORRECT_TAG" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_AFFILIATE_INCORRECT_TAG</span>
+                = 107</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_INSTALLMENT_BASE_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_INSTALLMENT_BASE_ERROR</span>
+                = 201</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_INSTALLMENT_SETFIRST_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_INSTALLMENT_SETFIRST_ERROR</span>
+                = 202</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_INSTALLMENT_FIRST_BOOLEAN" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_INSTALLMENT_FIRST_BOOLEAN</span>
+                = 203</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_INSTALLMENT_PRICE_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_INSTALLMENT_PRICE_ERROR</span>
+                = 204</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_INSTALLMENT_INCORRECT_TAG" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_INSTALLMENT_INCORRECT_TAG</span>
+                = 205</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_INSTALLMENT_TAX_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_INSTALLMENT_TAX_ERROR</span>
+                = 206</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_MULTIPLEP_ORDER_TAG_CONTENT_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_MULTIPLEP_ORDER_TAG_CONTENT_ERROR</span>
+                = 301</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_MULTIPLEP_ORDER_TAG_TOO_MANY_OBJECTS" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_MULTIPLEP_ORDER_TAG_TOO_MANY_OBJECTS</span>
+                = 302</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_MULTIPLEP_ITEMS_TAG_CONTENT_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_MULTIPLEP_ITEMS_TAG_CONTENT_ERROR</span>
+                = 303</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_MULTIPLEP_ITEMS_TAG_TOO_MANY_OBJECTS" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_MULTIPLEP_ITEMS_TAG_TOO_MANY_OBJECTS</span>
+                = 304</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_MULTIPLEP_INCORRECT_TAG" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_MULTIPLEP_INCORRECT_TAG</span>
+                = 305</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_MULTIPLEP_CONSTRUCT_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_MULTIPLEP_CONSTRUCT_ERROR</span>
+                = 306</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_ORDER_BASE_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_ORDER_BASE_ERROR</span>
+                = 401</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_ORDER_UNKNOWN_CATEGORY" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_ORDER_UNKNOWN_CATEGORY</span>
+                = 402</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_ORDER_TITLE_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_ORDER_TITLE_ERROR</span>
+                = 403</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_ORDER_INFO_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_ORDER_INFO_ERROR</span>
+                = 404</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_ORDER_UNKNOWN_TAG" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_ORDER_UNKNOWN_TAG</span>
+                = 405</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_ORDER_SHIPPING_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_ORDER_SHIPPING_ERROR</span>
+                = 406</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_ORDER_INSURANCE_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_ORDER_INSURANCE_ERROR</span>
+                = 407</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_ORDER_FCOST_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_ORDER_FCOST_ERROR</span>
+                = 408</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_ORDER_AFFILIATE_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_ORDER_AFFILIATE_ERROR</span>
+                = 409</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_SIMPLEP_ORDER_TAG_CONTENT_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_SIMPLEP_ORDER_TAG_CONTENT_ERROR</span>
+                = 501</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_SIMPLEP_ITEMS_TAG_CONTENT_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_SIMPLEP_ITEMS_TAG_CONTENT_ERROR</span>
+                = 502</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_SIMPLEP_INCORRECT_TAG" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_SIMPLEP_INCORRECT_TAG</span>
+                = 503</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_SIMPLEP_CONSTRUCT_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_SIMPLEP_CONSTRUCT_ERROR</span>
+                = 504</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_BASE_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_BASE_ERROR</span>
+                = 601</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_INCORRECT_LOGIN" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_INCORRECT_LOGIN</span>
+                = 602</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_INCORRECT_PASSWORD" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_INCORRECT_PASSWORD</span>
+                = 603</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_INCORRECT_LOGIN_2" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_INCORRECT_LOGIN_2</span>
+                = 604</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_UNKNOWN_ITEM_ACCT" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_UNKNOWN_ITEM_ACCT</span>
+                = 605</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_FORBIDDEN_ITEM_ACCT" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_FORBIDDEN_ITEM_ACCT</span>
+                = 606</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_UNKNOWN_ITEM_ACCT_2" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_UNKNOWN_ITEM_ACCT_2</span>
+                = 607</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_UNKNOWN_TAX_ACCT" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_UNKNOWN_TAX_ACCT</span>
+                = 608</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_FORBIDDEN_TAX_ACCT" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_FORBIDDEN_TAX_ACCT</span>
+                = 609</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_UNKNOWN_TAX_ACCT_2" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_UNKNOWN_TAX_ACCT_2</span>
+                = 610</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_UNKNOWN_INS_ACCT" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_UNKNOWN_INS_ACCT</span>
+                = 611</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_FORBIDDEN_INS_ACCT" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_FORBIDDEN_INS_ACCT</span>
+                = 612</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_UNKNOWN_INS_ACCT_2" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_UNKNOWN_INS_ACCT_2</span>
+                = 613</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_UNKNOWN_FCOST_ACCT" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_UNKNOWN_FCOST_ACCT</span>
+                = 614</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_FORBIDDEN_FCOST_ACCT" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_FORBIDDEN_FCOST_ACCT</span>
+                = 615</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_UNKNOWN_FCOST_ACCT_2" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_UNKNOWN_FCOST_ACCT_2</span>
+                = 616</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_UNKNOWN_SHIP_ACCT" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_UNKNOWN_SHIP_ACCT</span>
+                = 617</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_FORBIDDEN_SHIP_ACCT" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_FORBIDDEN_SHIP_ACCT</span>
+                = 618</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_UNKNOWN_SHIP_ACCT_2" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_UNKNOWN_SHIP_ACCT_2</span>
+                = 619</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_UNKNOWN_EU_ID" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_UNKNOWN_EU_ID</span>
+                = 620</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_NO_LANG_AVAILABLE" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_NO_LANG_AVAILABLE</span>
+                = 621</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_LANG_NOT_SUPPORTED" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_LANG_NOT_SUPPORTED</span>
+                = 622</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_NO_MEDIA_AVAILABLE" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_NO_MEDIA_AVAILABLE</span>
+                = 623</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_MEDIA_NOT_SUPPORTED" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_MEDIA_NOT_SUPPORTED</span>
+                = 624</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_INCORRECT_RATING" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_INCORRECT_RATING</span>
+                = 625</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_INCORRECT_PAYMENT_METHOD" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_INCORRECT_PAYMENT_METHOD</span>
+                = 626</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_INCORRECT_CURRENCY" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_INCORRECT_CURRENCY</span>
+                = 627</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_INCORRECT_MERCH_SITE_ID" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_INCORRECT_MERCH_SITE_ID</span>
+                = 628</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_LANG_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_LANG_ERROR</span>
+                = 629</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_MEDIA_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_MEDIA_ERROR</span>
+                = 630</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_RATING_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_RATING_ERROR</span>
+                = 631</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_METHOD_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_METHOD_ERROR</span>
+                = 632</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_CAPTURE_DAY_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_CAPTURE_DAY_ERROR</span>
+                = 633</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_CURRENCY_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_CURRENCY_ERROR</span>
+                = 634</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_ID_MERCHANT_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_ID_MERCHANT_ERROR</span>
+                = 635</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_SITE_ID_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_SITE_ID_ERROR</span>
+                = 636</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_URLOK_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_URLOK_ERROR</span>
+                = 637</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_URLNOK_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_URLNOK_ERROR</span>
+                = 638</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_URLCAN_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_URLCAN_ERROR</span>
+                = 639</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_URLACK_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_URLACK_ERROR</span>
+                = 640</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_ACKWD_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_ACKWD_ERROR</span>
+                = 641</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_EMAILACK_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_EMAILACK_ERROR</span>
+                = 642</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_BGCOLOR_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_BGCOLOR_ERROR</span>
+                = 643</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_URLLOGO_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_URLLOGO_ERROR</span>
+                = 644</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_MDATAS_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_MDATAS_ERROR</span>
+                = 645</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_UNKNOWN_TAG" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_UNKNOWN_TAG</span>
+                = 646</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_LOGIN_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_LOGIN_ERROR</span>
+                = 647</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_ACCTS_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_ACCTS_ERROR</span>
+                = 648</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PARAMS_ID_GROUP_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PARAMS_ID_GROUP_ERROR</span>
+                = 649</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PRODUCT_BASE_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PRODUCT_BASE_ERROR</span>
+                = 701</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PRODUCT_NAME_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PRODUCT_NAME_ERROR</span>
+                = 702</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PRODUCT_INFO_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PRODUCT_INFO_ERROR</span>
+                = 703</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PRODUCT_QUANTITY_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PRODUCT_QUANTITY_ERROR</span>
+                = 704</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PRODUCT_REF_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PRODUCT_REF_ERROR</span>
+                = 705</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PRODUCT_CATEGORY_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PRODUCT_CATEGORY_ERROR</span>
+                = 706</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PRODUCT_PRICE_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PRODUCT_PRICE_ERROR</span>
+                = 707</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PRODUCT_INCORRECT_TAG" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PRODUCT_INCORRECT_TAG</span>
+                = 708</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_PRODUCT_TAX_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_PRODUCT_TAX_ERROR</span>
+                = 709</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_TAX_BASE_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_TAX_BASE_ERROR</span>
+                = 801</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_TAX_NAME_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_TAX_NAME_ERROR</span>
+                = 802</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_TAX_ACCOUNT_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_TAX_ACCOUNT_ERROR</span>
+                = 803</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_TAX_PERCENTAGE_NOT_BOOLEAN_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_TAX_PERCENTAGE_NOT_BOOLEAN_ERROR</span>
+                = 804</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_TAX_VALUE_ERROR" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_TAX_VALUE_ERROR</span>
+                = 805</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAPI_EXCEPTION_TAX_INCORRECT_TAG" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAPI_EXCEPTION_TAX_INCORRECT_TAG</span>
+                = 806</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+</div>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\MAPI_Exception" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\MAPI_Exception<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Default</small><dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="http://php.net/manual/en/class.exception.php">\Exception</a></dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\MAPI_Exception::$keyword" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">
+                 <span class="highlight">$keyword</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\MAPI_Exception::$value" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">
+                 <span class="highlight">$value</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\MAPI_Exception::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+           $keyword,  $value,  $msg,  $code
+              =
+              0
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$keyword</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$msg</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$code</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\MAPI_Exception::__toString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__toString</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    \Exception::__toString()</small>
+</div>
+<div class="code-tabs"></div>
+<div class="clear"></div>
+</div>
+<a id="\MAPI_Exception::getCode()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCode</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">final</span><span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    \Exception::getCode()</small>
+</div>
+<div class="code-tabs"></div>
+<div class="clear"></div>
+</div>
+<a id="\MAPI_Exception::getFile()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getFile</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">final</span><span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    \Exception::getFile()</small>
+</div>
+<div class="code-tabs"></div>
+<div class="clear"></div>
+</div>
+<a id="\MAPI_Exception::getKeyword()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getKeyword</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs"></div>
+<div class="clear"></div>
+</div>
+<a id="\MAPI_Exception::getLine()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLine</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">final</span><span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    \Exception::getLine()</small>
+</div>
+<div class="code-tabs"></div>
+<div class="clear"></div>
+</div>
+<a id="\MAPI_Exception::getMessage()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getMessage</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">final</span><span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    \Exception::getMessage()</small>
+</div>
+<div class="code-tabs"></div>
+<div class="clear"></div>
+</div>
+<a id="\MAPI_Exception::getPrevious()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getPrevious</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">final</span><span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    \Exception::getPrevious()</small>
+</div>
+<div class="code-tabs"></div>
+<div class="clear"></div>
+</div>
+<a id="\MAPI_Exception::getTrace()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getTrace</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">final</span><span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    \Exception::getTrace()</small>
+</div>
+<div class="code-tabs"></div>
+<div class="clear"></div>
+</div>
+<a id="\MAPI_Exception::getTraceAsString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getTraceAsString</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">final</span><span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    \Exception::getTraceAsString()</small>
+</div>
+<div class="code-tabs"></div>
+<div class="clear"></div>
+</div>
+<a id="\MAPI_Exception::getValue()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getValue</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs"></div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>

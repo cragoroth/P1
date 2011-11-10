@@ -1,0 +1,431 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">tools/taasc/AddressStandardizationSolution.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CAddressStandardizationSolution">\AddressStandardizationSolution</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Address Standardization Solution, PHP Edition.</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>Requires PHP 5 or later.</p>
+
+<p>Address Standardization Solution is a trademark of The Analysis
+and Solutions Company.</p>
+</div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Author</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="mailto:danielc@analysisandsolutions.com">Daniel Convissor</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">The Analysis and Solutions Company, 2001-2010
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://www.analysisandsolutions.com/software/license.htm">Simple Public License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Link</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://www.analysisandsolutions.com/software/addr/addr.htm">http://www.analysisandsolutions.com/software/addr/addr.htm</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">AddressStandardizationSolution
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\AddressStandardizationSolution" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\AddressStandardizationSolution<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>AddressStandardizationSolution</small><p class="short-description">Formats a Delivery Address Line according to the United States Postal
+Service's Addressing Standards</p>
+<div class="long-description"><p>The class also contains a state list generator for use in XHTML forms.</p>
+</div>
+<dl class="class-info">
+<dt>Author</dt>
+<dd>
+<a href="mailto:danielc@analysisandsolutions.com">Daniel Convissor</a>
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>The Analysis and Solutions Company, 2001-2010
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://www.analysisandsolutions.com/software/license.htm">Simple Public License</a>
+         
+    </dd>
+<dt>Link</dt>
+<dd>
+<a href="http://www.analysisandsolutions.com/software/addr/addr.htm">http://www.analysisandsolutions.com/software/addr/addr.htm</a>
+         
+    </dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\AddressStandardizationSolution::$directionals" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">array
+                 <span class="highlight">$directionals</span>= 'array(
+		'E' =&gt; 'E''
+                </code><div class="description">
+<p class="short-description">An array with compass directions as keys and abbreviations as values</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Note: entries ending in "-R" are for reverse lookup.</p>
+</div>
+<strong>Default value</strong><code>array(
+		'E' =&gt; 'E'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\AddressStandardizationSolution::$identifiers" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">array
+                 <span class="highlight">$identifiers</span>= 'array(
+		'APARTMENT' =&gt; 'APT''
+                </code><div class="description">
+<p class="short-description">An array with room types as keys and abbreviations as values</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Note: entries ending in "-R" are for reverse lookup.</p>
+</div>
+<strong>Default value</strong><code>array(
+		'APARTMENT' =&gt; 'APT'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\AddressStandardizationSolution::$numbers" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">array
+                 <span class="highlight">$numbers</span>= 'array(
+		'FIRST' =&gt; '1''
+                </code><div class="description">
+<p class="short-description">An array with numeric words as keys and numbers as values</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array(
+		'FIRST' =&gt; '1'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\AddressStandardizationSolution::$states" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">array
+                 <span class="highlight">$states</span>= 'array(
+		'ARMED FORCES AMERICA' =&gt; 'AA''
+                </code><div class="description">
+<p class="short-description">An array with state names as keys and abbreviations as values</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array(
+		'ARMED FORCES AMERICA' =&gt; 'AA'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\AddressStandardizationSolution::$suffixSimiles" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">array
+                 <span class="highlight">$suffixSimiles</span>= 'array(
+		'LA' =&gt; 'LA''
+                </code><div class="description">
+<p class="short-description">An array with things that look like street types but are actually names</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array(
+		'LA' =&gt; 'LA'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\AddressStandardizationSolution::$suffixes" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">array
+                 <span class="highlight">$suffixes</span>= 'array(
+		'ALLEE' =&gt; 'ALY''
+                </code><div class="description">
+<p class="short-description">An array with street types as keys and abbreviations as values</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Note: entries ending in "-R" are for reverse lookup.</p>
+</div>
+<strong>Default value</strong><code>array(
+		'ALLEE' =&gt; 'ALY'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\AddressStandardizationSolution::AddressLineStandardization()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">AddressLineStandardization</span><span class="nb-faded-text">(
+          string $address
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Formats a Delivery Address Line according to the United States Postal
+Service's Addressing Standards</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>This comes in VERY handy when searching for records by address.
+Let's say a data entry person put an address in as
+"Two N Boulevard."  Later, someone else searches for them using
+"2 North Blvd."  Unfortunately, that query won't find them.  Such
+problems are averted by using this method before storing and
+searching for data.</p>
+
+<p>Standardization can also help obtain lower bulk mailing rates.</p>
+
+<p>Based upon USPS Publication 28, November 1997.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$address</th>
+<td>string</td>
+<td><em><p>the address to be converted</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>the cleaned up address</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Link</dt>
+<dd>
+<a href="http://pe.usps.gov/cpim/ftp/pubs/Pub28/pub28.pdf">http://pe.usps.gov/cpim/ftp/pubs/Pub28/pub28.pdf</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\AddressStandardizationSolution::StateList()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">StateList</span><span class="nb-faded-text">(
+          mixed $default
+              =
+              '', string $name
+              =
+              'StateID', string $visible
+              =
+              'Word', string $value
+              =
+              'Abbr', string $class
+              =
+              '', string $multiple
+              =
+              'N', string $size
+              =
+              '0'
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Generates a XHTML option list of states</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$default</th>
+<td>mixed</td>
+<td><em><p>string or array of values to be selected</p></em></td>
+</tr>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em><p>the name attribute for the form element</p></em></td>
+</tr>
+<tr>
+<th>$visible</th>
+<td>string</td>
+<td><em><p>what users see in the list: <kbd>Word</kbd> (names) or <kbd>Abbr</kbd> (initials)</p>
+</em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em><p>values for the options: <kbd>Word</kbd> (names) or <kbd>Abbr</kbd> (initials)</p>
+</em></td>
+</tr>
+<tr>
+<th>$class</th>
+<td>string</td>
+<td><em><p>class attribute for the <select> element</p>
+</em></td>
+</tr>
+<tr>
+<th>$multiple</th>
+<td>string</td>
+<td><em><p>should multiple selections be permitted? <kbd>Y</kbd> or <kbd>N</kbd>.</p>
+</em></td>
+</tr>
+<tr>
+<th>$size</th>
+<td>string</td>
+<td><em><p>number of rows visible at one time. <kbd>0</kbd> sets no size attribute.</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\AddressStandardizationSolution::getEolAbbr()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">getEolAbbr</span><span class="nb-faded-text">(
+          string $string
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Implement abbreviations for words at the ends of certain address lines</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$string</th>
+<td>string</td>
+<td><em><p>the address fragments to be analyzed</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>the cleaned up string</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>

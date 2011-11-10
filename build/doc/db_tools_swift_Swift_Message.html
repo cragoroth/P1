@@ -1,0 +1,2233 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">tools/swift/Swift/Message.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CSwift_Message">\Swift_Message</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Swift Mailer Message Component
+Composes MIME 1.0 messages meeting various RFC standards
+Deals with attachments, embedded images, multipart bodies, forwarded messages...</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>Please read the LICENSE file</p>
+</div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Author</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="mailto:chris@w3style.co.uk">Chris Corbyn</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Chris Corbyn <chris@w3style.co.uk>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://opensource.org/licenses/LGPL-3.0">GNU Lesser General Public License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Swift_Message
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Swift_Message" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Swift_Message<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Swift\Message</small><p class="short-description">Swift Message class</p>
+<div class="long-description">
+</div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime">\Swift_Message_Mime</a></dd>
+<dt>Author</dt>
+<dd>
+<a href="mailto:chris@w3style.co.uk">Chris Corbyn</a>
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Swift_Message::PRIORITY_HIGH" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PRIORITY_HIGH</span>
+                = 1</code><div class="description"><p class="short-description">Constant from a high priority message (pretty meaningless)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::PRIORITY_LOW" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PRIORITY_LOW</span>
+                = 5</code><div class="description"><p class="short-description">Constant for a low priority message</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::PRIORITY_NORMAL" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PRIORITY_NORMAL</span>
+                = 3</code><div class="description"><p class="short-description">Constant for a normal priority message</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Swift_Message::$LE" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$LE</span>= '"\r\n"'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The line ending characters needed</p><small>Inherited from:
+                        <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24LE">\Swift_Message_Mime::$LE</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>"\r\n"</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24LE">\Swift_Message_Mime::$LE</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::$boundary" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$boundary</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The boundary used to separate mime parts</p><small>Inherited from:
+                        <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24boundary">\Swift_Message_Mime::$boundary</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24boundary">\Swift_Message_Mime::$boundary</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::$cache" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Swift_Cache
+                 <span class="highlight">$cache</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">An instance of Swift_Cache</p><small>Inherited from:
+                        <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24cache">\Swift_Message_Mime::$cache</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_tools_swift_Swift_Cache.html#%5CSwift_Cache">\Swift_Cache</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24cache">\Swift_Message_Mime::$cache</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::$children" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$children</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Nested mime parts</p><small>Inherited from:
+                        <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24children">\Swift_Message_Mime::$children</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24children">\Swift_Message_Mime::$children</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::$data" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$data</span>= '""'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The body of the documented (unencoded)</p>data<small>Inherited from:
+                        <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24data">\Swift_Message_Mime::$data</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>""</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24data">\Swift_Message_Mime::$data</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::$headers" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">\Swift_Message_Headers
+                 <span class="highlight">$headers</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The header part of this MIME document</p><small>Inherited from:
+                        <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24headers">\Swift_Message_Mime::$headers</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_tools_swift_Swift_Message_Headers.html#%5CSwift_Message_Headers">\Swift_Message_Headers</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24headers">\Swift_Message_Mime::$headers</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::$libVersion" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$libVersion</span>= '""'
+                </code><div class="description">
+<p class="short-description">The version of the library (Swift) if known.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>""</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::$mimeWarning" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$mimeWarning</span>= 'null'
+                </code><div class="description">
+<p class="short-description">The MIME warning for client not supporting multipart content</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::$references" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$references</span>= 'array(
+    "parent" =&gt; array("alternative" =&gt; null'
+                </code><div class="description">
+<p class="short-description">A container for references to other objects.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>This is used in some very complex logic when sub-parts get shifted around.</p>
+</div>
+<strong>Default value</strong><code>array(
+    "parent" =&gt; array("alternative" =&gt; null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::$usedBoundaries" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$usedBoundaries</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short-description">A list of used MIME boundaries after they're generated.</p><small>Inherited from:
+                        <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24usedBoundaries">\Swift_Message_Mime::$usedBoundaries</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24usedBoundaries">\Swift_Message_Mime::$usedBoundaries</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::$wrap" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">int
+                 <span class="highlight">$wrap</span>= '1000'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Maximum line length</p><small>Inherited from:
+                        <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24wrap">\Swift_Message_Mime::$wrap</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>1000</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::%24wrap">\Swift_Message_Mime::$wrap</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Swift_Message::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          string $subject
+              =
+              "", string $body
+              =
+              null, string $type
+              =
+              "text/plain", string $encoding
+              =
+              null, string $charset
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Ctor.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$subject</th>
+<td>string</td>
+<td><em><p>Message subject</p></em></td>
+</tr>
+<tr>
+<th>$body</th>
+<td>string</td>
+<td><em><p>Body</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>Content-type</p>
+</em></td>
+</tr>
+<tr>
+<th>$encoding</th>
+<td>string</td>
+<td><em><p>Encoding</p></em></td>
+</tr>
+<tr>
+<th>$charset</th>
+<td>string</td>
+<td><em><p>Charset</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::addChild()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addChild</span><span class="nb-faded-text">(
+           $mime, string $id
+              =
+              null, int $after
+              =
+              1
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Nest a child mime part in this document</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::addChild()">\Swift_Message_Mime::addChild()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$mime</th>
+<td></td>
+<td><em><p>Swift_Message_Mime</p></em></td>
+</tr>
+<tr>
+<th>$id</th>
+<td>string</td>
+<td><em><p>The identifier to use, optional</p></em></td>
+</tr>
+<tr>
+<th>$after</th>
+<td>int</td>
+<td><em><p>Add the part before (-1) or after (+1) the other parts</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>The identifier for this part</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::attach()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">attach</span><span class="nb-faded-text">(
+          <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime">\Swift_Message_Mime</a> $child, string $id
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Attach a mime part or an attachment of some sort
+Any descendant of Swift_Message_Mime can be added safely (including other Swift_Message objects for mail forwarding!!)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$child</th>
+<td><a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime">\Swift_Message_Mime</a></td>
+<td><em><p>The document to attach</p></em></td>
+</tr>
+<tr>
+<th>$id</th>
+<td>string</td>
+<td><em><p>An identifier to use (one is returned otherwise)</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>The identifier for the part</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::build()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">build</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_tools_swift_Swift_Cache_OutputStream.html#%5CSwift_Cache_OutputStream">\Swift_Cache_OutputStream</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Compile the entire MIME document into a string
+The returned string may be used in other documents if needed.</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::build()">\Swift_Message_Mime::build()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_Cache_OutputStream.html#%5CSwift_Cache_OutputStream">\Swift_Cache_OutputStream</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::buildData()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">buildData</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_tools_swift_Swift_Cache_OutputStream.html#%5CSwift_Cache_OutputStream">\Swift_Cache_OutputStream</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the data in the format suitable for sending</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::buildData()">\Swift_Message_Mime::buildData()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_Cache_OutputStream.html#%5CSwift_Cache_OutputStream">\Swift_Cache_OutputStream</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_FileException.html#%5CSwift_FileException">\Swift_FileException</a></td>
+<td><em>If the file stream given cannot be read</em></td>
+</tr>
+<tr>
+<td><a href="db_tools_swift_Swift_Message_MimeException.html#%5CSwift_Message_MimeException">\Swift_Message_MimeException</a></td>
+<td><em>If some required headers have been forcefully removed</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::detach()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">detach</span><span class="nb-faded-text">(
+          string $id
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Remove a nested MIME part</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$id</th>
+<td>string</td>
+<td><em><p>The ID of the attached part</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_Message_MimeException.html#%5CSwift_Message_MimeException">\Swift_Message_MimeException</a></td>
+<td><em>If no such part exists</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::fixContentType()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">fixContentType</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Sets the correct content type header by looking at what types of data we have set</p></div>
+<div class="code-tabs"><div class="long-description">
+</div></div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::generateBoundary()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">generateBoundary</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Compute a unique boundary</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::generateBoundary()">\Swift_Message_Mime::generateBoundary()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::generateId()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">generateId</span><span class="nb-faded-text">(
+          string $idstring
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Create a RFC 2822 compliant message id, optionally based upon $idstring.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>The message ID includes information about the current time, the server and some random characters.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$idstring</th>
+<td>string</td>
+<td><em><p>An optional string the base the ID on</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>The generated message ID, including the &lt;&gt; quotes.</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Author</dt>
+<dd>
+<a href="mailto:judas.iscariote@flyspray.org">Cristian Rodriguez</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getBcc()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBcc</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Return the list of recipients in the Bcc: header</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getBody()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBody</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          mixed</code><div class="description"><p class="short_description">Alias for getData()</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td>The document body</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getCc()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCc</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Return the list of recipients in the Cc: header</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getCharset()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCharset</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Get the charset used in the document
+Returns null if none is set</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getChild()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getChild</span><span class="nb-faded-text">(
+          string $id
+          )
+        </span>
+        :
+          <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime">\Swift_Message_Mime</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get a child document, identified by $id</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::getChild()">\Swift_Message_Mime::getChild()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$id</th>
+<td>string</td>
+<td><em><p>The identifier for this child</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime">\Swift_Message_Mime</a></td>
+<td>The child document</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_Message_MimeException.html#%5CSwift_Message_MimeException">\Swift_Message_MimeException</a></td>
+<td><em>If no such child exists</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getContentType()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getContentType</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the content type which has been set
+The MIME 1.0 Content-Type is provided as a string</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::getContentType()">\Swift_Message_Mime::getContentType()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getData()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getData</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          \string,Swift_File</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return the string which makes up the body of this MIME document</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::getData()">\Swift_Message_Mime::getData()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\string,Swift_File</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getDate()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getDate</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Get the date as it looks in the headers</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getEncoding()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getEncoding</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the encoding format used in this document</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::getEncoding()">\Swift_Message_Mime::getEncoding()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getFrom()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getFrom</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Get the address used in the From: header</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getId()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getId</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Get the generated message ID for this message, including the <> quotes.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>If generated automatically, or using generateId() this method returns a RFC2822 compliant Message-ID.</p>
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Author</dt>
+<dd>
+<a href="mailto:judas.iscariote@flyspray.org">Cristian Rodriguez</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getLE()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLE</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the line ending sequence</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::getLE()">\Swift_Message_Mime::getLE()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getLevel()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLevel</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Get the level in the MIME hierarchy at which this section should appear.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getMimeWarning()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getMimeWarning</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Get the MIME warning which is displayed to old clients</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getPriority()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getPriority</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description"><p class="short_description">Get the current message priority
+Returns NULL if none set</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getReference()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">getReference</span><span class="nb-faded-text">(
+          string $where, string $key
+          )
+        </span>
+        :
+          Object</code><div class="description"><p class="short_description">Get a reference to an object (for complex reasons).</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$where</th>
+<td>string</td>
+<td><em><p>Key 1</p></em></td>
+</tr>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Key 2</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>Object</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getReplyTo()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getReplyTo</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Return the list of recipients in the Reply-To: header</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getReturnPath()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getReturnPath</span><span class="nb-faded-text">(
+          boolean $smtp
+              =
+              false
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Return the address used in the Return-Path: header</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$smtp</th>
+<td>boolean</td>
+<td><em><p>Return the address for SMTP command</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getSubject()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getSubject</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Get the current subject used in the headers</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::getTo()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getTo</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Return the list of recipients in the To: header</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::hasChild()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">hasChild</span><span class="nb-faded-text">(
+          string $id
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Check if a child exists identified by $id</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::hasChild()">\Swift_Message_Mime::hasChild()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$id</th>
+<td>string</td>
+<td><em><p>Identifier to look for</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::isFlowed()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isFlowed</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">Check if the message format is set as flowed</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::listChildren()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">listChildren</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">List the IDs of all children in this document</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::listChildren()">\Swift_Message_Mime::listChildren()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::moveBranchIn()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">moveBranchIn</span><span class="nb-faded-text">(
+          string $type, string $nested_type, array $from, string $old_branch, string $new_branch, string $tag
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Move a branch of the tree, containing all it's MIME parts onto another branch</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>The content type on the branch itself</p></em></td>
+</tr>
+<tr>
+<th>$nested_type</th>
+<td>string</td>
+<td><em><p>The content type which may exist in the branch's parent</p>
+</em></td>
+</tr>
+<tr>
+<th>$from</th>
+<td>array</td>
+<td><em><p>The array containing all the nodes presently</p></em></td>
+</tr>
+<tr>
+<th>$old_branch</th>
+<td>string</td>
+<td><em><p>The location of the branch now</p></em></td>
+</tr>
+<tr>
+<th>$new_branch</th>
+<td>string</td>
+<td><em><p>The location of the branch after moving</p></em></td>
+</tr>
+<tr>
+<th>$tag</th>
+<td>string</td>
+<td><em><p>The key to identify the branch by in it's new location</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::moveBranchOut()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">moveBranchOut</span><span class="nb-faded-text">(
+          array $from, string $old_branch, string $new_branch, string $tag
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Move a branch further toward the top of the tree</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$from</th>
+<td>array</td>
+<td><em><p>The array containing MIME parts from the old branch</p></em></td>
+</tr>
+<tr>
+<th>$old_branch</th>
+<td>string</td>
+<td><em><p>The name of the old branch</p></em></td>
+</tr>
+<tr>
+<th>$new_branch</th>
+<td>string</td>
+<td><em><p>The name of the new branch</p></em></td>
+</tr>
+<tr>
+<th>$tag</th>
+<td>string</td>
+<td><em><p>The key of the branch being moved</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::numChildren()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">numChildren</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the total number of children present in this document</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::numChildren()">\Swift_Message_Mime::numChildren()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::postAttachFixStructure()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">postAttachFixStructure</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Analyzes the mixing of MIME types in a mulitpart message an re-arranges if needed
+It looks complicated and long winded but the concept is pretty simple, even if putting it
+in code does me make want to cry!</p></div>
+<div class="code-tabs"><div class="long-description">
+</div></div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::postDetachFixStructure()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">postDetachFixStructure</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Analyzes the mixing of MIME types in a mulitpart message an re-arranges if needed
+It looks complicated and long winded but the concept is pretty simple, even if putting it
+in code does me make want to cry!</p></div>
+<div class="code-tabs"><div class="long-description">
+</div></div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::preBuild()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">preBuild</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Execute needed logic prior to compilation</p></div>
+<div class="code-tabs"><div class="long-description">
+</div></div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::removeChild()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">removeChild</span><span class="nb-faded-text">(
+          string $id
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Remove a part from the document</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::removeChild()">\Swift_Message_Mime::removeChild()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$id</th>
+<td>string</td>
+<td><em><p>The identifier of the child</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_Message_MimeException.html#%5CSwift_Message_MimeException">\Swift_Message_MimeException</a></td>
+<td><em>If no such part exists</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::requestReadReceipt()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">requestReadReceipt</span><span class="nb-faded-text">(
+          string $request
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Request that the client send back a read-receipt (don't rely on this!)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$request</th>
+<td>string</td>
+<td><em><p>Request address</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setBcc()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setBcc</span><span class="nb-faded-text">(
+          mixed $bcc
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the list of recipients in the Bcc: header</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$bcc</th>
+<td>mixed</td>
+<td><em><p>An array or a string</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setBody()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setBody</span><span class="nb-faded-text">(
+          mixed $body
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Alias for setData()</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$body</th>
+<td>mixed</td>
+<td><em><p>Body</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setCc()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setCc</span><span class="nb-faded-text">(
+          mixed $cc
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the list of recipients in the Cc: header</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$cc</th>
+<td>mixed</td>
+<td><em><p>An array or a string</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setCharset()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setCharset</span><span class="nb-faded-text">(
+          string $charset
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the charset of the document</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$charset</th>
+<td>string</td>
+<td><em><p>The charset used</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setContentType()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setContentType</span><span class="nb-faded-text">(
+          string $type
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set the content type of this MIME document</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::setContentType()">\Swift_Message_Mime::setContentType()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>The content type to use in the same format as MIME 1.0 expects</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setData()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setData</span><span class="nb-faded-text">(
+          mixed $data
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Specify the string which makes up the body of this message
+HINT: You can always nest another MIME document here if you call it's build() method.</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::setData()">\Swift_Message_Mime::setData()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>$data can be an object of Swift_File or a string</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>mixed</td>
+<td><em><p>The body of the document</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setDate()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setDate</span><span class="nb-faded-text">(
+          int $date
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the date in the headers in RFC 2822 format</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$date</th>
+<td>int</td>
+<td><em><p>The time as a UNIX timestamp</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setEncoding()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setEncoding</span><span class="nb-faded-text">(
+          string $encoding, boolean $recursive
+              =
+              false, boolean $non_ascii
+              =
+              false
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set the encoding format to be used on the body of the document</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::setEncoding()">\Swift_Message_Mime::setEncoding()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$encoding</th>
+<td>string</td>
+<td><em><p>The encoding type used</p></em></td>
+</tr>
+<tr>
+<th>$recursive</th>
+<td>boolean</td>
+<td><em><p>If this encoding format should be used recursively. Note, this only takes effect if no encoding is set in the children.</p></em></td>
+</tr>
+<tr>
+<th>$non_ascii</th>
+<td>boolean</td>
+<td><em><p>If the encoding should only be applied when the string is not ascii.</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setFlowed()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setFlowed</span><span class="nb-faded-text">(
+          boolean $flowed
+              =
+              true
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the "format" attribute to flowed</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$flowed</th>
+<td>boolean</td>
+<td><em><p>On or Off</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setFrom()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setFrom</span><span class="nb-faded-text">(
+          string $from
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the address in the From: header</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$from</th>
+<td>string</td>
+<td><em><p>The address to set as From</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setHeaders()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setHeaders</span><span class="nb-faded-text">(
+          <a href="db_tools_swift_Swift_Message_Headers.html#%5CSwift_Message_Headers">\Swift_Message_Headers</a> $headers
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Replace the current headers with new ones
+DO NOT DO THIS UNLESS YOU KNOW WHAT YOU'RE DOING!</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::setHeaders()">\Swift_Message_Mime::setHeaders()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$headers</th>
+<td><a href="db_tools_swift_Swift_Message_Headers.html#%5CSwift_Message_Headers">\Swift_Message_Headers</a></td>
+<td><em><p>The headers to use</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setId()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setId</span><span class="nb-faded-text">(
+          string $id
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the message id literally.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Unless you know what you are doing you should be using generateId() rather than this method,
+otherwise you may break compliancy with RFC 2822.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$id</th>
+<td>string</td>
+<td><em><p>The message ID string.</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setLE()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setLE</span><span class="nb-faded-text">(
+          string $le
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set the line ending character to use</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::setLE()">\Swift_Message_Mime::setLE()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$le</th>
+<td>string</td>
+<td><em><p>The line ending sequence</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setLineWrap()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setLineWrap</span><span class="nb-faded-text">(
+          int $len
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set the size at which lines wrap around (includes the CRLF)</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::setLineWrap()">\Swift_Message_Mime::setLineWrap()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$len</th>
+<td>int</td>
+<td><em><p>The length of a line</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setMimeWarning()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setMimeWarning</span><span class="nb-faded-text">(
+           $text
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the MIME warning message which is displayed to old clients</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$text</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt></dt>
+<dd>string<br><em>The full warning message (in 7bit ascii)</em>
+</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setPriority()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setPriority</span><span class="nb-faded-text">(
+          int $priority
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the message prioirty in the mail client (don't rely on this)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$priority</th>
+<td>int</td>
+<td><em><p>The priority as a value between 1 (high) and 5 (low)</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setReference()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">setReference</span><span class="nb-faded-text">(
+          string $where, string $key, Object $ref
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Sets a reference so when nodes are nested, operations can be redirected.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>This really should be refactored to use just one array rather than dynamic variables.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$where</th>
+<td>string</td>
+<td><em><p>Key 1</p></em></td>
+</tr>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>Key 2</p></em></td>
+</tr>
+<tr>
+<th>$ref</th>
+<td>Object</td>
+<td><em><p>Reference</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setReplyTo()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setReplyTo</span><span class="nb-faded-text">(
+          mixed $replyto
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the list of recipients in the Reply-To: header</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$replyto</th>
+<td>mixed</td>
+<td><em><p>An array or a string</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setReturnPath()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setReturnPath</span><span class="nb-faded-text">(
+          string $address
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the address in the Return-Path: header</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$address</th>
+<td>string</td>
+<td><em><p>The bounce-detect address</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setSubject()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setSubject</span><span class="nb-faded-text">(
+          string $subject
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the subject in the headers</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$subject</th>
+<td>string</td>
+<td><em><p>The subject of the email</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::setTo()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setTo</span><span class="nb-faded-text">(
+          mixed $to
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the list of recipients in the To: header</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$to</th>
+<td>mixed</td>
+<td><em><p>An array or a string</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::uncacheAll()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">uncacheAll</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Reset the entire cache state from this branch of the tree and traversing down through the children</p>
+<small>Inherited from:
+                    <a href="db_tools_swift_Swift_Message_Mime.html#%5CSwift_Message_Mime::uncacheAll()">\Swift_Message_Mime::uncacheAll()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description">
+</div></div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message::wantsReadReceipt()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">wantsReadReceipt</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">Check if a read receipt has been requested for this message</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>

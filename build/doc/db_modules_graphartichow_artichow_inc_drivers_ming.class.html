@@ -1,0 +1,1392 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">modules/graphartichow/artichow/inc/drivers/ming.class.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CawMingDriver">\awMingDriver</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\awMingDriver" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\awMingDriver<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Artichow</small><p class="short-description">Draw your objects</p>
+<div class="long-description">
+</div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver">\awDriver</a></dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\awMingDriver::$antiAliasing" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">bool
+                 <span class="highlight">$antiAliasing</span>= 'FALSE'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Use anti-aliasing ?</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24antiAliasing">\awDriver::$antiAliasing</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>FALSE</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>bool</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24antiAliasing">\awDriver::$antiAliasing</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::$driverString" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$driverString</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">A string representing the type of the driver</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24driverString">\awDriver::$driverString</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24driverString">\awDriver::$driverString</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::$fileFontDriver" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\awFileFontDriver
+                 <span class="highlight">$fileFontDriver</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The FontDriver object that will be used to draw text
+with TTF or FDB fonts.</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24fileFontDriver">\awDriver::$fileFontDriver</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawFileFontDriver">\awFileFontDriver</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24fileFontDriver">\awDriver::$fileFontDriver</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::$imageHeight" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$imageHeight</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Image height</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24imageHeight">\awDriver::$imageHeight</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24imageHeight">\awDriver::$imageHeight</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::$imageWidth" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$imageWidth</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Image width</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24imageWidth">\awDriver::$imageWidth</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24imageWidth">\awDriver::$imageWidth</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::$movie" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">\$movie
+                 <span class="highlight">$movie</span>= ''
+                </code><div class="description">
+<p class="short-description">The Flash movie</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>\$movie</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::$phpFontDriver" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\awPHPFontDriver
+                 <span class="highlight">$phpFontDriver</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The FontDriver object that will be used to draw text
+with PHP fonts.</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24phpFontDriver">\awDriver::$phpFontDriver</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawPHPFontDriver">\awPHPFontDriver</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24phpFontDriver">\awDriver::$phpFontDriver</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::$x" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$x</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Driver X position</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24x">\awDriver::$x</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24x">\awDriver::$x</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::$y" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$y</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Driver Y position</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24y">\awDriver::$y</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::%24y">\awDriver::$y</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\awMingDriver::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs"></div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::arc()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">arc</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a> $color, <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $center, int $width, int $height, int $from, int $to
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Draw a color arc</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$color</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a></td>
+<td><em><p>Arc color</p></em></td>
+</tr>
+<tr>
+<th>$center</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em><p>Point center</p></em></td>
+</tr>
+<tr>
+<th>$width</th>
+<td>int</td>
+<td><em><p>Ellipse width</p></em></td>
+</tr>
+<tr>
+<th>$height</th>
+<td>int</td>
+<td><em><p>Ellipse height</p></em></td>
+</tr>
+<tr>
+<th>$from</th>
+<td>int</td>
+<td><em><p>Start angle</p></em></td>
+</tr>
+<tr>
+<th>$to</th>
+<td>int</td>
+<td><em><p>End angle</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::copyImage()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">copyImage</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_Image.class.html#%5CawImage">\awImage</a> $image, int $p1, int $p2
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Draw an image here</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$image</th>
+<td><a href="db_modules_graphartichow_artichow_Image.class.html#%5CawImage">\awImage</a></td>
+<td><em><p>Image</p></em></td>
+</tr>
+<tr>
+<th>$p1</th>
+<td>int</td>
+<td><em><p>Image top-left point</p>
+</em></td>
+</tr>
+<tr>
+<th>$p2</th>
+<td>int</td>
+<td><em><p>Image bottom-right point</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::copyResizeImage()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">copyResizeImage</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_Image.class.html#%5CawImage">\awImage</a> $image, int $d1, int $d2, int $s1, int $s2, bool $resample
+              =
+              TRUE
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Draw an image here</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$image</th>
+<td><a href="db_modules_graphartichow_artichow_Image.class.html#%5CawImage">\awImage</a></td>
+<td><em><p>Image</p></em></td>
+</tr>
+<tr>
+<th>$d1</th>
+<td>int</td>
+<td><em><p>Destination top-left position</p>
+</em></td>
+</tr>
+<tr>
+<th>$d2</th>
+<td>int</td>
+<td><em><p>Destination bottom-right position</p>
+</em></td>
+</tr>
+<tr>
+<th>$s1</th>
+<td>int</td>
+<td><em><p>Source top-left position</p>
+</em></td>
+</tr>
+<tr>
+<th>$s2</th>
+<td>int</td>
+<td><em><p>Source bottom-right position</p>
+</em></td>
+</tr>
+<tr>
+<th>$resample</th>
+<td>bool</td>
+<td><em><p>Resample image ? (default to TRUE)</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::drawImage()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">drawImage</span><span class="nb-faded-text">(
+           $image,  $return
+              =
+              FALSE,  $header
+              =
+              TRUE
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$image</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$return</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$header</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::ellipse()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">ellipse</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a> $color, <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $center, int $width, int $height
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Draw a colored ellipse</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$color</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a></td>
+<td><em><p>Ellipse color</p></em></td>
+</tr>
+<tr>
+<th>$center</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em><p>Ellipse center</p></em></td>
+</tr>
+<tr>
+<th>$width</th>
+<td>int</td>
+<td><em><p>Ellipse width</p></em></td>
+</tr>
+<tr>
+<th>$height</th>
+<td>int</td>
+<td><em><p>Ellipse height</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::filledArc()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">filledArc</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a> $color, <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $center, int $width, int $height, int $from, int $to
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Draw an arc with a background color</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$color</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a></td>
+<td><em><p>Arc background color</p></em></td>
+</tr>
+<tr>
+<th>$center</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em><p>Point center</p></em></td>
+</tr>
+<tr>
+<th>$width</th>
+<td>int</td>
+<td><em><p>Ellipse width</p></em></td>
+</tr>
+<tr>
+<th>$height</th>
+<td>int</td>
+<td><em><p>Ellipse height</p></em></td>
+</tr>
+<tr>
+<th>$from</th>
+<td>int</td>
+<td><em><p>Start angle</p></em></td>
+</tr>
+<tr>
+<th>$to</th>
+<td>int</td>
+<td><em><p>End angle</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::filledEllipse()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">filledEllipse</span><span class="nb-faded-text">(
+          mixed $background, <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $center, int $width, int $height
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Draw an ellipse with a background</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$background</th>
+<td>mixed</td>
+<td><em><p>Background (can be a color or a gradient)</p>
+</em></td>
+</tr>
+<tr>
+<th>$center</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em><p>Ellipse center</p></em></td>
+</tr>
+<tr>
+<th>$width</th>
+<td>int</td>
+<td><em><p>Ellipse width</p></em></td>
+</tr>
+<tr>
+<th>$height</th>
+<td>int</td>
+<td><em><p>Ellipse height</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::filledPolygon()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">filledPolygon</span><span class="nb-faded-text">(
+          mixed $background, \Polygon $polygon
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Draw a polygon with a background</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$background</th>
+<td>mixed</td>
+<td><em><p>Background (can be a color or a gradient)</p>
+</em></td>
+</tr>
+<tr>
+<th>$polygon</th>
+<td>\Polygon</td>
+<td><em><p>A polygon</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::filledRectangle()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">filledRectangle</span><span class="nb-faded-text">(
+          mixed $background, <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine">\awLine</a> $line
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Draw a rectangle with a background</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$background</th>
+<td>mixed</td>
+<td><em><p>Background (can be a color or a gradient)</p>
+</em></td>
+</tr>
+<tr>
+<th>$line</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine">\awLine</a></td>
+<td><em><p>Rectangle diagonale</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::get()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">get</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_Image.class.html#%5CawImage">\awImage</a> $image
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Get the image as binary data</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$image</th>
+<td><a href="db_modules_graphartichow_artichow_Image.class.html#%5CawImage">\awImage</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::getColor()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getColor</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a> $color
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">When passed a Color object, returns the corresponding
+color identifier (driver dependant).</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$color</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a></td>
+<td><em><p>A Color object</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>$rgba A color identifier representing the color composed of the given RGB components</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::getDriverString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getDriverString</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return the string representing the type of driver</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_inc_Driver.class.html#%5CawDriver::getDriverString()">\awDriver::getDriverString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::getGradient()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">getGradient</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Gradient.class.html#%5CawGradient">\awGradient</a> $gradient
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Convert an awGradient object to an SWFGradient one.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Returns an object as well as the style of the Flash gradient.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$gradient</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Gradient.class.html#%5CawGradient">\awGradient</a></td>
+<td><em><p>The awGradient object to convert</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::getSize()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getSize</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Get the size of the component handled by the driver</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>Absolute width and height of the component</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::getTextHeight()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getTextHeight</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Text.class.html#%5CawText">\awText</a> $text
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Return the height of some text</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$text</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Text.class.html#%5CawText">\awText</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::getTextWidth()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getTextWidth</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Text.class.html#%5CawText">\awText</a> $text
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Return the width of some text</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$text</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Text.class.html#%5CawText">\awText</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::init()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">init</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_Image.class.html#%5CawImage">\awImage</a> $image
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Initialize the driver for a particular awImage object</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$image</th>
+<td><a href="db_modules_graphartichow_artichow_Image.class.html#%5CawImage">\awImage</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::initFromFile()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">initFromFile</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_Image.class.html#%5CawFileImage">\awFileImage</a> $fileImage, string $file
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Initialize the Driver for a particular FileImage object</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$fileImage</th>
+<td><a href="db_modules_graphartichow_artichow_Image.class.html#%5CawFileImage">\awFileImage</a></td>
+<td><em><p>The FileImage object to work on</p></em></td>
+</tr>
+<tr>
+<th>$file</th>
+<td>string</td>
+<td><em><p>Image filename</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::isCompatibleWithFont()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">isCompatibleWithFont</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Font.class.html#%5CawFont">\awFont</a> $font
+          )
+        </span>
+        :
+          bool</code><div class="description"><p class="short_description">Returns whether or not the driver is compatible with the given font type</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$font</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Font.class.html#%5CawFont">\awFont</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::line()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">line</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a> $color, <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine">\awLine</a> $line
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Draw a colored line</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$color</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a></td>
+<td><em><p>Line color</p></em></td>
+</tr>
+<tr>
+<th>$line</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine">\awLine</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::movePosition()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">movePosition</span><span class="nb-faded-text">(
+          int $x, int $y
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Move the position of the image</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$x</th>
+<td>int</td>
+<td><em><p>Add this value to X axis</p></em></td>
+</tr>
+<tr>
+<th>$y</th>
+<td>int</td>
+<td><em><p>Add this value to Y axis</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::point()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">point</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a> $color, <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $p
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Draw a pixel</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$color</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a></td>
+<td><em><p>Pixel color</p></em></td>
+</tr>
+<tr>
+<th>$p</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::polygon()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">polygon</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a> $color, \Polygon $polygon
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Draw a polygon</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$color</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a></td>
+<td><em><p>Polygon color</p></em></td>
+</tr>
+<tr>
+<th>$polygon</th>
+<td>\Polygon</td>
+<td><em><p>A polygon</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::rectangle()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">rectangle</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a> $color, <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine">\awLine</a> $line
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Draw a colored rectangle</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$color</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a></td>
+<td><em><p>Rectangle color</p></em></td>
+</tr>
+<tr>
+<th>$line</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawLine">\awLine</a></td>
+<td><em><p>Rectangle diagonale</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::send()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">send</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_Image.class.html#%5CawImage">\awImage</a> $image
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Sends the image, as well as the correct HTTP headers, to the browser</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$image</th>
+<td><a href="db_modules_graphartichow_artichow_Image.class.html#%5CawImage">\awImage</a></td>
+<td><em><p>The Image object to send</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::setAbsPosition()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setAbsPosition</span><span class="nb-faded-text">(
+          int $x, int $y
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Inform the driver of the position of your image
+This method need absolutes values</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$x</th>
+<td>int</td>
+<td><em><p>Left-top corner X position</p>
+</em></td>
+</tr>
+<tr>
+<th>$y</th>
+<td>int</td>
+<td><em><p>Left-top corner Y position</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::setAbsSize()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setAbsSize</span><span class="nb-faded-text">(
+          int $w, int $h
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Inform the driver of the size of your image
+You can set absolute size with this method.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$w</th>
+<td>int</td>
+<td><em><p>Image width</p></em></td>
+</tr>
+<tr>
+<th>$h</th>
+<td>int</td>
+<td><em><p>Image height</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::setAntiAliasing()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setAntiAliasing</span><span class="nb-faded-text">(
+           $bool
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Turn antialiasing on or off</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$bool</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt></dt>
+<dd>bool<br><em></em>
+</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::setImageSize()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setImageSize</span><span class="nb-faded-text">(
+          int $width, int $height
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change the image size</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$width</th>
+<td>int</td>
+<td><em><p>Image width</p></em></td>
+</tr>
+<tr>
+<th>$height</th>
+<td>int</td>
+<td><em><p>Image height</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::setPosition()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setPosition</span><span class="nb-faded-text">(
+          float $x, float $y
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Inform the driver of the position of your image</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$x</th>
+<td>float</td>
+<td><em><p>Position on X axis of the center of the component</p></em></td>
+</tr>
+<tr>
+<th>$y</th>
+<td>float</td>
+<td><em><p>Position on Y axis of the center of the component</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::setSize()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setSize</span><span class="nb-faded-text">(
+          int $w, int $h
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Inform the driver of the size of your image
+Height and width must be between 0 and 1.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$w</th>
+<td>int</td>
+<td><em><p>Image width</p></em></td>
+</tr>
+<tr>
+<th>$h</th>
+<td>int</td>
+<td><em><p>Image height</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>Absolute width and height of the image</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awMingDriver::string()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">string</span><span class="nb-faded-text">(
+           $text, <a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a> $point, int $width
+              =
+              NULL
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Draw a string</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$text</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$point</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Math.class.html#%5CawPoint">\awPoint</a></td>
+<td><em><p>Draw the text at this point</p></em></td>
+</tr>
+<tr>
+<th>$width</th>
+<td>int</td>
+<td><em><p>Text max width</p></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt></dt>
+<dd>\awText<br><em>Text to print</em>
+</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>

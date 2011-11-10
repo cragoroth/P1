@@ -1,0 +1,1190 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">tools/swift/Swift/Message/Encoder.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CSwift_Message_Encoder">\Swift_Message_Encoder</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Swift Mailer Message Encoder
+Please read the LICENSE file</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description">
+</div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Author</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="mailto:chris@w3style.co.uk">Chris Corbyn</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Chris Corbyn <chris@w3style.co.uk>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://opensource.org/licenses/LGPL-3.0">GNU Lesser General Public License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Swift_Message
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Swift_Message_Encoder" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Swift_Message_Encoder<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Swift\Message</small><p class="short-description">Encodes strings in a variety of formats and detects some encoding formats</p>
+<div class="long-description">
+</div>
+<dl class="class-info">
+<dt>Author</dt>
+<dd>
+<a href="mailto:chris@w3style.co.uk">Chris Corbyn</a>
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Swift_Message_Encoder::CHEAP_ADDRESS_RE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CHEAP_ADDRESS_RE</span>
+                = '(?#Start of dot-atom
+    )[-!#\$%&amp;\'\*\+\/=\?\^_`{}\|~0-9A-Za-z]+(?:\.[-!#\$%&amp;\'\*\+\/=\?\^_`{}\|~0-9A-Za-z]+)*(?#
+    End of dot-atom)(?:@(?#Start of domain)[-0-9A-Za-z]+(?:\.[-0-9A-Za-z]+)*(?#End of domain))?'</code><div class="description"><p class="short-description">A regular expression which matches valid e-mail addresses (including some unlikely ones)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Swift_Message_Encoder::$instance" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Swift_Message_Encoder
+                 <span class="highlight">$instance</span>= 'null'
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">A singleton of this class</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_tools_swift_Swift_Message_Encoder.html#%5CSwift_Message_Encoder">\Swift_Message_Encoder</a></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Swift_Message_Encoder::QPEncode()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">QPEncode</span><span class="nb-faded-text">(
+          string $data, int $chunk
+              =
+              76, int $init_chunk
+              =
+              0, boolean $headers
+              =
+              false, string $le
+              =
+              "\r\n"
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Return the quoted printable version of the input string</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em><p>The input string to encode</p></em></td>
+</tr>
+<tr>
+<th>$chunk</th>
+<td>int</td>
+<td><em><p>The maximum length of each line of output (inc CRLF)</p>
+</em></td>
+</tr>
+<tr>
+<th>$init_chunk</th>
+<td>int</td>
+<td><em><p>The maximum length of the first line in the output (for headers)</p>
+</em></td>
+</tr>
+<tr>
+<th>$headers</th>
+<td>boolean</td>
+<td><em><p>Whether email addresses between < and > chars should be preserved or not</p>
+</em></td>
+</tr>
+<tr>
+<th>$le</th>
+<td>string</td>
+<td><em><p>The line ending</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::QPEncodeFile()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">QPEncodeFile</span><span class="nb-faded-text">(
+          <a href="db_tools_swift_Swift_File.html#%5CSwift_File">\Swift_File</a> $file, int $chunk
+              =
+              76, string $le
+              =
+              "\r\n"
+          )
+        </span>
+        :
+          <a href="db_tools_swift_Swift_Cache_OutputStream.html#%5CSwift_Cache_OutputStream">\Swift_Cache_OutputStream</a></code><div class="description"><p class="short_description">Return a file as a quoted printable encoded string</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$file</th>
+<td><a href="db_tools_swift_Swift_File.html#%5CSwift_File">\Swift_File</a></td>
+<td><em><p>The file to encode</p></em></td>
+</tr>
+<tr>
+<th>$chunk</th>
+<td>int</td>
+<td><em><p>Max line length</p></em></td>
+</tr>
+<tr>
+<th>$le</th>
+<td>string</td>
+<td><em><p>The line ending</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_Cache_OutputStream.html#%5CSwift_Cache_OutputStream">\Swift_Cache_OutputStream</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_FileException.html#%5CSwift_FileException">\Swift_FileException</a></td>
+<td><em>If the file cannot be read</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::addressChunk()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addressChunk</span><span class="nb-faded-text">(
+          string $input
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Break a string apart at every occurence of <add@ress> and return an array
+This method does NOT remove any characters like a preg_split() would do.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Elements matching an address start with "a" followed by the numeric index</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$input</th>
+<td>string</td>
+<td><em><p>The input string to separate</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::base64Encode()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">base64Encode</span><span class="nb-faded-text">(
+          string $data, int $chunk
+              =
+              76, int $init_chunk
+              =
+              0, boolean $headers
+              =
+              false, string $le
+              =
+              "\r\n"
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Return the base64 encoded version of the string</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em><p>The input string to encode</p></em></td>
+</tr>
+<tr>
+<th>$chunk</th>
+<td>int</td>
+<td><em><p>The maximum length of each line of output (inc CRLF)</p>
+</em></td>
+</tr>
+<tr>
+<th>$init_chunk</th>
+<td>int</td>
+<td><em><p>The maximum length of the first line in the output (for headers)</p>
+</em></td>
+</tr>
+<tr>
+<th>$headers</th>
+<td>boolean</td>
+<td><em><p>Whether email addresses between < and > chars should be preserved or not</p>
+</em></td>
+</tr>
+<tr>
+<th>$le</th>
+<td>string</td>
+<td><em><p>The line ending</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::base64EncodeFile()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">base64EncodeFile</span><span class="nb-faded-text">(
+          <a href="db_tools_swift_Swift_File.html#%5CSwift_File">\Swift_File</a> $file, int $chunk
+              =
+              76, string $le
+              =
+              "\r\n"
+          )
+        </span>
+        :
+          <a href="db_tools_swift_Swift_Cache_OutputStream.html#%5CSwift_Cache_OutputStream">\Swift_Cache_OutputStream</a></code><div class="description"><p class="short_description">Return the base64 encoded version of a file</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$file</th>
+<td><a href="db_tools_swift_Swift_File.html#%5CSwift_File">\Swift_File</a></td>
+<td><em><p>The file input stream</p></em></td>
+</tr>
+<tr>
+<th>$chunk</th>
+<td>int</td>
+<td><em><p>Max line length</p></em></td>
+</tr>
+<tr>
+<th>$le</th>
+<td>string</td>
+<td><em><p>The line ending</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_Cache_OutputStream.html#%5CSwift_Cache_OutputStream">\Swift_Cache_OutputStream</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_FileException.html#%5CSwift_FileException">\Swift_FileException</a></td>
+<td><em>If the file cannot be read</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::encode7Bit()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">encode7Bit</span><span class="nb-faded-text">(
+          string $data, int $chunk
+              =
+              76, string $le
+              =
+              "\r\n"
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Encode a string as 7bit ascii</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em><p>Input data to encode</p></em></td>
+</tr>
+<tr>
+<th>$chunk</th>
+<td>int</td>
+<td><em><p>Max line length</p></em></td>
+</tr>
+<tr>
+<th>$le</th>
+<td>string</td>
+<td><em><p>The line ending</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::encode7BitFile()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">encode7BitFile</span><span class="nb-faded-text">(
+          <a href="db_tools_swift_Swift_File.html#%5CSwift_File">\Swift_File</a> $file, int $chunk
+              =
+              76, string $le
+              =
+              "\r\n"
+          )
+        </span>
+        :
+          <a href="db_tools_swift_Swift_Cache_OutputStream.html#%5CSwift_Cache_OutputStream">\Swift_Cache_OutputStream</a></code><div class="description"><p class="short_description">Return a 7bit string from a file</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$file</th>
+<td><a href="db_tools_swift_Swift_File.html#%5CSwift_File">\Swift_File</a></td>
+<td><em><p>The file stream to read from</p></em></td>
+</tr>
+<tr>
+<th>$chunk</th>
+<td>int</td>
+<td><em><p>The max line length</p></em></td>
+</tr>
+<tr>
+<th>$le</th>
+<td>string</td>
+<td><em><p>The line ending</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_Cache_OutputStream.html#%5CSwift_Cache_OutputStream">\Swift_Cache_OutputStream</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_FileException.html#%5CSwift_FileException">\Swift_FileException</a></td>
+<td><em>If the file cannot be read</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::encode7BitPrintable()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">encode7BitPrintable</span><span class="nb-faded-text">(
+          string $data
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Strip out any characters which are not in the ASCII 7bit printable range</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em><p>The string to clean</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::encode8Bit()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">encode8Bit</span><span class="nb-faded-text">(
+          string $data, int $chunk
+              =
+              76, string $le
+              =
+              "\r\n"
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Return the 8bit encoded form of a string (unchanged there-abouts)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em><p>Input data to encode</p></em></td>
+</tr>
+<tr>
+<th>$chunk</th>
+<td>int</td>
+<td><em><p>Maximum line length</p></em></td>
+</tr>
+<tr>
+<th>$le</th>
+<td>string</td>
+<td><em><p>The line ending</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::encode8BitFile()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">encode8BitFile</span><span class="nb-faded-text">(
+          <a href="db_tools_swift_Swift_File.html#%5CSwift_File">\Swift_File</a> $file, int $chunk
+              =
+              76, string $le
+              =
+              "\r\n"
+          )
+        </span>
+        :
+          <a href="db_tools_swift_Swift_Cache_OutputStream.html#%5CSwift_Cache_OutputStream">\Swift_Cache_OutputStream</a></code><div class="description"><p class="short_description">Return a 8bit string from a file</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$file</th>
+<td><a href="db_tools_swift_Swift_File.html#%5CSwift_File">\Swift_File</a></td>
+<td><em><p>The file stream to read from</p></em></td>
+</tr>
+<tr>
+<th>$chunk</th>
+<td>int</td>
+<td><em><p>Max line length (including CRLF)</p>
+</em></td>
+</tr>
+<tr>
+<th>$le</th>
+<td>string</td>
+<td><em><p>The line ending</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_Cache_OutputStream.html#%5CSwift_Cache_OutputStream">\Swift_Cache_OutputStream</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_swift_Swift_FileException.html#%5CSwift_FileException">\Swift_FileException</a></td>
+<td><em>If the file cannot be read</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::fixLE()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">fixLE</span><span class="nb-faded-text">(
+          string $data,  $le
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Fixes line endings to be whatever is specified by the user
+SMTP requires the CRLF be used, but using sendmail in -t mode uses LF
+This method also escapes dots on a start of line to avoid injection</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em><p>The data to fix</p></em></td>
+</tr>
+<tr>
+<th>$le</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::getHcf()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">getHcf</span><span class="nb-faded-text">(
+           $value,  $factor
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$factor</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::header7BitEncode()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">header7BitEncode</span><span class="nb-faded-text">(
+          string $data, int $chunk
+              =
+              76, int $init_chunk
+              =
+              0, string $le
+              =
+              "\r\n"
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Keeps lines longer than 76 characters trimmed down to size
+This currently does not convert other string encodings into 7bit</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em><p>The data to make safe for headers (defaults to RFC 2822 standards)</p>
+</em></td>
+</tr>
+<tr>
+<th>$chunk</th>
+<td>int</td>
+<td><em><p>maximum length of lines returned</p></em></td>
+</tr>
+<tr>
+<th>$init_chunk</th>
+<td>int</td>
+<td><em><p>The maximum length of the first line</p></em></td>
+</tr>
+<tr>
+<th>$le</th>
+<td>string</td>
+<td><em><p>The Line ending</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::instance()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">instance</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          \Message_Encoder</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Retreive an instance of the encoder as a singleton.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>New instances are never ever needed since it's monostatic.</p>
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\Message_Encoder</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::is7BitAscii()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">is7BitAscii</span><span class="nb-faded-text">(
+          string $data
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">If the characters fall exclusively in the 7bit ascii range, return true</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em><p>Input to check</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::is7BitPrintable()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">is7BitPrintable</span><span class="nb-faded-text">(
+          string $data
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">This function checks for 7bit *printable* characters
+which excludes \r \n \t etc and so, is safe for use in mail headers
+Actual permitted chars [\ !"#\$%&'\(\)\*\+,-\.\/0123456789:;<=>\?@ABCDEFGHIJKLMNOPQRSTUVWXYZ\[\\\]\^_`abcdefghijklmnopqrstuvwxyz{\|}~]
+Ranges \x00-\x1F are printer control sequences
+\x7F is the ascii delete character</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em><p>Data to check against</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::isHeaderSafe()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isHeaderSafe</span><span class="nb-faded-text">(
+          string $data
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">Check that a string does not contain any evil characters for headers.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em><p>The string to check</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::isUTF8()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isUTF8</span><span class="nb-faded-text">(
+          string $data
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">Detect if a string contains multi-byte non-ascii chars that fall in the UTF-8 ranges</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em><p>Data to detect UTF-8 sequences in</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::quoteChunk()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">quoteChunk</span><span class="nb-faded-text">(
+          string $input
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Break a string apart at every occurence of <xxxyyy> and return an array
+This method does NOT remove any characters like a preg_split() would do.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Elements matching a quoted string start with "a" followed by the numeric index</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$input</th>
+<td>string</td>
+<td><em><p>The input string to separate</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::rawBase64Encode()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">rawBase64Encode</span><span class="nb-faded-text">(
+          \The $string
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Return the base64 encoded version of a string with no breaks</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$string</th>
+<td>\The</td>
+<td><em><p>input string to encode</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::rawQPEncode()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">rawQPEncode</span><span class="nb-faded-text">(
+          string $string, boolean $bin
+              =
+              false
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Return the QP encoded version of a string with no breaks</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$string</th>
+<td>string</td>
+<td><em><p>The input to encode</p></em></td>
+</tr>
+<tr>
+<th>$bin</th>
+<td>boolean</td>
+<td><em><p>True if the data we're encoding is binary</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Swift_Message_Encoder::rfc2047Encode()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">rfc2047Encode</span><span class="nb-faded-text">(
+          string $str, string $charset
+              =
+              "iso-8859-1", string $language
+              =
+              "en-us", int $chunk
+              =
+              76, int $le
+              =
+              "\r\n"
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Encode a string for RFC 2047 compatability (url-encode)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$str</th>
+<td>string</td>
+<td><em><p>The input for encoding</p></em></td>
+</tr>
+<tr>
+<th>$charset</th>
+<td>string</td>
+<td><em><p>The charset used</p></em></td>
+</tr>
+<tr>
+<th>$language</th>
+<td>string</td>
+<td><em><p>The language used</p></em></td>
+</tr>
+<tr>
+<th>$chunk</th>
+<td>int</td>
+<td><em><p>The maximum line length</p></em></td>
+</tr>
+<tr>
+<th>$le</th>
+<td>int</td>
+<td><em><p>The maximum length of the first line</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>

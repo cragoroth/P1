@@ -1,0 +1,1447 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">tools/pear_xml_parser/Parser/RSS1Element.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CXML_Feed_Parser_RSS1Element">\XML_Feed_Parser_RSS1Element</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">RSS1 Element class for XML_Feed_Parser</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>PHP versions 5</p>
+
+<p>LICENSE: This source file is subject to version 3.0 of the PHP license
+that is available through the world-wide-web at the following URI:
+http://www.php.net/license/3_0.txt.  If you did not receive a copy of
+the PHP License and are unable to obtain it through the web, please
+send a note to license@php.net so we can mail you a copy immediately.</p>
+</div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Author</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="mailto:james@jystewart.net">James Stewart</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">XML
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">2005 James Stewart <james@jystewart.net>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://www.gnu.org/copyleft/lesser.html">GNU LGPL 2.1</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Link</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://pear.php.net/package/XML_Feed_Parser/">http://pear.php.net/package/XML_Feed_Parser/</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">XML_Feed_Parser
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">CVS: $Id: RSS1Element.php 8706 2011-09-21 23:15:30Z bLeveque $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\XML_Feed_Parser_RSS1Element" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\XML_Feed_Parser_RSS1Element<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>XML\Feed\Parser</small><p class="short-description">RSS1 Element class for XML_Feed_Parser</p>
+<div class="long-description"><p>PHP versions 5</p>
+
+<p>LICENSE: This source file is subject to version 3.0 of the PHP license
+that is available through the world-wide-web at the following URI:
+http://www.php.net/license/3_0.txt.  If you did not receive a copy of
+the PHP License and are unable to obtain it through the web, please
+send a note to license@php.net so we can mail you a copy immediately.</p>
+</div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd>
+<a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1">\XML_Feed_Parser_RSS1</a>
+            &lt;
+            <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type" style="color: gray; font-size: 0.8em
+                ">\XML_Feed_Parser_Type</a>
+</dd>
+<dt>Author</dt>
+<dd>
+<a href="mailto:james@jystewart.net">James Stewart</a>
+         
+    </dd>
+<dt>Category</dt>
+<dd>XML
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>2005 James Stewart <james@jystewart.net>
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://www.gnu.org/copyleft/lesser.html">GNU LGPL 2.1</a>
+         
+    </dd>
+<dt>Link</dt>
+<dd>
+<a href="http://pear.php.net/package/XML_Feed_Parser/">http://pear.php.net/package/XML_Feed_Parser/</a>
+         
+    </dd>
+<dt>Version</dt>
+<dd>CVS: $Id: RSS1Element.php 8706 2011-09-21 23:15:30Z bLeveque $
+         
+    </dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\XML_Feed_Parser_RSS1Element::$compatMap" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$compatMap</span>= 'array(
+        'content' =&gt; array('content')'
+                </code><div class="description">
+<p class="short-description">Here we map some elements to their atom equivalents. This is going to be
+quite tricky to pull off effectively (and some users' methods may vary)
+but is worth trying. The key is the atom version, the value is RSS1.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array(
+        'content' =&gt; array('content')</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::$entries" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">array
+                 <span class="highlight">$entries</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Where we store our entry objects once instantiated</p><small>Inherited from:
+                        <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::%24entries">\XML_Feed_Parser_Type::$entries</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::%24entries">\XML_Feed_Parser_Type::$entries</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::$idMappings" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$idMappings</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Store mappings between entry IDs and their position in the feed</p>
+<small>Inherited from:
+                        <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::%24idMappings">\XML_Feed_Parser_Type::$idMappings</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::%24idMappings">\XML_Feed_Parser_Type::$idMappings</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::$itemClass" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$itemClass</span>= ''XML_Feed_Parser_RSS1Element''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The class used to represent individual items</p><small>Inherited from:
+                        <a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::%24itemClass">\XML_Feed_Parser_RSS1::$itemClass</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>'XML_Feed_Parser_RSS1Element'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::%24itemClass">\XML_Feed_Parser_RSS1::$itemClass</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::$itemElement" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$itemElement</span>= ''item''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The element containing entries</p><small>Inherited from:
+                        <a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::%24itemElement">\XML_Feed_Parser_RSS1::$itemElement</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>'item'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::%24itemElement">\XML_Feed_Parser_RSS1::$itemElement</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::$map" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$map</span>= 'array(
+        'id' =&gt; array('Id')'
+                </code><div class="description">
+<p class="short-description">Our specific element map</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array(
+        'id' =&gt; array('Id')</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::$model" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">\DOMDocument
+                 <span class="highlight">$model</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Where we store our DOM object for this feed</p><small>Inherited from:
+                        <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::%24model">\XML_Feed_Parser_Type::$model</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="http://php.net/manual/en/class.domdocument.php">\DOMDocument</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::%24model">\XML_Feed_Parser_Type::$model</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::$namespaces" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$namespaces</span>= 'array(
+        'rdf' =&gt; 'http://www.w3.org/1999/02/22-rdf-syntax-ns#''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">We will be working with multiple namespaces and it is useful to
+keep them together</p><small>Inherited from:
+                        <a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::%24namespaces">\XML_Feed_Parser_RSS1::$namespaces</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array(
+        'rdf' =&gt; 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::%24namespaces">\XML_Feed_Parser_RSS1::$namespaces</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::$numberEntries" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$numberEntries</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">For iteration we'll want a count of the number of entries</p><small>Inherited from:
+                        <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::%24numberEntries">\XML_Feed_Parser_Type::$numberEntries</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::%24numberEntries">\XML_Feed_Parser_Type::$numberEntries</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::$parent" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\XML_Feed_Parser_RSS1
+                 <span class="highlight">$parent</span>= ''
+                </code><div class="description">
+<p class="short-description">This will be a reference to the parent object for when we want
+to use a 'fallback' rule</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1">\XML_Feed_Parser_RSS1</a></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::$relax" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$relax</span>= ''rss10.rng''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The URI of the RelaxNG schema used to (optionally) validate the feed</p><small>Inherited from:
+                        <a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::%24relax">\XML_Feed_Parser_RSS1::$relax</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>'rss10.rng'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::%24relax">\XML_Feed_Parser_RSS1::$relax</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::$version" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
+                 <span class="highlight">$version</span>= ''RSS 1.0''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The feed type we are parsing</p><small>Inherited from:
+                        <a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::%24version">\XML_Feed_Parser_RSS1::$version</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>'RSS 1.0'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::%24version">\XML_Feed_Parser_RSS1::$version</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::$xpath" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\DOMXPath
+                 <span class="highlight">$xpath</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">We're likely to use XPath, so let's keep it global</p><small>Inherited from:
+                        <a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::%24xpath">\XML_Feed_Parser_RSS1::$xpath</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="http://php.net/manual/en/class.domxpath.php">\DOMXPath</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::%24xpath">\XML_Feed_Parser_RSS1::$xpath</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\XML_Feed_Parser_RSS1Element::__call()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__call</span><span class="nb-faded-text">(
+          string $call, array $arguments
+              =
+              array()
+          )
+        </span>
+        :
+          mixed</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Proxy to allow use of element names as method names</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::__call()">\XML_Feed_Parser_Type::__call()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>We are not going to provide methods for every entry type so this
+function will allow for a lot of mapping. We rely pretty heavily
+on this to handle our mappings between other feed types and atom.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$call</th>
+<td>string</td>
+<td><em><ul>
+<li>the method attempted</li>
+</ul>
+</em></td>
+</tr>
+<tr>
+<th>$arguments</th>
+<td>array</td>
+<td><em><ul>
+<li>arguments to that method</li>
+</ul>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          <a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a> $element, <a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1">\XML_Feed_Parser_RSS1</a> $parent,  $xmlBase
+              =
+              ''
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Store useful information for later.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$element</th>
+<td><a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></td>
+<td><em><ul>
+<li>this item as a DOM element</li>
+</ul>
+</em></td>
+</tr>
+<tr>
+<th>$parent</th>
+<td><a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1">\XML_Feed_Parser_RSS1</a></td>
+<td><em><ul>
+<li>the feed of which this is a member</li>
+</ul>
+</em></td>
+</tr>
+<tr>
+<th>$xmlBase</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::__get()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__get</span><span class="nb-faded-text">(
+          string $value
+          )
+        </span>
+        :
+          mixed</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Proxy to allow use of element names as attribute names</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::__get()">\XML_Feed_Parser_Type::__get()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>For many elements variable-style access will be desirable. This function
+provides for that.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em><ul>
+<li>the variable required</li>
+</ul>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::__toString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__toString</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return an XML serialization of the feed, should it be required. Most
+users however, will already have a serialization that they used when
+instantiating the object.</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::__toString()">\XML_Feed_Parser_Type::__toString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>XML serialization of element</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::addBase()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addBase</span><span class="nb-faded-text">(
+           $link,  $element
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Determine whether we need to apply our xml:base rules</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::addBase()">\XML_Feed_Parser_Type::addBase()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Gets us the xml:base data and then processes that with regard
+to our current link.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$link</th>
+<td></td>
+<td><em><p>string</p></em></td>
+</tr>
+<tr>
+<th>$element</th>
+<td></td>
+<td><em><p>DOMElement</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::combineBases()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">combineBases</span><span class="nb-faded-text">(
+          string $base, string $link
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Utility function to help us resolve xml:base values</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::combineBases()">\XML_Feed_Parser_Type::combineBases()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>We have other methods which will traverse the DOM and work out the different
+xml:base declarations we need to be aware of. We then need to combine them.
+If a declaration starts with a protocol then we restart the string. If it
+starts with a / then we add on to the domain name. Otherwise we simply tag
+it on to the end.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$base</th>
+<td>string</td>
+<td><em><ul>
+<li>the base to add the link to</li>
+</ul>
+</em></td>
+</tr>
+<tr>
+<th>$link</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::count()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">count</span><span class="nb-faded-text">(
+          string $type
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Count occurrences of an element</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::count()">\XML_Feed_Parser_Type::count()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>This function will tell us how many times the element $type
+appears at this level of the feed.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>the element we want to get a count of</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::getAuthor()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getAuthor</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array|false</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Employs various techniques to identify the author</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::getAuthor()">\XML_Feed_Parser_RSS1::getAuthor()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Dublin Core provides the dc:creator, dc:contributor, and dc:publisher
+elements for defining authorship in RSS1. We will try each of those in
+turn in order to simulate the atom author element and will return it
+as text.</p>
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array|false</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::getCategory()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">getCategory</span><span class="nb-faded-text">(
+          string $call, array $arguments
+          )
+        </span>
+        :
+          string|array|false</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Apply various rules to retrieve category data.</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::getCategory()">\XML_Feed_Parser_Type::getCategory()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>There is no single way of declaring a category in RSS1/1.1 as there is in RSS2
+and  Atom. Instead the usual approach is to use the dublin core namespace to
+declare  categories. For example delicious use both:
+<dc:subject>PEAR</dc:subject> and: <taxo:topics><rdf:Bag>
+<rdf:li resource="http://del.icio.us/tag/PEAR" /></rdf:Bag></taxo:topics>
+to declare a categorisation of 'PEAR'.</p>
+
+<p>We need to be sensitive to this where possible.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$call</th>
+<td>string</td>
+<td><em><p>for compatibility with our overloading</p></em></td>
+</tr>
+<tr>
+<th>$arguments</th>
+<td>array</td>
+<td><em><ul>
+<li>arg 0 is the offset, arg 1 is whether to return as array</li>
+</ul>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string|array|false</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::getContent()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">getContent</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string|false</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get content from RSS feeds (atom has its own implementation)</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::getContent()">\XML_Feed_Parser_Type::getContent()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The official way to include full content in an RSS1 entry is to use
+the content module's element 'encoded', and RSS2 feeds often duplicate that.
+Often, however, the 'description' element is used instead. We will offer that
+as a fallback. Atom uses its own approach and overrides this method.</p>
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string|false</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::getDate()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">getDate</span><span class="nb-faded-text">(
+          string $method, array $arguments
+          )
+        </span>
+        :
+          int|false</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return a date in seconds since epoch.</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::getDate()">\XML_Feed_Parser_Type::getDate()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Get a date construct. We use PHP's strtotime to return it as a unix datetime, which
+is the number of seconds since 1970-01-01 00:00:00.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$method</th>
+<td>string</td>
+<td><em><p>The name of the date construct we want</p></em></td>
+</tr>
+<tr>
+<th>$arguments</th>
+<td>array</td>
+<td><em><p>Included for compatibility with our __call usage</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int|false</td>
+<td>datetime</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Link</dt>
+<dd>
+<a href="http://php.net/strtotime">http://php.net/strtotime</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::getEnclosure()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getEnclosure</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          false</code><div class="description"><p class="short_description">How RSS1 should support for enclosures is not clear. For now we will return
+false.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>false</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::getEntryById()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getEntryById</span><span class="nb-faded-text">(
+          string $id
+          )
+        </span>
+        :
+          <a href="db_tools_pear_xml_parser_Parser_RSS1Element.html#%5CXML_Feed_Parser_RSS1Element">\XML_Feed_Parser_RSS1Element</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Allows retrieval of an entry by ID where the rdf:about attribute is used</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::getEntryById()">\XML_Feed_Parser_RSS1::getEntryById()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>This is not really something that will work with RSS1 as it does not have
+clear restrictions on the global uniqueness of IDs. We will employ the
+<em>very</em> hit and miss method of selecting entries based on the rdf:about
+attribute. If DOMXPath::evaluate is available, we also use that to store
+a reference to the entry in the array used by getEntryByOffset so that
+method does not have to seek out the entry if it's requested that way.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$id</th>
+<td>string</td>
+<td><em><p>any valid ID.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_pear_xml_parser_Parser_RSS1Element.html#%5CXML_Feed_Parser_RSS1Element">\XML_Feed_Parser_RSS1Element</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::getEntryByOffset()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getEntryByOffset</span><span class="nb-faded-text">(
+          int $offset
+          )
+        </span>
+        :
+          <a href="db_tools_pear_xml_parser_Parser_RSS1Element.html#%5CXML_Feed_Parser_RSS1Element">\XML_Feed_Parser_RSS1Element</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get an entry by its position in the feed, starting from zero</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::getEntryByOffset()">\XML_Feed_Parser_Type::getEntryByOffset()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>As well as allowing the items to be iterated over we want to allow
+users to be able to access a specific entry. This is one of two ways of
+doing that, the other being by ID.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$offset</th>
+<td>int</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_tools_pear_xml_parser_Parser_RSS1Element.html#%5CXML_Feed_Parser_RSS1Element">\XML_Feed_Parser_RSS1Element</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::getId()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getId</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string|false</code><div class="description"><p class="short_description">If an rdf:about attribute is specified, return it as an ID</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>There is no established way of showing an ID for an RSS1 entry. We will
+simulate it using the rdf:about attribute of the entry element. This cannot
+be relied upon for unique IDs but may prove useful.</p>
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string|false</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::getImage()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">getImage</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array|false</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get details of the image associated with the feed.</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::getImage()">\XML_Feed_Parser_RSS1::getImage()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array|false</td>
+<td>an array simply containing the child elements</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::getLink()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLink</span><span class="nb-faded-text">(
+           $offset
+              =
+              0,  $attribute
+              =
+              'href',  $params
+              =
+              false
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve a link</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::getLink()">\XML_Feed_Parser_RSS1::getLink()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>In RSS1 a link is a text element but in order to ensure that we resolve
+URLs properly we have a special function for them.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$offset</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$attribute</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$params</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::getSchemaDir()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getSchemaDir</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Get directory holding RNG schemas. Method is based on that
+found in Contact_AddressBook.</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::getSchemaDir()">\XML_Feed_Parser_Type::getSchemaDir()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>PEAR data directory.</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+<dt>Static</dt>
+<dd>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::getText()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">getText</span><span class="nb-faded-text">(
+          string $method, array $arguments
+              =
+              array()
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get a text construct.</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::getText()">\XML_Feed_Parser_Type::getText()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$method</th>
+<td>string</td>
+<td><em><p>The name of the text construct we want</p></em></td>
+</tr>
+<tr>
+<th>$arguments</th>
+<td>array</td>
+<td><em><p>Included for compatibility with our __call usage</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::getTextInput()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">getTextInput</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array|false</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">The textinput element is little used, but in the interests of
+completeness we will support it.</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_RSS1.html#%5CXML_Feed_Parser_RSS1::getTextInput()">\XML_Feed_Parser_RSS1::getTextInput()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array|false</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::hasKey()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">hasKey</span><span class="nb-faded-text">(
+           $name,  $offset
+              =
+              0
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Checks if this element has a particular child element.</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::hasKey()">\XML_Feed_Parser_Type::hasKey()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td></td>
+<td><em><p>String</p></em></td>
+</tr>
+<tr>
+<th>$offset</th>
+<td></td>
+<td><em><p>Integer</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::processEntitiesForNodeValue()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">processEntitiesForNodeValue</span><span class="nb-faded-text">(
+           $node
+          )
+        </span>
+        :
+          String</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Convert HTML entities based on the current character set.</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::processEntitiesForNodeValue()">\XML_Feed_Parser_Type::processEntitiesForNodeValue()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$node</th>
+<td></td>
+<td><em><p>String</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>String</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::processXHTMLAttributes()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">processXHTMLAttributes</span><span class="nb-faded-text">(
+          <a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a> $node
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Part of our xml:base processing code</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::processXHTMLAttributes()">\XML_Feed_Parser_Type::processXHTMLAttributes()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>We need a couple of methods to access XHTML content stored in feeds.
+This is because we dereference all xml:base references before returning
+the element. This method handles the attributes.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$node</th>
+<td><a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></td>
+<td><em><p>The DOM node we are iterating over</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::relaxNGValidate()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">relaxNGValidate</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::relaxNGValidate()">\XML_Feed_Parser_Type::relaxNGValidate()</a></small>
+</div>
+<div class="code-tabs"></div>
+<div class="clear"></div>
+</div>
+<a id="\XML_Feed_Parser_RSS1Element::traverseNode()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">traverseNode</span><span class="nb-faded-text">(
+          <a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a> $node
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Part of our xml:base processing code</p>
+<small>Inherited from:
+                    <a href="db_tools_pear_xml_parser_Parser_Type.html#%5CXML_Feed_Parser_Type::traverseNode()">\XML_Feed_Parser_Type::traverseNode()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>We need a couple of methods to access XHTML content stored in feeds.
+This is because we dereference all xml:base references before returning
+the element. This method recurs through the tree descending from the node
+and builds our string.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$node</th>
+<td><a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></td>
+<td><em><p>The DOM node we are processing</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>

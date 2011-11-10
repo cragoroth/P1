@@ -1,0 +1,1862 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">modules/mondialrelay/lib/nusoap/class.soap_val.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5Csoapval">\soapval</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">For creating serializable abstractions of native PHP types.  This class
+allows element name/namespace, XSD type, and XML attributes to be
+associated with a value.  This is extremely useful when WSDL is not
+used, but is also useful when WSDL is used with polymorphic types, including
+xsd:anyType and user-defined types.</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description">
+</div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Access</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">public
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Author</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="mailto:dietrich@ganx4.com">Dietrich Ayala</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: class.soap_val.php 6626 2011-05-24 09:44:48Z aFolletete $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\soapval" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\soapval<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Default</small><p class="short-description">For creating serializable abstractions of native PHP types.  This class
+allows element name/namespace, XSD type, and XML attributes to be
+associated with a value.  This is extremely useful when WSDL is not
+used, but is also useful when WSDL is used with polymorphic types, including
+xsd:anyType and user-defined types.</p>
+<div class="long-description">
+</div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_modules_mondialrelay_lib_nusoap_class.nusoap_base.html#%5Cnusoap_base">\nusoap_base</a></dd>
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+<dt>Author</dt>
+<dd>
+<a href="mailto:dietrich@ganx4.com">Dietrich Ayala</a>
+         
+    </dd>
+<dt>Version</dt>
+<dd>$Id: class.soap_val.php 6626 2011-05-24 09:44:48Z aFolletete $
+         
+    </dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\soapval::$XMLSchemaVersion" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
+                 <span class="highlight">$XMLSchemaVersion</span>= ''http://www.w3.org/2001/XMLSchema''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">set schema version</p><small>Inherited from:
+                        <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24XMLSchemaVersion">\nusoap_base::$XMLSchemaVersion</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>'http://www.w3.org/2001/XMLSchema'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24XMLSchemaVersion">\nusoap_base::$XMLSchemaVersion</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$attributes" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">mixed
+                 <span class="highlight">$attributes</span>= ''
+                </code><div class="description">
+<p class="short-description">The XML element attributes (array or false)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>mixed</dd>
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$charencoding" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">boolean
+                 <span class="highlight">$charencoding</span>= 'true'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">toggles automatic encoding of special characters as entities
+(should always be true, I think)</p><small>Inherited from:
+                        <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24charencoding">\nusoap_base::$charencoding</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>true</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>boolean</dd>
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24charencoding">\nusoap_base::$charencoding</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$debugLevel" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">integer
+                 <span class="highlight">$debugLevel</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">the debug level for this instance</p><small>Inherited from:
+                        <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24debugLevel">\nusoap_base::$debugLevel</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24debugLevel">\nusoap_base::$debugLevel</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$debug_str" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
+                 <span class="highlight">$debug_str</span>= ''''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Current debug string (manipulated by debug/appendDebug/clearDebug/getDebug/getDebugAsXMLComment)</p><small>Inherited from:
+                        <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24debug_str">\nusoap_base::$debug_str</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>''</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24debug_str">\nusoap_base::$debug_str</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$element_ns" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">mixed
+                 <span class="highlight">$element_ns</span>= ''
+                </code><div class="description">
+<p class="short-description">The XML element namespace (string or false)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>mixed</dd>
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$error_str" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
+                 <span class="highlight">$error_str</span>= ''''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Current error string (manipulated by getError/setError)</p><small>Inherited from:
+                        <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24error_str">\nusoap_base::$error_str</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>''</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24error_str">\nusoap_base::$error_str</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$name" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
+                 <span class="highlight">$name</span>= ''
+                </code><div class="description">
+<p class="short-description">The XML element name</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$namespaces" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">array
+                 <span class="highlight">$namespaces</span>= 'array(
+		'SOAP-ENV' =&gt; 'http://schemas.xmlsoap.org/soap/envelope/''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">namespaces in an array of prefix =&gt; uri</p><small>Inherited from:
+                        <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24namespaces">\nusoap_base::$namespaces</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>this is "seeded" by a set of constants, but it may be altered by code</p>
+</div>
+<strong>Default value</strong><code>array(
+		'SOAP-ENV' =&gt; 'http://schemas.xmlsoap.org/soap/envelope/'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24namespaces">\nusoap_base::$namespaces</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$revision" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
+                 <span class="highlight">$revision</span>= ''$Revision: 7541 $''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">CVS revision for HTTP headers.</p><small>Inherited from:
+                        <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24revision">\nusoap_base::$revision</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>'$Revision: 7541 $'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24revision">\nusoap_base::$revision</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$soap_defencoding" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
+                 <span class="highlight">$soap_defencoding</span>= ''ISO-8859-1''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">charset encoding for outgoing messages</p><small>Inherited from:
+                        <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24soap_defencoding">\nusoap_base::$soap_defencoding</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>'ISO-8859-1'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24soap_defencoding">\nusoap_base::$soap_defencoding</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$title" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
+                 <span class="highlight">$title</span>= ''NuSOAP''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Identification for HTTP headers.</p><small>Inherited from:
+                        <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24title">\nusoap_base::$title</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>'NuSOAP'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24title">\nusoap_base::$title</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$type" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">mixed
+                 <span class="highlight">$type</span>= ''
+                </code><div class="description">
+<p class="short-description">The XML type name (string or false)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>mixed</dd>
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$type_ns" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">mixed
+                 <span class="highlight">$type_ns</span>= ''
+                </code><div class="description">
+<p class="short-description">The XML type namespace (string or false)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>mixed</dd>
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$typemap" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">array
+                 <span class="highlight">$typemap</span>= 'array(
+	'http://www.w3.org/2001/XMLSchema' =&gt; array(
+		'string'=&gt;'string''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">XML Schema types in an array of uri =&gt; (array of xml type =&gt; php type)
+is this legacy yet?
+no, this is used by the nusoap_xmlschema class to verify type =&gt; namespace mappings.</p><small>Inherited from:
+                        <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24typemap">\nusoap_base::$typemap</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array(
+	'http://www.w3.org/2001/XMLSchema' =&gt; array(
+		'string'=&gt;'string'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24typemap">\nusoap_base::$typemap</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$usedNamespaces" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">array
+                 <span class="highlight">$usedNamespaces</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">namespaces used in the current context, e.g. during serialization</p><small>Inherited from:
+                        <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24usedNamespaces">\nusoap_base::$usedNamespaces</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24usedNamespaces">\nusoap_base::$usedNamespaces</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$value" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">mixed
+                 <span class="highlight">$value</span>= ''
+                </code><div class="description">
+<p class="short-description">The PHP value</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>mixed</dd>
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$version" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
+                 <span class="highlight">$version</span>= ''0.9.5''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Version for HTTP headers.</p><small>Inherited from:
+                        <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24version">\nusoap_base::$version</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>'0.9.5'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24version">\nusoap_base::$version</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::$xmlEntities" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">array
+                 <span class="highlight">$xmlEntities</span>= 'array('quot' =&gt; '"''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">XML entities to convert</p><small>Inherited from:
+                        <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24xmlEntities">\nusoap_base::$xmlEntities</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array('quot' =&gt; '"'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+<dt>Deprecated</dt>
+<dd>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::%24xmlEntities">\nusoap_base::$xmlEntities</a>
+         
+    </dd>
+<dt>See</dt>
+<dd>\expandEntities
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\soapval::__toString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__toString</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">represents the object as a string</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::__toString()">\nusoap_base::__toString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::appendDebug()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">appendDebug</span><span class="nb-faded-text">(
+          string $string
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">adds debug data to the instance debug string without formatting</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::appendDebug()">\nusoap_base::appendDebug()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$string</th>
+<td>string</td>
+<td><em><p>debug data</p></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::clearDebug()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">clearDebug</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">clears the current debug data for this instance</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::clearDebug()">\nusoap_base::clearDebug()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::contractQname()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">contractQname</span><span class="nb-faded-text">(
+          string $qname
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">contracts (changes namespace to prefix) a qualified name</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::contractQname()">\nusoap_base::contractQname()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$qname</th>
+<td>string</td>
+<td><em><p>qname</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>contracted qname</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::debug()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">debug</span><span class="nb-faded-text">(
+          string $string
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">adds debug data to the instance debug string with formatting</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::debug()">\nusoap_base::debug()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$string</th>
+<td>string</td>
+<td><em><p>debug data</p></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::decode()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">decode</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          mixed</code><div class="description"><p class="short_description">decodes a soapval object into a PHP native type</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::expandEntities()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">expandEntities</span><span class="nb-faded-text">(
+          string $val
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">expands entities, e.g. changes '<' to '&lt;'.</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::expandEntities()">\nusoap_base::expandEntities()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$val</th>
+<td>string</td>
+<td><em><p>The string in which to expand entities.</p></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::expandQname()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">expandQname</span><span class="nb-faded-text">(
+          string $qname
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">expands (changes prefix to namespace) a qualified name</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::expandQname()">\nusoap_base::expandQname()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$qname</th>
+<td>string</td>
+<td><em><p>qname</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>expanded qname</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::formatDump()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">formatDump</span><span class="nb-faded-text">(
+          string $str
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">formats a string to be inserted into an HTML stream</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::formatDump()">\nusoap_base::formatDump()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$str</th>
+<td>string</td>
+<td><em><p>The string to format</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>The formatted string</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+<dt>Deprecated</dt>
+<dd>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::getDebug()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getDebug</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          \debug</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">gets the current debug data for this instance</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::getDebug()">\nusoap_base::getDebug()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\debug</td>
+<td>data</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::getDebugAsXMLComment()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getDebugAsXMLComment</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          \debug</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">gets the current debug data for this instance as an XML comment
+this may change the contents of the debug data</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::getDebugAsXMLComment()">\nusoap_base::getDebugAsXMLComment()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\debug</td>
+<td>data as an XML comment</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::getDebugLevel()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getDebugLevel</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">gets the debug level for this instance</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::getDebugLevel()">\nusoap_base::getDebugLevel()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td>Debug level 0-9, where 0 turns off</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::getError()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getError</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          mixed</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">returns error string if present</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::getError()">\nusoap_base::getError()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td>error string or false</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::getGlobalDebugLevel()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getGlobalDebugLevel</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">gets the global debug level, which applies to future instances</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::getGlobalDebugLevel()">\nusoap_base::getGlobalDebugLevel()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td>Debug level 0-9, where 0 turns off</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::getLocalPart()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLocalPart</span><span class="nb-faded-text">(
+          string $str
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">returns the local part of a prefixed string
+returns the original string, if not prefixed</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::getLocalPart()">\nusoap_base::getLocalPart()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$str</th>
+<td>string</td>
+<td><em><p>The prefixed string</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>The local part</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::getNamespaceFromPrefix()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getNamespaceFromPrefix</span><span class="nb-faded-text">(
+          string $prefix
+          )
+        </span>
+        :
+          mixed</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">pass it a prefix, it returns a namespace</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::getNamespaceFromPrefix()">\nusoap_base::getNamespaceFromPrefix()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$prefix</th>
+<td>string</td>
+<td><em><p>The prefix</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td>The namespace, false if no namespace has the specified prefix</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::getPrefix()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getPrefix</span><span class="nb-faded-text">(
+          string $str
+          )
+        </span>
+        :
+          mixed</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">returns the prefix part of a prefixed string
+returns false, if not prefixed</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::getPrefix()">\nusoap_base::getPrefix()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$str</th>
+<td>string</td>
+<td><em><p>The prefixed string</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td>The prefix or false if there is no prefix</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::getPrefixFromNamespace()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getPrefixFromNamespace</span><span class="nb-faded-text">(
+          string $ns
+          )
+        </span>
+        :
+          mixed</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">returns the prefix for a given namespace (or prefix)
+or false if no prefixes registered for the given namespace</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::getPrefixFromNamespace()">\nusoap_base::getPrefixFromNamespace()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$ns</th>
+<td>string</td>
+<td><em><p>The namespace</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td>The prefix, false if the namespace has no prefixes</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::getmicrotime()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getmicrotime</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">returns the time in ODBC canonical form with microseconds</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::getmicrotime()">\nusoap_base::getmicrotime()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>The time in ODBC canonical form with microseconds</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::isArraySimpleOrStruct()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isArraySimpleOrStruct</span><span class="nb-faded-text">(
+          mixed $val
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">detect if array is a simple array or a struct (associative array)</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::isArraySimpleOrStruct()">\nusoap_base::isArraySimpleOrStruct()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$val</th>
+<td>mixed</td>
+<td><em><p>The PHP array</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>(arraySimple|arrayStruct)</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::nusoap_base()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">nusoap_base</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">constructor</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::nusoap_base()">\nusoap_base::nusoap_base()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::serialize()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">serialize</span><span class="nb-faded-text">(
+          string $use
+              =
+              'encoded'
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">return serialized value</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$use</th>
+<td>string</td>
+<td><em><p>The WSDL use value (encoded|literal)</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>XML data</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::serializeEnvelope()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">serializeEnvelope</span><span class="nb-faded-text">(
+          string $body, mixed $headers
+              =
+              false, array $namespaces
+              =
+              array(), string $style
+              =
+              'rpc', string $use
+              =
+              'encoded', string $encodingStyle
+              =
+              'http://schemas.xmlsoap.org/soap/encoding/'
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">serializes a message</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::serializeEnvelope()">\nusoap_base::serializeEnvelope()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$body</th>
+<td>string</td>
+<td><em><p>the XML of the SOAP body</p></em></td>
+</tr>
+<tr>
+<th>$headers</th>
+<td>mixed</td>
+<td><em><p>optional string of XML with SOAP header content, or array of soapval objects for SOAP headers, or associative array</p></em></td>
+</tr>
+<tr>
+<th>$namespaces</th>
+<td>array</td>
+<td><em><p>optional the namespaces used in generating the body and headers</p></em></td>
+</tr>
+<tr>
+<th>$style</th>
+<td>string</td>
+<td><em><p>optional (rpc|document)</p>
+</em></td>
+</tr>
+<tr>
+<th>$use</th>
+<td>string</td>
+<td><em><p>optional (encoded|literal)</p>
+</em></td>
+</tr>
+<tr>
+<th>$encodingStyle</th>
+<td>string</td>
+<td><em><p>optional (usually 'http://schemas.xmlsoap.org/soap/encoding/' for encoded)</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>the message</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::serialize_val()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">serialize_val</span><span class="nb-faded-text">(
+          mixed $val, string $name
+              =
+              false, string $type
+              =
+              false, string $name_ns
+              =
+              false, string $type_ns
+              =
+              false, array $attributes
+              =
+              false, string $use
+              =
+              'encoded', boolean $soapval
+              =
+              false
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">serializes PHP values in accordance w/ section 5. Type information is
+not serialized if $use == 'literal'.</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::serialize_val()">\nusoap_base::serialize_val()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$val</th>
+<td>mixed</td>
+<td><em><p>The value to serialize</p></em></td>
+</tr>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em><p>The name (local part) of the XML element</p>
+</em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>The XML schema type (local part) for the element</p>
+</em></td>
+</tr>
+<tr>
+<th>$name_ns</th>
+<td>string</td>
+<td><em><p>The namespace for the name of the XML element</p></em></td>
+</tr>
+<tr>
+<th>$type_ns</th>
+<td>string</td>
+<td><em><p>The namespace for the type of the element</p></em></td>
+</tr>
+<tr>
+<th>$attributes</th>
+<td>array</td>
+<td><em><p>The attributes to serialize as name=>value pairs</p>
+</em></td>
+</tr>
+<tr>
+<th>$use</th>
+<td>string</td>
+<td><em><p>The WSDL "use" (encoded|literal)</p>
+</em></td>
+</tr>
+<tr>
+<th>$soapval</th>
+<td>boolean</td>
+<td><em><p>Whether this is called from soapval.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>The serialized element, possibly with child elements</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::setDebugLevel()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setDebugLevel</span><span class="nb-faded-text">(
+          int $level
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">sets the debug level for this instance</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::setDebugLevel()">\nusoap_base::setDebugLevel()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$level</th>
+<td>int</td>
+<td><em><p>Debug level 0-9, where 0 turns off</p>
+</em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::setError()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setError</span><span class="nb-faded-text">(
+           $str
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">sets error string</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::setError()">\nusoap_base::setError()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$str</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td>$string error string</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::setGlobalDebugLevel()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setGlobalDebugLevel</span><span class="nb-faded-text">(
+          int $level
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">sets the global debug level, which applies to future instances</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::setGlobalDebugLevel()">\nusoap_base::setGlobalDebugLevel()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$level</th>
+<td>int</td>
+<td><em><p>Debug level 0-9, where 0 turns off</p>
+</em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::soapval()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">soapval</span><span class="nb-faded-text">(
+          string $name
+              =
+              'soapval', mixed $type
+              =
+              false, mixed $value
+              =
+              -1, mixed $element_ns
+              =
+              false, mixed $type_ns
+              =
+              false, mixed $attributes
+              =
+              false
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">constructor</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em><p>optional name</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>mixed</td>
+<td><em><p>optional type name</p></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em><p>optional value</p></em></td>
+</tr>
+<tr>
+<th>$element_ns</th>
+<td>mixed</td>
+<td><em><p>optional namespace of value</p></em></td>
+</tr>
+<tr>
+<th>$type_ns</th>
+<td>mixed</td>
+<td><em><p>optional namespace of type</p></em></td>
+</tr>
+<tr>
+<th>$attributes</th>
+<td>mixed</td>
+<td><em><p>associative array of attributes to add to element serialization</p></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\soapval::varDump()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">varDump</span><span class="nb-faded-text">(
+          mixed $data
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns a string with the output of var_dump</p>
+<small>Inherited from:
+                    <a href="db_modules_mondialrelay_lib_nusoap_nusoap.html#%5Cnusoap_base::varDump()">\nusoap_base::varDump()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>mixed</td>
+<td><em><p>The variable to var_dump</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>The output of var_dump</td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>public
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>

@@ -1,0 +1,1890 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">modules/graphartichow/artichow/Pie.class.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul>
+<li><a href="#%5CawPie">\awPie</a></li>
+<li><a href="#%5CawPiePart">\awPiePart</a></li>
+</ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><a name="functions" class="anchor"></a><h2>Functions</h2>
+<div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::callbackPerCent()" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="function ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/function.png" alt="function"><span class="highlight">callbackPerCent</span><span class="nb-faded-text">(
+           $value
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\awPie" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\awPie<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Artichow</small><p class="short-description">Pie</p>
+<div class="long-description">
+</div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent">\awComponent</a></dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\awPie::DARK" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant">int 
+                <span class="highlight">DARK</span>
+                = 1</code><div class="description"><p class="short-description">A dark theme for pies</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info">
+<dt></dt>
+<dd>int<br><em></em>
+</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::COLORED" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant">int 
+                <span class="highlight">COLORED</span>
+                = 2</code><div class="description"><p class="short-description">A colored theme for pies</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info">
+<dt></dt>
+<dd>int<br><em></em>
+</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::AQUA" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant">int 
+                <span class="highlight">AQUA</span>
+                = 3</code><div class="description"><p class="short-description">A water theme for pies</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info">
+<dt></dt>
+<dd>int<br><em></em>
+</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::EARTH" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant">int 
+                <span class="highlight">EARTH</span>
+                = 4</code><div class="description"><p class="short-description">A earth theme for pies</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info">
+<dt></dt>
+<dd>int<br><em></em>
+</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\awPie::$angle" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">int
+                 <span class="highlight">$angle</span>= '0'
+                </code><div class="description">
+<p class="short-description">Initial angle</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>0</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$auto" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">bool
+                 <span class="highlight">$auto</span>= 'TRUE'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Adjust automatically the component ?</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24auto">\awComponent::$auto</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>TRUE</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>bool</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24auto">\awComponent::$auto</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$background" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Color
+                 <span class="highlight">$background</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Component background color</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24background">\awComponent::$background</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>\Color</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24background">\awComponent::$background</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$border" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Color
+                 <span class="highlight">$border</span>= ''
+                </code><div class="description">
+<p class="short-description">Border color</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>\Color</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$colors" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$colors</span>= ''
+                </code><div class="description">
+<p class="short-description">Pie colors</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$driver" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Driver
+                 <span class="highlight">$driver</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Component driver</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24driver">\awComponent::$driver</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>\Driver</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24driver">\awComponent::$driver</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$explode" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$explode</span>= 'array()'
+                </code><div class="description">
+<p class="short-description">Pie explode</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$h" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$h</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Component absolute height (in pixels)</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24h">\awComponent::$h</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24h">\awComponent::$h</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$height" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">float
+                 <span class="highlight">$height</span>= '1.0'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Component height</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24height">\awComponent::$height</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>1.0</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>float</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24height">\awComponent::$height</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$label" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">\Label
+                 <span class="highlight">$label</span>= ''
+                </code><div class="description">
+<p class="short-description">Labels of your pie</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>\Label</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$left" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">float
+                 <span class="highlight">$left</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Left-top corner X position</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24left">\awComponent::$left</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>float</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24left">\awComponent::$left</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$legend" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">\Legend
+                 <span class="highlight">$legend</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Legend</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24legend">\awComponent::$legend</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>\Legend</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24legend">\awComponent::$legend</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$legendValues" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$legendValues</span>= 'array()'
+                </code><div class="description">
+<p class="short-description">Pie legend</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$minimum" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">int
+                 <span class="highlight">$minimum</span>= ''
+                </code><div class="description">
+<p class="short-description">Labels minimum</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$number" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">int
+                 <span class="highlight">$number</span>= ''
+                </code><div class="description">
+<p class="short-description">Labels number</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$padding" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Side
+                 <span class="highlight">$padding</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Component padding</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24padding">\awComponent::$padding</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>\Side</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24padding">\awComponent::$padding</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$position" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">int
+                 <span class="highlight">$position</span>= '15'
+                </code><div class="description">
+<p class="short-description">Labels position</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>15</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$precision" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">int
+                 <span class="highlight">$precision</span>= ''
+                </code><div class="description">
+<p class="short-description">Labels precision</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$size" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">int
+                 <span class="highlight">$size</span>= ''
+                </code><div class="description">
+<p class="short-description">Intensity of the 3D effect</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$space" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Side
+                 <span class="highlight">$space</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Component space</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24space">\awComponent::$space</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>\Side</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24space">\awComponent::$space</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$title" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">\Label
+                 <span class="highlight">$title</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Component title</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24title">\awComponent::$title</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>\Label</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24title">\awComponent::$title</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$top" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">float
+                 <span class="highlight">$top</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Left-top corner Y position</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24top">\awComponent::$top</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>float</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24top">\awComponent::$top</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$values" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$values</span>= ''
+                </code><div class="description">
+<p class="short-description">Pie values</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$w" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">int
+                 <span class="highlight">$w</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Component absolute width (in pixels)</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24w">\awComponent::$w</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24w">\awComponent::$w</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$width" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">float
+                 <span class="highlight">$width</span>= '1.0'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Component width</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24width">\awComponent::$width</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>1.0</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>float</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24width">\awComponent::$width</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$x" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">float
+                 <span class="highlight">$x</span>= '0.5'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Position X of the center the graph (from 0 to 1)</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24x">\awComponent::$x</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>0.5</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>float</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24x">\awComponent::$x</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::$y" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">float
+                 <span class="highlight">$y</span>= '0.5'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Position Y of the center the graph (from 0 to 1)</p><small>Inherited from:
+                        <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24y">\awComponent::$y</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>0.5</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>float</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::%24y">\awComponent::$y</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\awPie::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          array $values,  $colors
+              =
+              awPie::COLORED
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Build the plot</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$values</th>
+<td>array</td>
+<td><em><p>Pie values</p></em></td>
+</tr>
+<tr>
+<th>$colors</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::auto()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">auto</span><span class="nb-faded-text">(
+          bool $auto
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Adjust automatically the component ?</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::auto()">\awComponent::auto()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$auto</th>
+<td>bool</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::checkArray()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">checkArray</span><span class="nb-faded-text">(
+           $array
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$array</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::drawComponent()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">drawComponent</span><span class="nb-faded-text">(
+          \Driver $driver, int $x1, int $y1, int $x2, int $y2, bool $aliasing
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Draw the component on the graph
+Component should be drawed into specified coords</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$driver</th>
+<td>\Driver</td>
+<td><em><p>A driver</p></em></td>
+</tr>
+<tr>
+<th>$x1</th>
+<td>int</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$y1</th>
+<td>int</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$x2</th>
+<td>int</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$y2</th>
+<td>int</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$aliasing</th>
+<td>bool</td>
+<td><em><p>Use anti-aliasing to draw the component ?</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::drawEnvelope()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">drawEnvelope</span><span class="nb-faded-text">(
+          \Driver $driver
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Draw the grid around your component</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$driver</th>
+<td>\Driver</td>
+<td><em><p>A driver</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>Coords for the component</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::explode()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">explode</span><span class="nb-faded-text">(
+          array $explode
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change Pie explode</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$explode</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::finalize()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">finalize</span><span class="nb-faded-text">(
+           $driver
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Finalize the drawing of the component</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::finalize()">\awComponent::finalize()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$driver</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::getBackground()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBackground</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          \Color,</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return the component background</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::getBackground()">\awComponent::getBackground()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\Color,</td>
+<td>Gradient</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::getMargin()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getMargin</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Return margins around the component</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>Left, right, top and bottom margins</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::getPosition()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getPosition</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get component coords with its padding</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::getPosition()">\awComponent::getPosition()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>Coords of the component</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::getSpace()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">getSpace</span><span class="nb-faded-text">(
+          int $width, int $height
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get space width in pixels</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::getSpace()">\awComponent::getSpace()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$width</th>
+<td>int</td>
+<td><em><p>Component width</p></em></td>
+</tr>
+<tr>
+<th>$height</th>
+<td>int</td>
+<td><em><p>Component height</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::getValues()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getValues</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Return values of Y axis</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::init()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">init</span><span class="nb-faded-text">(
+           $driver
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Init the drawing of the component</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::init()">\awComponent::init()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$driver</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::set3D()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">set3D</span><span class="nb-faded-text">(
+          int $size
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change 3D effect intensity</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$size</th>
+<td>int</td>
+<td><em><p>Effect size</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setAbsPosition()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setAbsPosition</span><span class="nb-faded-text">(
+           $left,  $top
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change the absolute position of the component on the graph</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::setAbsPosition()">\awComponent::setAbsPosition()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$left</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$top</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt></dt>
+<dd>int<br><em>Left-top corner X position</em>
+</dd>
+<dt></dt>
+<dd>int<br><em>Left-top corner Y position</em>
+</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setAbsSize()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setAbsSize</span><span class="nb-faded-text">(
+          int $w, int $h
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change the absolute size of the component</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::setAbsSize()">\awComponent::setAbsSize()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$w</th>
+<td>int</td>
+<td><em><p>Component width (in pixels)</p>
+</em></td>
+</tr>
+<tr>
+<th>$h</th>
+<td>int</td>
+<td><em><p>Component height (in pixels)</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setBackgroundColor()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setBackgroundColor</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a> $color
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change component background color</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::setBackgroundColor()">\awComponent::setBackgroundColor()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$color</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a></td>
+<td><em><p>(can be null)</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setBackgroundGradient()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setBackgroundGradient</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Gradient.class.html#%5CawGradient">\awGradient</a> $gradient
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change component background gradient</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::setBackgroundGradient()">\awComponent::setBackgroundGradient()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$gradient</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Gradient.class.html#%5CawGradient">\awGradient</a></td>
+<td><em><p>(can be null)</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setBackgroundImage()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setBackgroundImage</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_Image.class.html#%5CawImage">\awImage</a> $image
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change component background image</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::setBackgroundImage()">\awComponent::setBackgroundImage()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$image</th>
+<td><a href="db_modules_graphartichow_artichow_Image.class.html#%5CawImage">\awImage</a></td>
+<td><em><p>(can be null)</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setBorder()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setBorder</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a> $color
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set a border all around the pie</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$color</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a></td>
+<td><em><p>A color for the border</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setBorderColor()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setBorderColor</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a> $color
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set a border all around the pie</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$color</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a></td>
+<td><em><p>A color for the border</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setCenter()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setCenter</span><span class="nb-faded-text">(
+          int $x, int $y
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set the center of the component</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::setCenter()">\awComponent::setCenter()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$x</th>
+<td>int</td>
+<td><em><p>Position X of the center of the component</p></em></td>
+</tr>
+<tr>
+<th>$y</th>
+<td>int</td>
+<td><em><p>Position Y of the center of the component</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setLabelMinimum()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setLabelMinimum</span><span class="nb-faded-text">(
+          int $minimum
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change label minimum</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$minimum</th>
+<td>int</td>
+<td><em><p>New minimum</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setLabelNumber()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setLabelNumber</span><span class="nb-faded-text">(
+          int $number
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change label number</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$number</th>
+<td>int</td>
+<td><em><p>New number</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setLabelPosition()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setLabelPosition</span><span class="nb-faded-text">(
+          int $position
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change label position</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$position</th>
+<td>int</td>
+<td><em><p>New position in pixels</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setLabelPrecision()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setLabelPrecision</span><span class="nb-faded-text">(
+          int $precision
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change label precision</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$precision</th>
+<td>int</td>
+<td><em><p>New precision</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setLegend()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setLegend</span><span class="nb-faded-text">(
+          array $legend
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change legend values</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$legend</th>
+<td>array</td>
+<td><em><p>An array of values for each part of the pie</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setPadding()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setPadding</span><span class="nb-faded-text">(
+          int $left
+              =
+              NULL, int $right
+              =
+              NULL, int $top
+              =
+              NULL, int $bottom
+              =
+              NULL
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change component padding</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::setPadding()">\awComponent::setPadding()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$left</th>
+<td>int</td>
+<td><em><p>Padding in pixels (NULL to keep old value)</p>
+</em></td>
+</tr>
+<tr>
+<th>$right</th>
+<td>int</td>
+<td><em><p>Padding in pixels (NULL to keep old value)</p>
+</em></td>
+</tr>
+<tr>
+<th>$top</th>
+<td>int</td>
+<td><em><p>Padding in pixels (NULL to keep old value)</p>
+</em></td>
+</tr>
+<tr>
+<th>$bottom</th>
+<td>int</td>
+<td><em><p>Padding in pixels (NULL to keep old value)</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setSize()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setSize</span><span class="nb-faded-text">(
+          int $width, int $height
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change the size of the component</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::setSize()">\awComponent::setSize()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$width</th>
+<td>int</td>
+<td><em><p>Component width (from 0 to 1)</p>
+</em></td>
+</tr>
+<tr>
+<th>$height</th>
+<td>int</td>
+<td><em><p>Component height (from 0 to 1)</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setSpace()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setSpace</span><span class="nb-faded-text">(
+          float $left
+              =
+              NULL, float $right
+              =
+              NULL, float $bottom
+              =
+              NULL, float $top
+              =
+              NULL
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Change component space</p>
+<small>Inherited from:
+                    <a href="db_modules_graphartichow_artichow_Component.class.html#%5CawComponent::setSpace()">\awComponent::setSpace()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$left</th>
+<td>float</td>
+<td><em><p>Space in % (NULL to keep old value)</p>
+</em></td>
+</tr>
+<tr>
+<th>$right</th>
+<td>float</td>
+<td><em><p>Space in % (NULL to keep old value)</p>
+</em></td>
+</tr>
+<tr>
+<th>$bottom</th>
+<td>float</td>
+<td><em><p>Space in % (NULL to keep old value)</p>
+</em></td>
+</tr>
+<tr>
+<th>$top</th>
+<td>float</td>
+<td><em><p>Space in % (NULL to keep old value)</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setStartAngle()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setStartAngle</span><span class="nb-faded-text">(
+          int $angle
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change initial angle</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$angle</th>
+<td>int</td>
+<td><em><p>New angle in degrees</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPie::setValues()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setValues</span><span class="nb-faded-text">(
+          array $values
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change values of Y axis
+This method ignores not numeric values</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$values</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\awPiePart" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\awPiePart<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Artichow</small><p class="short-description">Pie</p>
+<div class="long-description">
+</div>
+<dl class="class-info">
+<dt>Implements</dt>
+<dd><a href="db_modules_graphartichow_artichow_inc_Legend.class.html#%5CawLegendable">\awLegendable</a></dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\awPiePart::$color" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Color
+                 <span class="highlight">$color</span>= ''
+                </code><div class="description">
+<p class="short-description">Pie part color</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>\Color</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\awPiePart::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          <a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a> $color
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Build a new awPiePart</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$color</th>
+<td><a href="db_modules_graphartichow_artichow_inc_Color.class.html#%5CawColor">\awColor</a></td>
+<td><em><p>Pie part color</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPiePart::getLegendBackground()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLegendBackground</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          \Color,</code><div class="description"><p class="short_description">Get the background color or gradient of an element of the component</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\Color,</td>
+<td>Gradient</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPiePart::getLegendLineColor()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLegendLineColor</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          NULL</code><div class="description"><p class="short_description">Get the color of line</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>NULL</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPiePart::getLegendLineStyle()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLegendLineStyle</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          NULL</code><div class="description"><p class="short_description">Get the line type</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>NULL</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPiePart::getLegendLineThickness()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLegendLineThickness</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          NULL</code><div class="description"><p class="short_description">Get the line thickness</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>NULL</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\awPiePart::getLegendMark()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLegendMark</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          NULL</code><div class="description"><p class="short_description">Get a mark object</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>NULL</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>

@@ -1,0 +1,607 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">tools/smarty/sysplugins/smarty_internal_smartytemplatecompiler.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CSmarty_Internal_SmartyTemplateCompiler">\Smarty_Internal_SmartyTemplateCompiler</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Smarty Internal Plugin Smarty Template Compiler Base</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>This file contains the basic classes and methodes for compiling Smarty templates with lexer/parser</p>
+</div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Author</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Uwe Tews
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Smarty
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Subpackage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Compiler
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Smarty_Internal_SmartyTemplateCompiler" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Smarty_Internal_SmartyTemplateCompiler<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Default</small><p class="short-description">Class SmartyTemplateCompiler</p>
+<div class="long-description">
+</div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase">\Smarty_Internal_TemplateCompilerBase</a></dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\Smarty_Internal_SmartyTemplateCompiler::$_tag_objects" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$_tag_objects</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::%24_tag_objects">\Smarty_Internal_TemplateCompilerBase::$_tag_objects</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::%24_tag_objects">\Smarty_Internal_TemplateCompilerBase::$_tag_objects</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_SmartyTemplateCompiler::$_tag_stack" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$_tag_stack</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::%24_tag_stack">\Smarty_Internal_TemplateCompilerBase::$_tag_stack</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::%24_tag_stack">\Smarty_Internal_TemplateCompilerBase::$_tag_stack</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_SmartyTemplateCompiler::$local_var" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$local_var</span>= 'array()'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_SmartyTemplateCompiler::$suppressNocacheProcessing" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$suppressNocacheProcessing</span>= 'false'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::%24suppressNocacheProcessing">\Smarty_Internal_TemplateCompilerBase::$suppressNocacheProcessing</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::%24suppressNocacheProcessing">\Smarty_Internal_TemplateCompilerBase::$suppressNocacheProcessing</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_SmartyTemplateCompiler::$template" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$template</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::%24template">\Smarty_Internal_TemplateCompilerBase::$template</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::%24template">\Smarty_Internal_TemplateCompilerBase::$template</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_SmartyTemplateCompiler::$used_tags" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$used_tags</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::%24used_tags">\Smarty_Internal_TemplateCompilerBase::$used_tags</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::%24used_tags">\Smarty_Internal_TemplateCompilerBase::$used_tags</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Smarty_Internal_SmartyTemplateCompiler::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+           $lexer_class,  $parser_class,  $smarty
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Initialize compiler</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$lexer_class</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$parser_class</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$smarty</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_SmartyTemplateCompiler::callTagCompiler()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">callTagCompiler</span><span class="nb-faded-text">(
+          \$tag $tag, \$args $args, \$param1 $param1
+              =
+              null, \$param2 $param2
+              =
+              null, \$param3 $param3
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">lazy loads internal compile plugin for tag and calls the compile methode</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::callTagCompiler()">\Smarty_Internal_TemplateCompilerBase::callTagCompiler()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>compile objects cached for reuse.
+class name format:  Smarty_Internal_Compile_TagName
+plugin filename format: Smarty_Internal_Tagname.php</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$tag</th>
+<td>\$tag</td>
+<td><em><p>string tag name</p></em></td>
+</tr>
+<tr>
+<th>$args</th>
+<td>\$args</td>
+<td><em><p>array with tag attributes</p></em></td>
+</tr>
+<tr>
+<th>$param1</th>
+<td>\$param1</td>
+<td><em><p>optional parameter</p></em></td>
+</tr>
+<tr>
+<th>$param2</th>
+<td>\$param2</td>
+<td><em><p>optional parameter</p></em></td>
+</tr>
+<tr>
+<th>$param3</th>
+<td>\$param3</td>
+<td><em><p>optional parameter</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>compiled code</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_SmartyTemplateCompiler::compileTag()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">compileTag</span><span class="nb-faded-text">(
+          string $tag, array $args, array $parameter
+              =
+              array()
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Compile Tag</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::compileTag()">\Smarty_Internal_TemplateCompilerBase::compileTag()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>This is a call back from the lexer/parser
+It executes the required compile plugin for the Smarty tag</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$tag</th>
+<td>string</td>
+<td><em><p>tag name</p></em></td>
+</tr>
+<tr>
+<th>$args</th>
+<td>array</td>
+<td><em><p>array with tag attributes</p></em></td>
+</tr>
+<tr>
+<th>$parameter</th>
+<td>array</td>
+<td><em><p>array with compilation parameter</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>compiled code</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_SmartyTemplateCompiler::compileTemplate()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">compileTemplate</span><span class="nb-faded-text">(
+          \$template $template
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Methode to compile a Smarty template</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::compileTemplate()">\Smarty_Internal_TemplateCompilerBase::compileTemplate()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$template</th>
+<td>\$template</td>
+<td><em><p>template object to compile</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td>true if compiling succeeded, false if it failed</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_SmartyTemplateCompiler::doCompile()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">doCompile</span><span class="nb-faded-text">(
+          \$_content $_content
+          )
+        </span>
+        :
+          bool</code><div class="description"><p class="short_description">Methode to compile a Smarty template</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$_content</th>
+<td>\$_content</td>
+<td><em><p>template source</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td>true if compiling succeeded, false if it failed</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_SmartyTemplateCompiler::getPlugin()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getPlugin</span><span class="nb-faded-text">(
+          \$pugin_name $plugin_name, \$type $type
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Check for plugins and return function name</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::getPlugin()">\Smarty_Internal_TemplateCompilerBase::getPlugin()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$plugin_name</th>
+<td>\$pugin_name</td>
+<td><em><p>string name of plugin or function</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>\$type</td>
+<td><em><p>string type of plugin</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>call name of function</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_SmartyTemplateCompiler::processNocacheCode()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">processNocacheCode</span><span class="nb-faded-text">(
+          string $content, boolean $is_code
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Inject inline code for nocache template sections</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::processNocacheCode()">\Smarty_Internal_TemplateCompilerBase::processNocacheCode()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>This method gets the content of each template element from the parser.
+If the content is compiled code and it should be not cached the code is injected
+into the rendered output.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$content</th>
+<td>string</td>
+<td><em><p>content of template element</p></em></td>
+</tr>
+<tr>
+<th>$is_code</th>
+<td>boolean</td>
+<td><em><p>true if content is compiled code</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>content</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_SmartyTemplateCompiler::trigger_template_error()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">trigger_template_error</span><span class="nb-faded-text">(
+          \$args $args
+              =
+              null,  $line
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">display compiler error messages without dying</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_templatecompilerbase.html#%5CSmarty_Internal_TemplateCompilerBase::trigger_template_error()">\Smarty_Internal_TemplateCompilerBase::trigger_template_error()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>If parameter $args is empty it is a parser detected syntax error.
+In this case the parser is called to obtain information about expected tokens.</p>
+
+<p>If parameter $args contains a string this is used as error message</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$args</th>
+<td>\$args</td>
+<td><em><p>string individual error message or null</p></em></td>
+</tr>
+<tr>
+<th>$line</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>

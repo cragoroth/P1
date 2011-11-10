@@ -1,0 +1,2099 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">modules/gcheckout/library/googlecart.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav">
+<li>
+<a href="#constants"><img src="images/icons/constant.png" height="14">
+                          Constants
+                      </a><ul><li><a href="#::MAX_DIGITAL_DESC">MAX_DIGITAL_DESC</a></li></ul>
+</li>
+<li>
+<a href="#functions"><img src="images/icons/function.png" height="14">
+                          Functions
+                      </a><ul></ul>
+</li>
+<li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul>
+<li><a href="#%5CGoogleCart">\GoogleCart</a></li>
+<li><a href="#%5CMerchantPrivate">\MerchantPrivate</a></li>
+<li><a href="#%5CMerchantPrivateData">\MerchantPrivateData</a></li>
+<li><a href="#%5CMerchantPrivateItemData">\MerchantPrivateItemData</a></li>
+</ul>
+</li>
+</ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Classes used to build a shopping cart and submit it to Google Checkout</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description">
+</div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: googlecart.php 7541 2011-07-07 08:51:35Z gBrunier $
+         
+    </dd>
+</dl>
+<a name="constants" class="anchor"></a><h2>Constants</h2>
+<div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::MAX_DIGITAL_DESC" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAX_DIGITAL_DESC</span>
+                = 1024</code><div class="description"><p class="short-description">Classes used to build a shopping cart and submit it to Google Checkout</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info">
+<dt>Version</dt>
+<dd>$Id: googlecart.php 7541 2011-07-07 08:51:35Z gBrunier $
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\GoogleCart" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\GoogleCart<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Default</small><p class="short-description">Creates a Google Checkout shopping cart and posts it
+to the google checkout sandbox or production environment
+Refer demo/cartdemo.php for different use case scenarios for this code</p>
+<div class="long-description">
+</div>
+<dl class="class-info"></dl>
+<h3>Properties</h3>
+<div>
+<a id="\GoogleCart::$accept_gift_certificates" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$accept_gift_certificates</span>= '""'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>""</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$accept_merchant_coupons" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$accept_merchant_coupons</span>= '""'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>""</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$alternate_tax_tables_arr" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$alternate_tax_tables_arr</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$analytics_data" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$analytics_data</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$base_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$base_url</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$cart_expiration" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$cart_expiration</span>= '""'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>""</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$checkout_diagnose_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$checkout_diagnose_url</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$checkout_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$checkout_url</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$continue_shopping_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$continue_shopping_url</span>= '""'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>""</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$currency" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$currency</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$default_tax_rules_arr" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$default_tax_rules_arr</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$edit_cart_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$edit_cart_url</span>= '""'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>""</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$googleAnalytics_id" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$googleAnalytics_id</span>= 'false'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$ignore_tags" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$ignore_tags</span>= 'array(
+                        'xmlns' =&gt; true'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>array(
+                        'xmlns' =&gt; true</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$item_arr" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$item_arr</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$merchant_calculated_tax" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$merchant_calculated_tax</span>= '""'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>""</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$merchant_calculations_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$merchant_calculations_url</span>= '""'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>""</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$merchant_id" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$merchant_id</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$merchant_key" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$merchant_key</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$merchant_private_data" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$merchant_private_data</span>= '""'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>""</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$multiple_tags" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$multiple_tags</span>= 'array(
+                          'flat-rate-shipping' =&gt; array()'
+                </code><div class="description"><p class="short-description">used when using the html api
+tags that can be used more than once, so they need to be numbered
+("-#" suffix)</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Default value</strong><code>array(
+                          'flat-rate-shipping' =&gt; array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$request_buyer_phone" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$request_buyer_phone</span>= '""'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>""</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$request_diagnose_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$request_diagnose_url</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$request_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$request_url</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$rounding_mode" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$rounding_mode</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$rounding_rule" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$rounding_rule</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$schema_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$schema_url</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$server_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$server_url</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$shipping_arr" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$shipping_arr</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$thirdPartyTackingParams" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$thirdPartyTackingParams</span>= 'array()'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$thirdPartyTackingUrl" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$thirdPartyTackingUrl</span>= 'false'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$variant" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$variant</span>= 'false'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::$xml_data" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$xml_data</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\GoogleCart::AddAlternateTaxTables()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">AddAlternateTaxTables</span><span class="nb-faded-text">(
+          <a href="db_modules_gcheckout_library_googletax.html#%5CGoogleAlternateTaxTable">\GoogleAlternateTaxTable</a> $tax
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Add an alternate tax table to the cart.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>GC tag: {@link http://code.google.com/apis/checkout/developer/index.html#tag_alternate-tax-table <alternate-tax-table>}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$tax</th>
+<td><a href="db_modules_gcheckout_library_googletax.html#%5CGoogleAlternateTaxTable">\GoogleAlternateTaxTable</a></td>
+<td><em><p>an object that represents an alternate tax table (defined in googletax.php)</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::AddDefaultTaxRules()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">AddDefaultTaxRules</span><span class="nb-faded-text">(
+          <a href="db_modules_gcheckout_library_googletax.html#%5CGoogleDefaultTaxRule">\GoogleDefaultTaxRule</a> $rules
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Add a default tax rule to the cart.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>GC tag: {@link http://code.google.com/apis/checkout/developer/index.html#tag_default-tax-rule <default-tax-rule>}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$rules</th>
+<td><a href="db_modules_gcheckout_library_googletax.html#%5CGoogleDefaultTaxRule">\GoogleDefaultTaxRule</a></td>
+<td><em><p>an object that represents a default tax rule (defined in googletax.php)</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::AddGoogleAnalyticsTracking()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">AddGoogleAnalyticsTracking</span><span class="nb-faded-text">(
+          string $GA_id
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Add a google analytics tracking id.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>{@link http://code.google.com/apis/checkout/developer/checkout_analytics_integration.html info on Checkout and Analytics integration}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$GA_id</th>
+<td>string</td>
+<td><em><p>the google analytics id</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::AddItem()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">AddItem</span><span class="nb-faded-text">(
+          <a href="db_modules_gcheckout_library_googleitem.html#%5CGoogleItem">\GoogleItem</a> $google_item
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Add an item to the cart.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>GC tag: {@link http://code.google.com/apis/checkout/developer/index.html#tag_item <item>}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_item</th>
+<td><a href="db_modules_gcheckout_library_googleitem.html#%5CGoogleItem">\GoogleItem</a></td>
+<td><em><p>an object that represents an item (defined in googleitem.php)</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::AddRoundingPolicy()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">AddRoundingPolicy</span><span class="nb-faded-text">(
+          string $mode, string $rule
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the policy to be used to round monetary values.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Rounding policy explanation here:
+{@link http://code.google.com/apis/checkout/developer/Google_Checkout_Rounding_Policy.html}</p>
+
+<p>GC tag: {@link http://code.google.com/apis/checkout/developer/index.html#tag_rounding-policy <rounding-policy>}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$mode</th>
+<td>string</td>
+<td><em><p>one of "UP", "DOWN", "CEILING", "HALF_DOWN" or "HALF_EVEN", described here: {@link http://java.sun.com/j2se/1.5.0/docs/api/java/math/RoundingMode.html}</p>
+</em></td>
+</tr>
+<tr>
+<th>$rule</th>
+<td>string</td>
+<td><em><p>one of "PER_LINE", "TOTAL"</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::AddShipping()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">AddShipping</span><span class="nb-faded-text">(
+          object $ship
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Add a shipping method to the cart.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>GC tag: {@link http://code.google.com/apis/checkout/developer/index.html#tag_shipping-methods <shipping-methods>}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$ship</th>
+<td>object</td>
+<td><em><p>an object that represents a shipping method, must be one of the methods defined in googleshipping.php</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::AddThirdPartyTracking()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">AddThirdPartyTracking</span><span class="nb-faded-text">(
+          \$tracking_attr_types $url,  $tracking_param_types
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Add third-party tracking to the cart</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Described here:
+{@link http://code.google.com/apis/checkout/developer/checkout_analytics_integration.html#googleCheckoutAnalyticsIntegrationAlternate}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$url</th>
+<td>\$tracking_attr_types</td>
+<td><em><p>attributes to be tracked, one of ('buyer-id', 'order-id', 'order-subtotal', 'order-subtotal-plus-tax', 'order-subtotal-plus-shipping', 'order-total', 'tax-amount', 'shipping-amount', 'coupon-amount', 'coupon-amount', 'billing-city', 'billing-region', 'billing-postal-code', 'billing-country-code', 'shipping-city', 'shipping-region', 'shipping-postal-code', 'shipping-country-code') More info http://code.google.com/apis/checkout/developer/checkout_pixel_tracking.html#googleCheckout_tag_url-parameter</p>
+</em></td>
+</tr>
+<tr>
+<th>$tracking_param_types</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::CalcHmacSha1()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">CalcHmacSha1</span><span class="nb-faded-text">(
+          string $data
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Calculates the cart's hmac-sha1 signature, this allows google to verify
+that the cart hasn't been tampered by a third-party.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>{@link http://code.google.com/apis/checkout/developer/index.html#create_signature}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em><p>the cart's xml</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>the cart's signature (in binary format)</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::CheckoutAcceptanceLogo()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">CheckoutAcceptanceLogo</span><span class="nb-faded-text">(
+          integer $type
+              =
+              1
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Get the Google Checkout acceptance logos html</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>{@link http://checkout.google.com/seller/acceptance_logos.html}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>integer</td>
+<td><em><p>the acceptance logo type, valid values: 1, 2, 3</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>the logo's html</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::CheckoutButtonCode()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">CheckoutButtonCode</span><span class="nb-faded-text">(
+          string $size
+              =
+              "large", bool $variant
+              =
+              true, string $loc
+              =
+              "en_US", bool $showtext
+              =
+              true, string $style
+              =
+              "trans"
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Get the Google Checkout button's html.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>{@link http://code.google.com/apis/checkout/developer/index.html#google_checkout_buttons}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$size</th>
+<td>string</td>
+<td><em><p>the size of the button, one of 'large', 'medium' or 'small'. defaults to 'large'</p>
+</em></td>
+</tr>
+<tr>
+<th>$variant</th>
+<td>bool</td>
+<td><em><p>true for an enabled button, false for a disabled one. defaults to true. will be ignored if SetButtonVariant() was used before.</p>
+</em></td>
+</tr>
+<tr>
+<th>$loc</th>
+<td>string</td>
+<td><em><p>the locale of the button's text, the only valid value is 'en_US' (used as default)</p>
+</em></td>
+</tr>
+<tr>
+<th>$showtext</th>
+<td>bool</td>
+<td><em><p>whether to show Google Checkout text or not, defaults to true.</p></em></td>
+</tr>
+<tr>
+<th>$style</th>
+<td>string</td>
+<td><em><p>the background style of the button, one of 'white' or 'trans'. defaults to "trans"</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>the button's html</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::CheckoutButtonNowCode()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">CheckoutButtonNowCode</span><span class="nb-faded-text">(
+           $size
+              =
+              "large",  $variant
+              =
+              true,  $loc
+              =
+              "en_US",  $showtext
+              =
+              true,  $style
+              =
+              "trans"
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$size</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$variant</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$loc</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$showtext</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$style</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::CheckoutHTMLButtonCode()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">CheckoutHTMLButtonCode</span><span class="nb-faded-text">(
+          string $size
+              =
+              "large", bool $variant
+              =
+              true, string $loc
+              =
+              "en_US", bool $showtext
+              =
+              true, string $style
+              =
+              "trans"
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Get the Google Checkout button's html to be used with the html api.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>{@link http://code.google.com/apis/checkout/developer/index.html#google_checkout_buttons}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$size</th>
+<td>string</td>
+<td><em><p>the size of the button, one of 'large', 'medium' or 'small'. defaults to 'large'</p>
+</em></td>
+</tr>
+<tr>
+<th>$variant</th>
+<td>bool</td>
+<td><em><p>true for an enabled button, false for a disabled one. defaults to true. will be ignored if SetButtonVariant() was used before.</p>
+</em></td>
+</tr>
+<tr>
+<th>$loc</th>
+<td>string</td>
+<td><em><p>the locale of the button's text, the only valid value is 'en_US' (used as default)</p>
+</em></td>
+</tr>
+<tr>
+<th>$showtext</th>
+<td>bool</td>
+<td><em><p>whether to show Google Checkout text or not, defaults to true.</p></em></td>
+</tr>
+<tr>
+<th>$style</th>
+<td>string</td>
+<td><em><p>the background style of the button, one of 'white' or 'trans'. defaults to "trans"</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>the button's html</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::CheckoutServer2Server()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">CheckoutServer2Server</span><span class="nb-faded-text">(
+           $proxy
+              =
+              array(),  $certPath
+              =
+              ''
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Submit a server-to-server request.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Creates a GoogleRequest object (defined in googlerequest.php) and sends
+it to the Google Checkout server.</p>
+
+<p>more info:
+{@link http://code.google.com/apis/checkout/developer/index.html#alternate_technique}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$proxy</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$certPath</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>with the returned http status code (200 if OK) in index 0 and the redirect url returned by the server in index 1</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::CheckoutServer2ServerButton()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">CheckoutServer2ServerButton</span><span class="nb-faded-text">(
+          string $url, string $size
+              =
+              "large", bool $variant
+              =
+              true, string $loc
+              =
+              "en_US", bool $showtext
+              =
+              true, string $style
+              =
+              "trans"
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Get the Google Checkout button's html to be used in a server-to-server
+request.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>{@link http://code.google.com/apis/checkout/developer/index.html#google_checkout_buttons}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$url</th>
+<td>string</td>
+<td><em><p>the merchant's site url where the form will be posted to</p>
+</em></td>
+</tr>
+<tr>
+<th>$size</th>
+<td>string</td>
+<td><em><p>the size of the button, one of 'large', 'medium' or 'small'. defaults to 'large'</p>
+</em></td>
+</tr>
+<tr>
+<th>$variant</th>
+<td>bool</td>
+<td><em><p>true for an enabled button, false for a disabled one. defaults to true. will be ignored if SetButtonVariant() was used before.</p>
+</em></td>
+</tr>
+<tr>
+<th>$loc</th>
+<td>string</td>
+<td><em><p>the locale of the button's text, the only valid value is 'en_US' (used as default)</p>
+</em></td>
+</tr>
+<tr>
+<th>$showtext</th>
+<td>bool</td>
+<td><em><p>whether to show Google Checkout text or not, defaults to true.</p></em></td>
+</tr>
+<tr>
+<th>$style</th>
+<td>string</td>
+<td><em><p>the background style of the button, one of 'white' or 'trans'. defaults to "trans"</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>the button's html</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::GetXML()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">GetXML</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Builds the cart's xml to be sent to Google Checkout.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>the cart's xml</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::GoogleCart()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">GoogleCart</span><span class="nb-faded-text">(
+          string $id, string $key, string $server_type
+              =
+              "sandbox", string $currency
+              =
+              "USD"
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Has all the logic to build the cart's xml (or html) request to be
+posted to google's servers.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$id</th>
+<td>string</td>
+<td><em><p>the merchant id</p></em></td>
+</tr>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>the merchant key</p></em></td>
+</tr>
+<tr>
+<th>$server_type</th>
+<td>string</td>
+<td><em><p>the server type of the server to be used, one of 'sandbox' or 'production'. defaults to 'sandbox'</p>
+</em></td>
+</tr>
+<tr>
+<th>$currency</th>
+<td>string</td>
+<td><em><p>the currency of the items to be added to the cart , as of now values can be 'USD' or 'GBP'. defaults to 'USD'</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::SetAnalyticsData()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SetAnalyticsData</span><span class="nb-faded-text">(
+          string $data
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the google analytics data.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>{@link http://code.google.com/apis/checkout/developer/checkout_analytics_integration.html info on Checkout and Analytics integration}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em><p>the analytics data</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::SetButtonVariant()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SetButtonVariant</span><span class="nb-faded-text">(
+          bool $variant
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the Google Checkout button's variant.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>{@link http://code.google.com/apis/checkout/developer/index.html#google_checkout_buttons}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$variant</th>
+<td>bool</td>
+<td><em><p>true for an enabled button, false for a disabled one</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::SetCartExpiration()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SetCartExpiration</span><span class="nb-faded-text">(
+          string $cart_expire
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Sets the cart's expiration date</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>GC tag: {@link http://code.google.com/apis/checkout/developer/index.html#tag_good-until-date <good-until-date>}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$cart_expire</th>
+<td>string</td>
+<td><em><p>a string representing a date in the iso 8601 date and time format: {@link http://www.w3.org/TR/NOTE-datetime}</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::SetContinueShoppingUrl()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SetContinueShoppingUrl</span><span class="nb-faded-text">(
+          string $url
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Sets the continue shopping url, which allows the customer to return
+die();
+to the merchant's site after confirming an order.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>GC tag: {@link http://code.google.com/apis/checkout/developer/index.html#tag_continue-shopping-url <continue-shopping-url>}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$url</th>
+<td>string</td>
+<td><em><p>the merchant's site continue shopping url</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::SetEditCartUrl()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SetEditCartUrl</span><span class="nb-faded-text">(
+          string $url
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Sets the url where the customer can edit his cart.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>GC tag: {@link http://code.google.com/apis/checkout/developer/index.html#tag_edit-cart-url <edit-cart-url>}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$url</th>
+<td>string</td>
+<td><em><p>the merchant's site edit cart url</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::SetMerchantCalculations()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SetMerchantCalculations</span><span class="nb-faded-text">(
+          string $url, bool $tax_option
+              =
+              "false", bool $coupons
+              =
+              "false", bool $gift_cert
+              =
+              "false"
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Sets the information about calculations that will be performed by the
+merchant.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>GC tag: {@link http://code.google.com/apis/checkout/developer/index.html#tag_merchant-calculations <merchant-calculations>}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$url</th>
+<td>string</td>
+<td><em><p>the merchant calculations callback url</p></em></td>
+</tr>
+<tr>
+<th>$tax_option</th>
+<td>bool</td>
+<td><em><p>true if the merchant has to do tax calculations. defaults to false.</p></em></td>
+</tr>
+<tr>
+<th>$coupons</th>
+<td>bool</td>
+<td><em><p>true if the merchant accepts discount coupons. defaults to false.</p></em></td>
+</tr>
+<tr>
+<th>$gift_cert</th>
+<td>bool</td>
+<td><em><p>true if the merchant accepts gift certificates. defaults to false.</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::SetMerchantPrivateData()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SetMerchantPrivateData</span><span class="nb-faded-text">(
+          <a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivateData">\MerchantPrivateData</a> $data
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Sets the merchant's private data.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Google Checkout will return this data in the
+<merchant-calculation-callback> and the
+<new-order-notification> for the order.</p>
+
+<p>GC tag: {@link http://code.google.com/apis/checkout/developer/index.html#tag_merchant-private-data <merchant-private-data>}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td><a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivateData">\MerchantPrivateData</a></td>
+<td><em><p>an object which contains the data to be sent as merchant-private-data</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::SetRequestBuyerPhone()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SetRequestBuyerPhone</span><span class="nb-faded-text">(
+          bool $req
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Sets whether the customer must enter a phone number to complete an order.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>If set to true, the customer must enter a number, which Google Checkout
+will return in the new order notification for the order.</p>
+
+<p>GC tag: {@link http://code.google.com/apis/checkout/developer/index.html#tag_request-buyer-phone-number <request-buyer-phone-number>}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$req</th>
+<td>bool</td>
+<td><em><p>true if the customer's phone number is <em>required</em> to complete an order. defaults to false.</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::_GetBooleanValue()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">_GetBooleanValue</span><span class="nb-faded-text">(
+           $value,  $default
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$default</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::_SetBooleanValue()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">_SetBooleanValue</span><span class="nb-faded-text">(
+           $string,  $value,  $default
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$string</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$default</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::isChildOf()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isChildOf</span><span class="nb-faded-text">(
+           $path
+              =
+              '',  $parents
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$path</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$parents</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::is_associative_array()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">is_associative_array</span><span class="nb-faded-text">(
+           $var
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$var</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleCart::xml2html()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">xml2html</span><span class="nb-faded-text">(
+           $data,  $path
+              =
+              '',  $rta
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$path</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$rta</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\MerchantPrivate" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\MerchantPrivate<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Default</small><p class="short-description"></p>
+<div class="long-description">
+</div>
+<dl class="class-info">
+<dt>Children</dt>
+<dd><a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivateData">\MerchantPrivateData</a></dd>
+<dd><a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivateItemData">\MerchantPrivateItemData</a></dd>
+<dt>Abstract</dt>
+<dd>Abstract class that represents the merchant-private-data.
+See {@link MerchantPrivateData} and {@link MerchantPrivateItemData}
+GC tag: {@link http://code.google.com/apis/checkout/developer/index.html#tag_merchant-private-data <merchant-private-data>}
+         
+    </dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\MerchantPrivate::$data" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$data</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\MerchantPrivate::$type" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$type</span>= '"Abstract"'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>"Abstract"</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\MerchantPrivate::AddMerchantPrivateToXML()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">AddMerchantPrivateToXML</span><span class="nb-faded-text">(
+           $xml_data
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$xml_data</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\MerchantPrivate::MerchantPrivate()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">MerchantPrivate</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs"></div>
+<div class="clear"></div>
+</div>
+<a id="\MerchantPrivate::_recursiveAdd()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">_recursiveAdd</span><span class="nb-faded-text">(
+           $xml_data,  $data
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$xml_data</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$data</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\MerchantPrivateData" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\MerchantPrivateData<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Default</small><p class="short-description">Class that represents the merchant-private-data.</p>
+<div class="long-description"><p>GC tag: {@link http://code.google.com/apis/checkout/developer/index.html#tag_merchant-private-data <merchant-private-data>}</p>
+</div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate">\MerchantPrivate</a></dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\MerchantPrivateData::$data" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$data</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate::%24data">\MerchantPrivate::$data</a></small>
+</div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate::%24data">\MerchantPrivate::$data</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\MerchantPrivateData::$type" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$type</span>= '"Abstract"'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate::%24type">\MerchantPrivate::$type</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>"Abstract"</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate::%24type">\MerchantPrivate::$type</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\MerchantPrivateData::AddMerchantPrivateToXML()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">AddMerchantPrivateToXML</span><span class="nb-faded-text">(
+           $xml_data
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate::AddMerchantPrivateToXML()">\MerchantPrivate::AddMerchantPrivateToXML()</a></small>
+</div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$xml_data</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\MerchantPrivateData::MerchantPrivate()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">MerchantPrivate</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate::MerchantPrivate()">\MerchantPrivate::MerchantPrivate()</a></small>
+</div>
+<div class="code-tabs"></div>
+<div class="clear"></div>
+</div>
+<a id="\MerchantPrivateData::MerchantPrivateData()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">MerchantPrivateData</span><span class="nb-faded-text">(
+          mixed $data
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>mixed</td>
+<td><em><p>a string with the data that will go in the merchant-private-data tag or an array that will be mapped to xml, formatted like (e.g.): array('my-order-id' => 34234, 'stuff' => array('registered' => 'yes', 'category' => 'hip stuff')) this will map to: <my-order-id> <stuff> <registered>yes</registered> <category>hip stuff</category> </stuff> </my-order-id></p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\MerchantPrivateData::_recursiveAdd()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">_recursiveAdd</span><span class="nb-faded-text">(
+           $xml_data,  $data
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate::_recursiveAdd()">\MerchantPrivate::_recursiveAdd()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$xml_data</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$data</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\MerchantPrivateItemData" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\MerchantPrivateItemData<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Default</small><p class="short-description">Class that represents a merchant-private-item-data.</p>
+<div class="long-description"><p>GC tag: {@link http://code.google.com/apis/checkout/developer/index.html#tag_merchant-private-item-data <merchant-private-data>}</p>
+</div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate">\MerchantPrivate</a></dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\MerchantPrivateItemData::$data" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$data</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate::%24data">\MerchantPrivate::$data</a></small>
+</div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate::%24data">\MerchantPrivate::$data</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\MerchantPrivateItemData::$type" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$type</span>= '"Abstract"'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate::%24type">\MerchantPrivate::$type</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>"Abstract"</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate::%24type">\MerchantPrivate::$type</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\MerchantPrivateItemData::AddMerchantPrivateToXML()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">AddMerchantPrivateToXML</span><span class="nb-faded-text">(
+           $xml_data
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate::AddMerchantPrivateToXML()">\MerchantPrivate::AddMerchantPrivateToXML()</a></small>
+</div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$xml_data</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\MerchantPrivateItemData::MerchantPrivate()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">MerchantPrivate</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate::MerchantPrivate()">\MerchantPrivate::MerchantPrivate()</a></small>
+</div>
+<div class="code-tabs"></div>
+<div class="clear"></div>
+</div>
+<a id="\MerchantPrivateItemData::MerchantPrivateItemData()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">MerchantPrivateItemData</span><span class="nb-faded-text">(
+          mixed $data
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>mixed</td>
+<td><em><p>a string with the data that will go in the merchant-private-item-data tag or an array that will be mapped to xml, formatted like: array('my-item-id' => 34234, 'stuff' => array('label' => 'cool', 'category' => 'hip stuff')) this will map to: <my-item-id> <stuff> <label>cool</label> <category>hip stuff</category> </stuff> </my-item-id></p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\MerchantPrivateItemData::_recursiveAdd()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">_recursiveAdd</span><span class="nb-faded-text">(
+           $xml_data,  $data
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_modules_gcheckout_library_googlecart.html#%5CMerchantPrivate::_recursiveAdd()">\MerchantPrivate::_recursiveAdd()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$xml_data</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$data</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>

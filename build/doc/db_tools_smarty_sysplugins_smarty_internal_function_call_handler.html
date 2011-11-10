@@ -1,0 +1,2580 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">tools/smarty/sysplugins/smarty_internal_function_call_handler.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CSmarty_Internal_Function_Call_Handler">\Smarty_Internal_Function_Call_Handler</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Smarty Internal Plugin Function Call Handler</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description">
+</div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Author</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Uwe Tews
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Smarty
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Subpackage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">PluginsInternal
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Smarty_Internal_Function_Call_Handler" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Smarty_Internal_Function_Call_Handler<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Default</small><p class="short-description">This class does call function defined with the {function} tag</p>
+<div class="long-description">
+</div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template">\Smarty_Internal_Template</a>
+            &lt;
+            <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data" style="color: gray; font-size: 0.8em
+                ">\Smarty_Internal_Data</a>
+</dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\Smarty_Internal_Function_Call_Handler::$block_data" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$block_data</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24block_data">\Smarty_Internal_Template::$block_data</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24block_data">\Smarty_Internal_Template::$block_data</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$cache_id" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$cache_id</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24cache_id">\Smarty_Internal_Template::$cache_id</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24cache_id">\Smarty_Internal_Template::$cache_id</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$cache_lifetime" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$cache_lifetime</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24cache_lifetime">\Smarty_Internal_Template::$cache_lifetime</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24cache_lifetime">\Smarty_Internal_Template::$cache_lifetime</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$cached_timestamp" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$cached_timestamp</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24cached_timestamp">\Smarty_Internal_Template::$cached_timestamp</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24cached_timestamp">\Smarty_Internal_Template::$cached_timestamp</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$cacher_class" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$cacher_class</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24cacher_class">\Smarty_Internal_Template::$cacher_class</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24cacher_class">\Smarty_Internal_Template::$cacher_class</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$cacher_object" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$cacher_object</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24cacher_object">\Smarty_Internal_Template::$cacher_object</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24cacher_object">\Smarty_Internal_Template::$cacher_object</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$caching" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$caching</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24caching">\Smarty_Internal_Template::$caching</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24caching">\Smarty_Internal_Template::$caching</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$caching_type" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$caching_type</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24caching_type">\Smarty_Internal_Template::$caching_type</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24caching_type">\Smarty_Internal_Template::$caching_type</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$compile_id" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$compile_id</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24compile_id">\Smarty_Internal_Template::$compile_id</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24compile_id">\Smarty_Internal_Template::$compile_id</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$compiled_template" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$compiled_template</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24compiled_template">\Smarty_Internal_Template::$compiled_template</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24compiled_template">\Smarty_Internal_Template::$compiled_template</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$compiler_object" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$compiler_object</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24compiler_object">\Smarty_Internal_Template::$compiler_object</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24compiler_object">\Smarty_Internal_Template::$compiler_object</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$config_vars" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$config_vars</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24config_vars">\Smarty_Internal_Template::$config_vars</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24config_vars">\Smarty_Internal_Template::$config_vars</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$forceNocache" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$forceNocache</span>= 'false'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24forceNocache">\Smarty_Internal_Template::$forceNocache</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24forceNocache">\Smarty_Internal_Template::$forceNocache</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$has_nocache_code" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$has_nocache_code</span>= 'false'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24has_nocache_code">\Smarty_Internal_Template::$has_nocache_code</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24has_nocache_code">\Smarty_Internal_Template::$has_nocache_code</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$mustCompile" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$mustCompile</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24mustCompile">\Smarty_Internal_Template::$mustCompile</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24mustCompile">\Smarty_Internal_Template::$mustCompile</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$parent" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$parent</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24parent">\Smarty_Internal_Template::$parent</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24parent">\Smarty_Internal_Template::$parent</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$plugin_data" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$plugin_data</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24plugin_data">\Smarty_Internal_Template::$plugin_data</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24plugin_data">\Smarty_Internal_Template::$plugin_data</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$properties" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$properties</span>= 'array ('file_dependency' =&gt; array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24properties">\Smarty_Internal_Template::$properties</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>array ('file_dependency' =&gt; array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24properties">\Smarty_Internal_Template::$properties</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$rendered_content" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$rendered_content</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24rendered_content">\Smarty_Internal_Template::$rendered_content</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24rendered_content">\Smarty_Internal_Template::$rendered_content</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$required_plugins" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$required_plugins</span>= 'array('compiled' =&gt; array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24required_plugins">\Smarty_Internal_Template::$required_plugins</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>array('compiled' =&gt; array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24required_plugins">\Smarty_Internal_Template::$required_plugins</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$resource_name" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$resource_name</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24resource_name">\Smarty_Internal_Template::$resource_name</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24resource_name">\Smarty_Internal_Template::$resource_name</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$resource_type" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$resource_type</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24resource_type">\Smarty_Internal_Template::$resource_type</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24resource_type">\Smarty_Internal_Template::$resource_type</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$saved_modifier" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$saved_modifier</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24saved_modifier">\Smarty_Internal_Template::$saved_modifier</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24saved_modifier">\Smarty_Internal_Template::$saved_modifier</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$smarty" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$smarty</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24smarty">\Smarty_Internal_Template::$smarty</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24smarty">\Smarty_Internal_Template::$smarty</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$suppressFileDependency" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$suppressFileDependency</span>= 'false'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24suppressFileDependency">\Smarty_Internal_Template::$suppressFileDependency</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24suppressFileDependency">\Smarty_Internal_Template::$suppressFileDependency</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$suppressHeader" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$suppressHeader</span>= 'false'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24suppressHeader">\Smarty_Internal_Template::$suppressHeader</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24suppressHeader">\Smarty_Internal_Template::$suppressHeader</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$templateUid" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$templateUid</span>= ''''
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24templateUid">\Smarty_Internal_Template::$templateUid</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>''</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24templateUid">\Smarty_Internal_Template::$templateUid</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$template_class" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$template_class</span>= ''Smarty_Internal_Template''
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::%24template_class">\Smarty_Internal_Data::$template_class</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>'Smarty_Internal_Template'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::%24template_class">\Smarty_Internal_Data::$template_class</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$template_filepath" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$template_filepath</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24template_filepath">\Smarty_Internal_Template::$template_filepath</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24template_filepath">\Smarty_Internal_Template::$template_filepath</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$template_resource" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$template_resource</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24template_resource">\Smarty_Internal_Template::$template_resource</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24template_resource">\Smarty_Internal_Template::$template_resource</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$template_source" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$template_source</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24template_source">\Smarty_Internal_Template::$template_source</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24template_source">\Smarty_Internal_Template::$template_source</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$tpl_vars" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$tpl_vars</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24tpl_vars">\Smarty_Internal_Template::$tpl_vars</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24tpl_vars">\Smarty_Internal_Template::$tpl_vars</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$wrapper" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$wrapper</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24wrapper">\Smarty_Internal_Template::$wrapper</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24wrapper">\Smarty_Internal_Template::$wrapper</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::$write_compiled_code" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$write_compiled_code</span>= 'true'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24write_compiled_code">\Smarty_Internal_Template::$write_compiled_code</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>true</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::%24write_compiled_code">\Smarty_Internal_Template::$write_compiled_code</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Smarty_Internal_Function_Call_Handler::__call()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__call</span><span class="nb-faded-text">(
+          string $name, array $args
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Takes unknown class methods and lazy loads sysplugin files for them
+class name format: Smarty_Method_MethodName
+plugin filename format: method.methodname.php</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::__call()">\Smarty_Internal_Template::__call()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em><p>unknown methode name</p></em></td>
+</tr>
+<tr>
+<th>$args</th>
+<td>array</td>
+<td><em><p>aurgument array</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::__construct()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          string $template_resource,  $smarty, object $_parent
+              =
+              null, mixed $_cache_id
+              =
+              null, mixed $_compile_id
+              =
+              null,  $_caching
+              =
+              null,  $_cache_lifetime
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Create template data object</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::__construct()">\Smarty_Internal_Template::__construct()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Some of the global Smarty settings copied to template scope
+It load the required template resources and cacher plugins</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$template_resource</th>
+<td>string</td>
+<td><em><p>template resource string</p></em></td>
+</tr>
+<tr>
+<th>$smarty</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$_parent</th>
+<td>object</td>
+<td><em><p>back pointer to parent object with variables or null</p></em></td>
+</tr>
+<tr>
+<th>$_cache_id</th>
+<td>mixed</td>
+<td><em><p>cache id or null</p></em></td>
+</tr>
+<tr>
+<th>$_compile_id</th>
+<td>mixed</td>
+<td><em><p>compile id or null</p></em></td>
+</tr>
+<tr>
+<th>$_caching</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$_cache_lifetime</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::__get()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__get</span><span class="nb-faded-text">(
+          string $property_name
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">get Smarty property in template context</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::__get()">\Smarty_Internal_Template::__get()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$property_name</th>
+<td>string</td>
+<td><em><p>property name</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::__set()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__set</span><span class="nb-faded-text">(
+          string $property_name, mixed $value
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">set Smarty property in template context</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::__set()">\Smarty_Internal_Template::__set()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$property_name</th>
+<td>string</td>
+<td><em><p>property name</p></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em><p>value</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::_count()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">_count</span><span class="nb-faded-text">(
+          mixed $value
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">[util function] counts an array, arrayaccess/traversable or PDOStatement object</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::_count()">\Smarty_Internal_Template::_count()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td>the count for arrays and objects that implement countable, 1 for other objects that don't, and 0 for empty elements</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::append()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">append</span><span class="nb-faded-text">(
+           $tpl_var, mixed $value
+              =
+              null, boolean $merge
+              =
+              false, boolean $nocache
+              =
+              false
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">appends values to template variables</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::append()">\Smarty_Internal_Data::append()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$tpl_var</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em><p>the value to append</p></em></td>
+</tr>
+<tr>
+<th>$merge</th>
+<td>boolean</td>
+<td><em><p>flag if array elements shall be merged</p></em></td>
+</tr>
+<tr>
+<th>$nocache</th>
+<td>boolean</td>
+<td><em><p>if true any output of this variable will be not cached</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::appendByRef()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">appendByRef</span><span class="nb-faded-text">(
+          string $tpl_var,  $value, boolean $merge
+              =
+              false
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">appends values to template variables by reference</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::appendByRef()">\Smarty_Internal_Data::appendByRef()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$tpl_var</th>
+<td>string</td>
+<td><em><p>the template variable name</p></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$merge</th>
+<td>boolean</td>
+<td><em><p>flag if array elements shall be merged</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::append_by_ref()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">append_by_ref</span><span class="nb-faded-text">(
+          string $tpl_var,  $value, boolean $merge
+              =
+              false
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::append_by_ref()">\Smarty_Internal_Data::append_by_ref()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$tpl_var</th>
+<td>string</td>
+<td><em><p>the template variable name</p></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$merge</th>
+<td>boolean</td>
+<td><em><p>flag if array elements shall be merged</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::assign()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">assign</span><span class="nb-faded-text">(
+           $tpl_var, mixed $value
+              =
+              null, boolean $nocache
+              =
+              false
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">assigns a Smarty variable</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::assign()">\Smarty_Internal_Data::assign()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$tpl_var</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em><p>the value to assign</p></em></td>
+</tr>
+<tr>
+<th>$nocache</th>
+<td>boolean</td>
+<td><em><p>if true any output of this variable will be not cached</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::assignByRef()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">assignByRef</span><span class="nb-faded-text">(
+          string $tpl_var,  $value, boolean $nocache
+              =
+              false
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">assigns values to template variables by reference</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::assignByRef()">\Smarty_Internal_Data::assignByRef()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$tpl_var</th>
+<td>string</td>
+<td><em><p>the template variable name</p></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$nocache</th>
+<td>boolean</td>
+<td><em><p>if true any output of this variable will be not cached</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::assignGlobal()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">assignGlobal</span><span class="nb-faded-text">(
+          string $varname, mixed $value
+              =
+              null, boolean $nocache
+              =
+              false
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">assigns a global Smarty variable</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::assignGlobal()">\Smarty_Internal_Data::assignGlobal()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$varname</th>
+<td>string</td>
+<td><em><p>the global variable name</p></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em><p>the value to assign</p></em></td>
+</tr>
+<tr>
+<th>$nocache</th>
+<td>boolean</td>
+<td><em><p>if true any output of this variable will be not cached</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::assign_by_ref()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">assign_by_ref</span><span class="nb-faded-text">(
+          string $tpl_var,  $value
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">wrapper function for Smarty 2 BC</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::assign_by_ref()">\Smarty_Internal_Data::assign_by_ref()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$tpl_var</th>
+<td>string</td>
+<td><em><p>the template variable name</p></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::buildTemplateFilepath()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">buildTemplateFilepath</span><span class="nb-faded-text">(
+           $file
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">get system filepath to template</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::buildTemplateFilepath()">\Smarty_Internal_Template::buildTemplateFilepath()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$file</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::call()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">call</span><span class="nb-faded-text">(
+           $_name,  $_template,  $_params,  $_hash,  $_nocache
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><p class="short_description"></p>
+</div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$_name</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$_template</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$_params</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$_hash</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$_nocache</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::clearAllAssign()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">clearAllAssign</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">clear all the assigned template variables.</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::clearAllAssign()">\Smarty_Internal_Data::clearAllAssign()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description">
+</div></div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::clearAssign()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">clearAssign</span><span class="nb-faded-text">(
+           $tpl_var
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">clear the given assigned template variable.</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::clearAssign()">\Smarty_Internal_Data::clearAssign()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$tpl_var</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::clearConfig()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">clearConfig</span><span class="nb-faded-text">(
+          string $varname
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Deassigns a single or all config variables</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::clearConfig()">\Smarty_Internal_Data::clearConfig()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$varname</th>
+<td>string</td>
+<td><em><p>variable name or null</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::compileTemplateSource()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">compileTemplateSource</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Compiles the template</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::compileTemplateSource()">\Smarty_Internal_Template::compileTemplateSource()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"><p>If the template is not evaluated the compiled template is saved on disk</p>
+</div></div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::configLoad()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">configLoad</span><span class="nb-faded-text">(
+          string $config_file, mixed $sections
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">load a config file, optionally load just selected sections</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::configLoad()">\Smarty_Internal_Data::configLoad()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$config_file</th>
+<td>string</td>
+<td><em><p>filename</p></em></td>
+</tr>
+<tr>
+<th>$sections</th>
+<td>mixed</td>
+<td><em><p>array of section names, single section or null</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::createLocalArrayVariable()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">createLocalArrayVariable</span><span class="nb-faded-text">(
+           $tpl_var,  $nocache
+              =
+              false,  $scope
+              =
+              Smarty::SCOPE_LOCAL
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">creates a local Smarty variable for array assignments</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::createLocalArrayVariable()">\Smarty_Internal_Template::createLocalArrayVariable()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$tpl_var</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$nocache</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$scope</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::createPropertyHeader()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">createPropertyHeader</span><span class="nb-faded-text">(
+           $cache
+              =
+              false
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Create property header</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::createPropertyHeader()">\Smarty_Internal_Template::createPropertyHeader()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$cache</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::decodeProperties()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">decodeProperties</span><span class="nb-faded-text">(
+           $properties
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Decode saved properties from compiled template and cache files</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::decodeProperties()">\Smarty_Internal_Template::decodeProperties()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$properties</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::display()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">display</span><span class="nb-faded-text">(
+           $template
+              =
+              null,  $cache_id
+              =
+              null,  $compile_id
+              =
+              null,  $parent
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">wrapper for display</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::display()">\Smarty_Internal_Template::display()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$template</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$cache_id</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$compile_id</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$parent</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::fetch()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">fetch</span><span class="nb-faded-text">(
+           $template
+              =
+              null,  $cache_id
+              =
+              null,  $compile_id
+              =
+              null,  $parent
+              =
+              null,  $display
+              =
+              false
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">wrapper for fetch</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::fetch()">\Smarty_Internal_Template::fetch()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$template</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$cache_id</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$compile_id</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$parent</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$display</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getCachedContent()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCachedContent</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the cached template output</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::getCachedContent()">\Smarty_Internal_Template::getCachedContent()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>|booelan the template content or false if the file does not exist</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getCachedFilepath()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCachedFilepath</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the filepath of the cached template output</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::getCachedFilepath()">\Smarty_Internal_Template::getCachedFilepath()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The filepath is determined by the actual cache resource</p>
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>the cache filepath</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getCachedTimestamp()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCachedTimestamp</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the timpestamp of the cached template output</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::getCachedTimestamp()">\Smarty_Internal_Template::getCachedTimestamp()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The timestamp is determined by the actual cache resource</p>
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td>the template timestamp</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getCompiledFilepath()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCompiledFilepath</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the compiled template filepath</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::getCompiledFilepath()">\Smarty_Internal_Template::getCompiledFilepath()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>the template filepath</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getCompiledTemplate()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCompiledTemplate</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the compiled template</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::getCompiledTemplate()">\Smarty_Internal_Template::getCompiledTemplate()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>It checks if the template must be compiled or just read from the template resource</p>
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>the compiled template</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getCompiledTimestamp()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCompiledTimestamp</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the timpestamp of the compiled template</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::getCompiledTimestamp()">\Smarty_Internal_Template::getCompiledTimestamp()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td>the template timestamp</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getConfigVariable()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getConfigVariable</span><span class="nb-faded-text">(
+           $_variable
+          )
+        </span>
+        :
+          mixed</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">gets  a config variable</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::getConfigVariable()">\Smarty_Internal_Data::getConfigVariable()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$_variable</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td>the value of the config variable</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getConfigVars()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getConfigVars</span><span class="nb-faded-text">(
+          string $varname
+              =
+              null,  $search_parents
+              =
+              true
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns a single or all config variables</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::getConfigVars()">\Smarty_Internal_Data::getConfigVars()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$varname</th>
+<td>string</td>
+<td><em><p>variable name or null</p></em></td>
+</tr>
+<tr>
+<th>$search_parents</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>variable value or or array of variables</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getRenderedTemplate()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getRenderedTemplate</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the rendered HTML output</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::getRenderedTemplate()">\Smarty_Internal_Template::getRenderedTemplate()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>If the cache is valid the cached content is used, otherwise
+the output is rendered from the compiled template or PHP template source</p>
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>rendered HTML output</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getResourceTypeName()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">getResourceTypeName</span><span class="nb-faded-text">(
+          string $template_resource, string $resource_type, string $resource_name
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Split a template resource in its name and type</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::getResourceTypeName()">\Smarty_Internal_Template::getResourceTypeName()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$template_resource</th>
+<td>string</td>
+<td><em><p>template resource specification</p></em></td>
+</tr>
+<tr>
+<th>$resource_type</th>
+<td>string</td>
+<td><em><p>return resource type</p></em></td>
+</tr>
+<tr>
+<th>$resource_name</th>
+<td>string</td>
+<td><em><p>return resource name</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getStreamVariable()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getStreamVariable</span><span class="nb-faded-text">(
+          string $variable
+          )
+        </span>
+        :
+          mixed</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">gets  a stream variable</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::getStreamVariable()">\Smarty_Internal_Data::getStreamVariable()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$variable</th>
+<td>string</td>
+<td><em><p>the stream of the variable</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td>the value of the stream variable</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getTemplateFilepath()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getTemplateFilepath</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the template filepath</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::getTemplateFilepath()">\Smarty_Internal_Template::getTemplateFilepath()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The template filepath is determined by the actual resource handler</p>
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>the template filepath</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getTemplateSource()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getTemplateSource</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the template source code</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::getTemplateSource()">\Smarty_Internal_Template::getTemplateSource()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The template source is being read by the actual resource handler</p>
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>the template source</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getTemplateTimestamp()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getTemplateTimestamp</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the timpestamp of the template source</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::getTemplateTimestamp()">\Smarty_Internal_Template::getTemplateTimestamp()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The template timestamp is determined by the actual resource handler</p>
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td>the template timestamp</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getTemplateVars()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getTemplateVars</span><span class="nb-faded-text">(
+          string $varname
+              =
+              null,  $_ptr
+              =
+              null,  $search_parents
+              =
+              true
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns a single or all template variables</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::getTemplateVars()">\Smarty_Internal_Data::getTemplateVars()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$varname</th>
+<td>string</td>
+<td><em><p>variable name or null</p></em></td>
+</tr>
+<tr>
+<th>$_ptr</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$search_parents</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>variable value or or array of variables</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::getVariable()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getVariable</span><span class="nb-faded-text">(
+           $_variable, object $_ptr
+              =
+              null, boolean $search_parents
+              =
+              true,  $error_enable
+              =
+              true
+          )
+        </span>
+        :
+          object</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">gets the object of a Smarty variable</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_data.html#%5CSmarty_Internal_Data::getVariable()">\Smarty_Internal_Data::getVariable()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$_variable</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$_ptr</th>
+<td>object</td>
+<td><em><p>optional pointer to data object</p></em></td>
+</tr>
+<tr>
+<th>$search_parents</th>
+<td>boolean</td>
+<td><em><p>search also in parent data</p></em></td>
+</tr>
+<tr>
+<th>$error_enable</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>object</td>
+<td>the object of the variable</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::isCached()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isCached</span><span class="nb-faded-text">(
+           $template
+              =
+              null,  $cache_id
+              =
+              null,  $compile_id
+              =
+              null,  $parent
+              =
+              null
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Checks of a valid version redered HTML output is in the cache</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::isCached()">\Smarty_Internal_Template::isCached()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>If the cache is valid the contents is stored in the template object</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$template</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$cache_id</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$compile_id</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$parent</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td>true if cache is valid</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::isExisting()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isExisting</span><span class="nb-faded-text">(
+           $error
+              =
+              false
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns if the  template is existing</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::isExisting()">\Smarty_Internal_Template::isExisting()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The status is determined by the actual resource handler</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$error</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td>true if the template exists</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::loadTemplateResourceHandler()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">loadTemplateResourceHandler</span><span class="nb-faded-text">(
+          string $resource_type
+          )
+        </span>
+        :
+          object</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Load template resource handler by type</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::loadTemplateResourceHandler()">\Smarty_Internal_Template::loadTemplateResourceHandler()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$resource_type</th>
+<td>string</td>
+<td><em><p>template resource type</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>object</td>
+<td>resource handler object</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::mustCompile()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">mustCompile</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns if the current template must be compiled by the Smarty compiler</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::mustCompile()">\Smarty_Internal_Template::mustCompile()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>It does compare the timestamps of template source and the compiled templates and checks the force compile configuration</p>
+</div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td>true if the template must be compiled</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::parseResourceName()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">parseResourceName</span><span class="nb-faded-text">(
+          string $template_resource, string $resource_type, string $resource_name, object $resource_handler
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Parse a template resource in its name and type
+Load required resource handler</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::parseResourceName()">\Smarty_Internal_Template::parseResourceName()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$template_resource</th>
+<td>string</td>
+<td><em><p>template resource specification</p></em></td>
+</tr>
+<tr>
+<th>$resource_type</th>
+<td>string</td>
+<td><em><p>return resource type</p></em></td>
+</tr>
+<tr>
+<th>$resource_name</th>
+<td>string</td>
+<td><em><p>return resource name</p></em></td>
+</tr>
+<tr>
+<th>$resource_handler</th>
+<td>object</td>
+<td><em><p>return resource handler object</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::renderTemplate()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">renderTemplate</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Render the output using the compiled template or the PHP template source</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::renderTemplate()">\Smarty_Internal_Template::renderTemplate()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"><p>The rendering process is accomplished by just including the PHP files.
+The only exceptions are evaluated templates (string template). Their code has
+to be evaluated</p>
+</div></div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::updateParentVariables()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">updateParentVariables</span><span class="nb-faded-text">(
+           $scope
+              =
+              Smarty::SCOPE_LOCAL
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Update Smarty variables in other scopes</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::updateParentVariables()">\Smarty_Internal_Template::updateParentVariables()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$scope</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Smarty_Internal_Function_Call_Handler::writeCachedContent()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">writeCachedContent</span><span class="nb-faded-text">(
+           $content
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Writes the cached template output</p>
+<small>Inherited from:
+                    <a href="db_tools_smarty_sysplugins_smarty_internal_template.html#%5CSmarty_Internal_Template::writeCachedContent()">\Smarty_Internal_Template::writeCachedContent()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$content</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>

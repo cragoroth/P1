@@ -1,0 +1,1540 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Doc API Prestashop</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">modules/gcheckout/library/googlerequest.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav">
+<li>
+<a href="#constants"><img src="images/icons/constant.png" height="14">
+                          Constants
+                      </a><ul>
+<li><a href="#::DOUBLE_ENTER">DOUBLE_ENTER</a></li>
+<li><a href="#::ENTER">ENTER</a></li>
+<li><a href="#::GOOGLE_MESSAGE_LENGTH">GOOGLE_MESSAGE_LENGTH</a></li>
+<li><a href="#::GOOGLE_REASON_LENGTH">GOOGLE_REASON_LENGTH</a></li>
+<li><a href="#::PHP_SAMPLE_CODE_VERSION">PHP_SAMPLE_CODE_VERSION</a></li>
+</ul>
+</li>
+<li>
+<a href="#functions"><img src="images/icons/function.png" height="14">
+                          Functions
+                      </a><ul></ul>
+</li>
+<li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul>
+<li><a href="#%5CGoogleRequest">\GoogleRequest</a></li>
+<li><a href="#%5CGoogleShipItem">\GoogleShipItem</a></li>
+</ul>
+</li>
+</ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">This class is instantiated everytime any notification or
+order processing commands are received.</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description">
+</div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: googlerequest.php 7541 2011-07-07 08:51:35Z gBrunier $
+It has a SendReq function to post different requests to the Google Server
+Send functions are provided for most of the commands that are supported
+by the server for this code
+         
+    </dd>
+</dl>
+<a name="constants" class="anchor"></a><h2>Constants</h2>
+<div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::PHP_SAMPLE_CODE_VERSION" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PHP_SAMPLE_CODE_VERSION</span>
+                = 'v1.2.5'</code><div class="description"><p class="short-description">This class is instantiated everytime any notification or
+order processing commands are received.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<dl class="constant-info">
+<dt>Version</dt>
+<dd>$Id: googlerequest.php 7541 2011-07-07 08:51:35Z gBrunier $
+It has a SendReq function to post different requests to the Google Server
+Send functions are provided for most of the commands that are supported
+by the server for this code
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::ENTER" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ENTER</span>
+                = "\r\n"</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::DOUBLE_ENTER" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DOUBLE_ENTER</span>
+                = ENTER.ENTER</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::GOOGLE_MESSAGE_LENGTH" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GOOGLE_MESSAGE_LENGTH</span>
+                = 254</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="::GOOGLE_REASON_LENGTH" class="anchor"></a><div xmlns:dbx="http://docblox-project.org/xsl/functions" class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GOOGLE_REASON_LENGTH</span>
+                = 140</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+</div>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\GoogleRequest" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\GoogleRequest<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Default</small><p class="short-description">Send requests to the Google Checkout server to perform different actions</p>
+<div class="long-description">
+</div>
+<dl class="class-info"></dl>
+<h3>Properties</h3>
+<div>
+<a id="\GoogleRequest::$base_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$base_url</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::$certPath" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$certPath</span>= ''''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>''</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::$checkout_diagnose_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$checkout_diagnose_url</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::$checkout_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$checkout_url</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::$currency" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$currency</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::$log" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$log</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::$merchant_checkout" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$merchant_checkout</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::$merchant_id" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$merchant_id</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::$merchant_key" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$merchant_key</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::$proxy" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$proxy</span>= 'array()'
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::$request_diagnose_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$request_diagnose_url</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::$request_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$request_url</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::$schema_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$schema_url</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::$server_url" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$server_url</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\GoogleRequest::GetAuthenticationHeaders()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">GetAuthenticationHeaders</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::GoogleRequest()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">GoogleRequest</span><span class="nb-faded-text">(
+          string $id, string $key, string $server_type
+              =
+              "sandbox", string $currency
+              =
+              "USD"
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$id</th>
+<td>string</td>
+<td><em><p>the merchant id</p></em></td>
+</tr>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em><p>the merchant key</p></em></td>
+</tr>
+<tr>
+<th>$server_type</th>
+<td>string</td>
+<td><em><p>the server type of the server to be used, one of 'sandbox' or 'production'. defaults to 'sandbox'</p>
+</em></td>
+</tr>
+<tr>
+<th>$currency</th>
+<td>string</td>
+<td><em><p>the currency of the items to be added to the cart , as of now values can be 'USD' or 'GBP'. defaults to 'USD'</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendArchiveOrder()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendArchiveOrder</span><span class="nb-faded-text">(
+          string $google_order
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Send a <archive-order> command to the Google Checkout
+server, which removes an order from the merchant's Merchant Center Inbox</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>info: {@link http://code.google.com/apis/checkout/developer/index.html#archive_order_example}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_order</th>
+<td>string</td>
+<td><em><p>the google id of the order</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>the status code and body of the response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendBackorderItems()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendBackorderItems</span><span class="nb-faded-text">(
+          string $google_order, array $items_list
+              =
+              array(),  $send_mail
+              =
+              "true"
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Send a <backorder-items> command to the Google Checkout</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>info: {@link http://code.google.com/apis/checkout/developer/Google_Checkout_XML_API_Line_Item_Shipping.html#tag_backorder-items}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_order</th>
+<td>string</td>
+<td><em><p>the google id of the order</p></em></td>
+</tr>
+<tr>
+<th>$items_list</th>
+<td>array</td>
+<td><em><p>a list of GoogleShipItem classes.</p></em></td>
+</tr>
+<tr>
+<th>$send_mail</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>the status code and body of the response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendBuyerMessage()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendBuyerMessage</span><span class="nb-faded-text">(
+          string $google_order, string $message,  $send_mail
+              =
+              "true",  $timeout
+              =
+              false
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Send a <send-buyer-message> command to the Google Checkout
+server, which will place a message in the customer's Google Checkout
+account</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>info: {@link http://code.google.com/apis/checkout/developer/index.html#send_buyer_message_example}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_order</th>
+<td>string</td>
+<td><em><p>the google id of the order</p></em></td>
+</tr>
+<tr>
+<th>$message</th>
+<td>string</td>
+<td><em><p>the message to be sent to the customer</p></em></td>
+</tr>
+<tr>
+<th>$send_mail</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$timeout</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>the status code and body of the response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendCancelItems()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendCancelItems</span><span class="nb-faded-text">(
+          string $google_order, array $items_list
+              =
+              array(), string $reason, string $comment
+              =
+              '',  $send_mail
+              =
+              "true"
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Send a <cancel-items> command to the Google Checkout</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>info: {@link http://code.google.com/apis/checkout/developer/Google_Checkout_XML_API_Line_Item_Shipping.html#tag_cancel-items}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_order</th>
+<td>string</td>
+<td><em><p>the google id of the order</p></em></td>
+</tr>
+<tr>
+<th>$items_list</th>
+<td>array</td>
+<td><em><p>a list of GoogleShipItem classes.</p></em></td>
+</tr>
+<tr>
+<th>$reason</th>
+<td>string</td>
+<td><em><p>the reason why the refund is taking place</p></em></td>
+</tr>
+<tr>
+<th>$comment</th>
+<td>string</td>
+<td><em><p>a comment about the refund</p></em></td>
+</tr>
+<tr>
+<th>$send_mail</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>the status code and body of the response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendCancelOrder()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendCancelOrder</span><span class="nb-faded-text">(
+          string $google_order, string $reason, string $comment
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Send a <cancel-order> command to the Google Checkout server</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>info: {@link http://code.google.com/apis/checkout/developer/index.html#refund_order_example}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_order</th>
+<td>string</td>
+<td><em><p>the google id of the order</p></em></td>
+</tr>
+<tr>
+<th>$reason</th>
+<td>string</td>
+<td><em><p>the reason why the order is being cancelled</p></em></td>
+</tr>
+<tr>
+<th>$comment</th>
+<td>string</td>
+<td><em><p>a comment about the cancellation</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>the status code and body of the response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendChargeOrder()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendChargeOrder</span><span class="nb-faded-text">(
+          string $google_order, double $amount
+              =
+              ''
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Send a <charge-order> command to the Google Checkout server</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>info: {@link http://code.google.com/apis/checkout/developer/index.html#charge_order_example}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_order</th>
+<td>string</td>
+<td><em><p>the google id of the order</p></em></td>
+</tr>
+<tr>
+<th>$amount</th>
+<td>double</td>
+<td><em><p>the amount to be charged, if empty the whole amount of the order will be charged</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>the status code and body of the response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendDeliverOrder()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendDeliverOrder</span><span class="nb-faded-text">(
+          string $google_order, string $carrier
+              =
+              "", string $tracking_no
+              =
+              "",  $send_mail
+              =
+              "true"
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Send a <deliver-order> command to the Google Checkout server, which
+will update an order's fulfillment state from either NEW or PROCESSING
+to DELIVERED</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>info: {@link http://code.google.com/apis/checkout/developer/index.html#deliver_order_example}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_order</th>
+<td>string</td>
+<td><em><p>the google id of the order</p></em></td>
+</tr>
+<tr>
+<th>$carrier</th>
+<td>string</td>
+<td><em><p>the carrier, valid values are "DHL", "FedEx", "UPS", "USPS" and "Other"</p>
+</em></td>
+</tr>
+<tr>
+<th>$tracking_no</th>
+<td>string</td>
+<td><em><p>the shipper's tracking number</p>
+</em></td>
+</tr>
+<tr>
+<th>$send_mail</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>the status code and body of the response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendMerchantOrderNumber()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendMerchantOrderNumber</span><span class="nb-faded-text">(
+          string $google_order, string $merchant_order,  $timeout
+              =
+              false
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Send an <add-merchant-order-number> command to the Google Checkout
+server, which will associate a merchant order number with an order</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>info: {@link http://code.google.com/apis/checkout/developer/index.html#add_merchant_order_number_example}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_order</th>
+<td>string</td>
+<td><em><p>the google id of the order</p></em></td>
+</tr>
+<tr>
+<th>$merchant_order</th>
+<td>string</td>
+<td><em><p>the merchant id of the order</p></em></td>
+</tr>
+<tr>
+<th>$timeout</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>the status code and body of the response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendProcessOrder()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendProcessOrder</span><span class="nb-faded-text">(
+          string $google_order
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Send a <process-order> command to the Google Checkout
+server, which will update an order's fulfillment state from NEW to
+PROCESSING</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>info: {@link http://code.google.com/apis/checkout/developer/index.html#process_order_example}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_order</th>
+<td>string</td>
+<td><em><p>the google id of the order</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>the status code and body of the response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendRefundOrder()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendRefundOrder</span><span class="nb-faded-text">(
+          string $google_order, double $amount, string $reason, string $comment
+              =
+              ''
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Send a <refund-order> command to the Google Checkout server</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>info: {@link http://code.google.com/apis/checkout/developer/index.html#refund_order_example}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_order</th>
+<td>string</td>
+<td><em><p>the google id of the order</p></em></td>
+</tr>
+<tr>
+<th>$amount</th>
+<td>double</td>
+<td><em><p>the amount to be refunded, if empty the whole amount of the order will be refunded</p></em></td>
+</tr>
+<tr>
+<th>$reason</th>
+<td>string</td>
+<td><em><p>the reason why the refund is taking place</p></em></td>
+</tr>
+<tr>
+<th>$comment</th>
+<td>string</td>
+<td><em><p>a comment about the refund</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>the status code and body of the response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendReq()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendReq</span><span class="nb-faded-text">(
+           $url,  $header_arr,  $postargs,  $timeout
+              =
+              false
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$url</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$header_arr</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$postargs</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$timeout</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendResetItemsShippingInformation()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendResetItemsShippingInformation</span><span class="nb-faded-text">(
+          string $google_order, array $items_list
+              =
+              array(),  $send_mail
+              =
+              "true"
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Send a <reset-items-shipping-information> command to the Google Checkout</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>info: {@link http://code.google.com/apis/checkout/developer/Google_Checkout_XML_API_Line_Item_Shipping.html#tag_reset-items-shipping-information}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_order</th>
+<td>string</td>
+<td><em><p>the google id of the order</p></em></td>
+</tr>
+<tr>
+<th>$items_list</th>
+<td>array</td>
+<td><em><p>a list of GoogleShipItem classes.</p></em></td>
+</tr>
+<tr>
+<th>$send_mail</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>the status code and body of the response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendReturnItems()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendReturnItems</span><span class="nb-faded-text">(
+          string $google_order, array $items_list
+              =
+              array(),  $send_mail
+              =
+              "true"
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Send a <return-items> command to the Google Checkout</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>info: {@link http://code.google.com/apis/checkout/developer/Google_Checkout_XML_API_Line_Item_Shipping.html#tag_return-items}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_order</th>
+<td>string</td>
+<td><em><p>the google id of the order</p></em></td>
+</tr>
+<tr>
+<th>$items_list</th>
+<td>array</td>
+<td><em><p>a list of GoogleShipItem classes.</p></em></td>
+</tr>
+<tr>
+<th>$send_mail</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>the status code and body of the response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendServer2ServerCart()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendServer2ServerCart</span><span class="nb-faded-text">(
+          string $xml_cart, bool $die
+              =
+              true
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Submit a server-to-server request.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>more info:
+{@link http://code.google.com/apis/checkout/developer/index.html#alternate_technique}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$xml_cart</th>
+<td>string</td>
+<td><em><p>the cart's xml</p>
+</em></td>
+</tr>
+<tr>
+<th>$die</th>
+<td>bool</td>
+<td><em><p>whether to die() or not after performing the request, defaults to true</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>with the returned http status code (200 if OK) in index 0 and the redirect url returned by the server in index 1</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendShipItems()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendShipItems</span><span class="nb-faded-text">(
+          string $google_order, array $items_list
+              =
+              array(),  $send_mail
+              =
+              "true"
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Send a <ship-items> command to the Google Checkout
+server,</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>info: {@link http://code.google.com/apis/checkout/developer/Google_Checkout_XML_API_Line_Item_Shipping.html#tag_ship-items}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_order</th>
+<td>string</td>
+<td><em><p>the google id of the order</p></em></td>
+</tr>
+<tr>
+<th>$items_list</th>
+<td>array</td>
+<td><em><p>a list of GoogleShipItem classes.</p></em></td>
+</tr>
+<tr>
+<th>$send_mail</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>the status code and body of the response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendTrackingData()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendTrackingData</span><span class="nb-faded-text">(
+          string $google_order, string $carrier, string $tracking_no
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Send an <add-tracking-data> command to the Google Checkout server, which
+will associate a shipper's tracking number with an order.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>info: {@link http://code.google.com/apis/checkout/developer/index.html#add_tracking_data_example}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_order</th>
+<td>string</td>
+<td><em><p>the google id of the order</p></em></td>
+</tr>
+<tr>
+<th>$carrier</th>
+<td>string</td>
+<td><em><p>the carrier, valid values are "DHL", "FedEx", "UPS", "USPS" and "Other"</p>
+</em></td>
+</tr>
+<tr>
+<th>$tracking_no</th>
+<td>string</td>
+<td><em><p>the shipper's tracking number</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>the status code and body of the response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SendUnarchiveOrder()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SendUnarchiveOrder</span><span class="nb-faded-text">(
+          string $google_order
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Send a <archive-order> command to the Google Checkout
+server, which returns a previously archived order to the merchant's
+Merchant Center Inbox</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>info: {@link http://code.google.com/apis/checkout/developer/index.html#unarchive_order_example}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$google_order</th>
+<td>string</td>
+<td><em><p>the google id of the order</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>the status code and body of the response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SetCertificatePath()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SetCertificatePath</span><span class="nb-faded-text">(
+          string $certPath
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Submit a SetCertificatePath request.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>GC Accepted SSL Certs:
+{@link http://googlecheckoutapi.blogspot.com/2007/07/accepting-50-additional-ssl-root-cas.html}</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$certPath</th>
+<td>string</td>
+<td><em><p>The name of a file holding one or more certificates to verify the peer with</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SetLogFiles()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SetLogFiles</span><span class="nb-faded-text">(
+           $errorLogFile,  $messageLogFile,  $logLevel
+              =
+              L_ERR_RQST
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$errorLogFile</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$messageLogFile</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$logLevel</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::SetProxy()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">SetProxy</span><span class="nb-faded-text">(
+          array $proxy
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the proxy to be used by the connections to the outside</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$proxy</th>
+<td>array</td>
+<td><em><p>Array('host' => 'proxy-host', 'port' => 'proxy-port')</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::get_body_x()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">get_body_x</span><span class="nb-faded-text">(
+           $heads
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$heads</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::get_headers_x()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">get_headers_x</span><span class="nb-faded-text">(
+           $heads,  $format
+              =
+              0
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$heads</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$format</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleRequest::parse_headers()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">parse_headers</span><span class="nb-faded-text">(
+           $message
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$message</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Access</dt>
+<dd>private
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\GoogleShipItem" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\GoogleShipItem<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Default</small><dl class="class-info"></dl>
+<h3>Properties</h3>
+<div>
+<a id="\GoogleShipItem::$merchant_item_id" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$merchant_item_id</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleShipItem::$tracking_data_list" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$tracking_data_list</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleShipItem::$tracking_no" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$tracking_no</span>= ''
+                </code><div class="description"></div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\GoogleShipItem::AddTrackingData()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">AddTrackingData</span><span class="nb-faded-text">(
+           $carrier,  $tracking_no
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$carrier</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$tracking_no</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoogleShipItem::GoogleShipItem()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">GoogleShipItem</span><span class="nb-faded-text">(
+           $merchant_item_id,  $tracking_data_list
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description"></p></div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$merchant_item_id</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$tracking_data_list</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.1</a>.
+    </small></body></html>
